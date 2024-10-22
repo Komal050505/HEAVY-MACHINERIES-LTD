@@ -1,0 +1,29 @@
+CREATE TABLE heavy_products (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(), -- UUID as primary key with default value
+    name VARCHAR(255) NOT NULL,
+    type VARCHAR(100) NOT NULL, -- Type of machinery (e.g., excavator, bulldozer, etc.)
+    brand VARCHAR(100) NOT NULL,
+    model VARCHAR(100) NOT NULL,
+    year_of_manufacture INT CHECK (year_of_manufacture >= 1900 AND year_of_manufacture <= EXTRACT(YEAR FROM CURRENT_DATE)),
+    price DECIMAL(15, 2) NOT NULL, -- Price of the machinery
+    weight DECIMAL(10, 2) NOT NULL, -- Weight in kilograms
+    dimensions VARCHAR(50), -- Dimensions (length x width x height) in cm
+    engine_type VARCHAR(100), -- Type of engine (e.g., diesel, electric, etc.)
+    horsepower DECIMAL(10, 2), -- Engine horsepower
+    fuel_capacity DECIMAL(10, 2), -- Fuel tank capacity in liters
+    operational_hours INT, -- Number of operational hours
+    warranty_period INT, -- Warranty period in months
+    status VARCHAR(20) CHECK (status IN ('available', 'sold', 'reserved')), -- Status of the machinery
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Date and time of creation
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Date and time of last update
+);
+
+SELECT column_name
+FROM information_schema.columns
+WHERE table_name = 'heavy_products';
+
+ALTER TABLE heavy_products
+ADD COLUMN image_url VARCHAR(255); -- Adds a column named 'description' of type TEXT
+
+
+select * from heavy_products

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1b66be9c-24a3-4d86-acdc-870390e3d48b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/heavy_machineries_ltd.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/App/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/App/app_employees.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/App/app_otp.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/App/app_products.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/App/constants.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Db_connections/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Db_connections/configurations.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Logging_package/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Logging_package/logging_module.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Logging_package/logging_utility.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Project_requirements/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Project_requirements/requirements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sql_scripts/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sql_scripts/employee_table_queries" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sql_scripts/otp_store_table_queries" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sql_scripts/product_table_queries" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sql_scripts/sales_table_queries" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/User_models/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/User_models/sales_table.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/User_models/tables.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Utilities/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Utilities/reusables.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/email_setup/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/email_setup/email_config.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/email_setup/email_operations.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="2nmecD6vC0HZWOelQfSVyyh39Ds" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.app_employees.executor": "Run",
+    "Python.app_otp.executor": "Run",
+    "Python.app_products.executor": "Run",
+    "Python.employees_table.executor": "Run",
+    "Python.tables.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\lenovo\PycharmProjects\heavy_machineries_ltd\App" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-5b207ade9991-746f403e7f0c-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.17890.14" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1b66be9c-24a3-4d86-acdc-870390e3d48b" name="Changes" comment="" />
+      <created>1729582756123</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1729582756123</updated>
+    </task>
+    <servers />
+  </component>
+</project>

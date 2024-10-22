@@ -1,0 +1,33 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp"; -- To generate UUIDs in PostgreSQL
+
+CREATE TABLE employee (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(), -- UUID for unique employee ID
+    first_name VARCHAR(100) NOT NULL,              -- Employee's first name
+    last_name VARCHAR(100) NOT NULL,               -- Employee's last name
+    email VARCHAR(150) UNIQUE NOT NULL,            -- Unique email address
+    phone VARCHAR(15),                             -- Contact number
+    hire_date DATE NOT NULL,                       -- Date of hire
+    position VARCHAR(50),                          -- Employee's job position
+    salary NUMERIC(10, 2),                         -- Employee's salary
+    department VARCHAR(50),                        -- Department the employee works in
+    age INT,                                       -- Employee's age
+    sex VARCHAR(10),                               -- Gender of the employee
+    blood_group VARCHAR(3),                        -- Blood group (e.g., O+, A-)
+    height NUMERIC(5, 2),                          -- Employee's height in meters (e.g., 1.75)
+    weight NUMERIC(5, 2),                          -- Employee's weight in kilograms
+    address TEXT,                                  -- Employee's residential address
+    emergency_contact VARCHAR(15),                 -- Emergency contact number
+    nationality VARCHAR(50),                       -- Nationality of the employee
+    date_of_birth DATE,                            -- Employee's date of birth
+    marital_status VARCHAR(20),                    -- Marital status (e.g., single, married)
+    employment_status VARCHAR(20),                 -- Employment status (e.g., full-time, part-time)
+    insurance_number VARCHAR(50),                  -- Employee's insurance number
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Record creation timestamp
+);
+
+select * from employee
+
+ALTER TABLE employee ADD COLUMN emp_num VARCHAR(255) UNIQUE NOT NULL;
+ALTER TABLE employee ADD COLUMN emp_num VARCHAR(255) NULL;
+UPDATE employee SET emp_num = 'EMP001' WHERE emp_num IS NULL;
+ALTER TABLE employee ALTER COLUMN emp_num SET NOT NULL;

@@ -1,0 +1,6 @@
+CREATE TABLE otp_store (
+    id SERIAL PRIMARY KEY,          -- Unique identifier for each OTP record
+    email VARCHAR(255) NOT NULL,    -- Email associated with the OTP
+    otp VARCHAR(6) NOT NULL,        -- The one-time password (6 characters)
+    timestamp TIMESTAMP NOT NULL    -- Timestamp when the OTP was generated
+);
