@@ -1,0 +1,9 @@
+CREATE TABLE heavy_products_dealer (
+    dealer_id UUID PRIMARY KEY DEFAULT gen_random_uuid(), -- UUID for unique dealer ID
+    dealer_code VARCHAR(100) NOT NULL, -- Dealer code, cannot be null
+    opportunity_owner VARCHAR(100) NOT NULL -- Owner of the opportunity, cannot be null
+);
+
+ALTER TABLE heavy_products_dealer RENAME to heavy_machineries_dealer;
+
+select * from heavy_machineries_dealer

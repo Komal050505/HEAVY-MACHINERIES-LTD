@@ -1,4 +1,9 @@
-from sqlalchemy import Column, String, Integer, Numeric, DateTime, func, UUID, Text, CheckConstraint, ForeignKey, Date
+import uuid
+from datetime import datetime
+
+import pytz
+from sqlalchemy import Column, String, Integer, Numeric, DateTime, func, UUID, Text, ForeignKey, Date, \
+    Float
 from sqlalchemy.orm import declarative_base, relationship
 
 Base = declarative_base()
@@ -40,6 +45,55 @@ class OTPStore(Base):
             "otp": self.otp,
             "timestamp": self.timestamp.isoformat()  # Format timestamp as ISO string
         }
+
+
+# -------------------------------------------- ACCOUNTS TABLE ---------------------------------------------------------
+
+class Account(Base):
+    """
+    SQLAlchemy ORM class representing the 'heavy_machineries_accounts' table.
+
+    This table stores customer account details like account_id and account_name.
+    """
+    __tablename__ = 'heavy_machineries_accounts'
+
+    account_id = Column("account_id", String(100), primary_key=True)  # Using First 3 letters of account name +
+    # 4 random digits for manually created at the time of account creation, not in create new customer API
+
+    account_name = Column("account_name", String, nullable=False)
+
+    def account_serialize_to_dict(self):
+        """
+        Converts the Account object into a dictionary.
+        """
+        return {
+            'account_id': self.account_id,
+            'account_name': self.account_name
+        }
+
+
+# -------------------------------------------- HEAVY PRODUCTS DEALER TABLE ---------------------------------------------------------
+class HeavyMachineriesDealer(Base):
+    """
+    This table stores dealer information like dealer ID, code, and opportunity owner.
+    """
+    __tablename__ = 'heavy_machineries_dealer'
+
+    dealer_id = Column("dealer_id", String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    dealer_code = Column("dealer_code", String, nullable=False)
+    opportunity_owner = Column("opportunity_owner", String, nullable=False)
+
+    def dealer_serialize_to_dict(self):
+        """
+        Converts the HeavyProductsDealer object into a dictionary.
+        """
+        return {
+            'dealer_id': self.dealer_id,
+            'dealer_code': self.dealer_code,
+            'opportunity_owner': self.opportunity_owner
+        }
+
+    opportunities = relationship("HeavyMachineryOpportunity", back_populates="dealer")
 
 
 # -------------------------------------------- EMPLOYEE TABLE ----------------------------------------------------------
@@ -183,9 +237,9 @@ class HeavyProduct(Base):
     employee_id = Column(UUID, ForeignKey('employee.id'), nullable=True)
     employee_name = Column(String, nullable=False)
     employee_num = Column(String, nullable=False)
+
     employee = relationship("Employee", back_populates="heavy_products")
-
-
+    opportunities = relationship('HeavyMachineryOpportunity', backref='heavy_product', lazy=True)
 
     def to_dict(self):
         """Convert heavy product object to dictionary for JSON response."""
@@ -211,5 +265,124 @@ class HeavyProduct(Base):
             "updated_at": self.updated_at.isoformat(),
             "employee_id": str(self.employee_id) if self.employee_id else None,
             "employee_name": self.employee.first_name + ' ' + self.employee.last_name if self.employee else None,
-            "employee_num": self.employee.emp_num if self.employee else None
+            "employee_num": self.employee.emp_num if self.employee else None,
+
+        }
+
+
+# --------------------------------------- HEAVY MACHINERIES OPPORTUNITY TABLE ------------------------------------------
+
+
+class HeavyMachineryOpportunity(Base):
+    __tablename__ = 'heavy_machinery_opportunities'
+
+    """
+    Represents opportunities related to heavy machinery.
+
+    Attributes:
+        opportunity_id (UUID): Unique identifier for the opportunity.
+        opportunity_name (str): Name of the opportunity.
+        account_name (str): Name of the account associated with the opportunity.
+        close_date (datetime): Expected closing date of the opportunity.
+        amount (decimal): Potential revenue from the opportunity.
+        description (str): Description of the opportunity.
+        dealer_id (UUID): Foreign key referencing the dealer.
+        dealer_code (str): Code associated with the dealer.
+        stage (str): Current stage of the opportunity.
+        probability (int): Probability of closing the opportunity (in percentage).
+        next_step (str): Next steps to move the opportunity forward.
+        created_date (datetime): Timestamp of when the opportunity was created.
+        amount_in_words (str): The amount in words.
+        usd (float): US Dollars.
+        aus (float): Australian Dollars.
+        cad (float): Canadian Dollars.
+        jpy (float): Japanese Yen.
+        eur (float): Euros.
+        gbp (float): British Pounds.
+        cny (float): Chinese Yuan.
+    """
+
+    opportunity_id = Column("opportunity_id", String, primary_key=True, default=lambda: str(uuid.uuid1()))
+    opportunity_name = Column("opportunity_name", String, nullable=False)
+    account_name = Column("account_name", String, nullable=False)
+    close_date = Column("close_date", DateTime, nullable=False)
+    amount = Column("amount", Float, nullable=False)
+    description = Column("description", String)
+    dealer_id = Column("dealer_id", String, ForeignKey('heavy_machineries_dealer.dealer_id'), nullable=False)
+    dealer_code = Column("dealer_code", String, nullable=False)
+    stage = Column("stage", String, nullable=False)
+    probability = Column("probability", Integer)
+    next_step = Column("next_step", String)
+    created_date = Column("created_date", DateTime, nullable=False,
+                          default=lambda: datetime.now(pytz.timezone('Asia/Kolkata')))
+    employee_id = Column(UUID, ForeignKey('employee.id'), nullable=True)
+    product_id = Column(UUID, ForeignKey('heavy_products.id'), nullable=False)  # Foreign Key to HeavyProduct
+    product_name = Column(String, nullable=False)
+    product_brand = Column(String, nullable=False)
+    product_model = Column(String, nullable=False)
+    product_image_url = Column(String, nullable=True)
+
+    # New currency columns
+    amount_in_words = Column("amount_in_words", String)
+    usd = Column("usd", Float)  # US Dollars
+    aus = Column("aus", Float)  # Australian Dollars
+    cad = Column("cad", Float)  # Canadian Dollars
+    jpy = Column("jpy", Float)  # Japanese Yen
+    eur = Column("eur", Float)  # Euros
+    gbp = Column("gbp", Float)  # British Pounds
+    cny = Column("cny", Float)  # Chinese Yuan
+
+    # Relationships
+    dealer = relationship("HeavyMachineriesDealer", back_populates="opportunities")
+    employee = relationship("Employee")  # Relationship to Employee class
+    product = relationship("HeavyProduct", back_populates="opportunities")  # New relationship to HeavyProduct
+
+    def serialize_to_dict(self):
+        """
+        Serialize the Opportunity instance to a dictionary with formatted dates and currency conversions.
+        :return: dict
+        """
+
+        def format_datetime(dt):
+            """Format datetime to 12-hour format with AM/PM"""
+            return dt.strftime("%I:%M %p, %B %d, %Y") if dt else None
+
+        def format_currency_conversions():
+            """Format currency conversions into a readable string"""
+            currencies = {
+                'USD': self.usd,
+                'AUD': self.aus,
+                'CAD': self.cad,
+                'JPY': self.jpy,
+                'EUR': self.eur,
+                'GBP': self.gbp,
+                'CNY': self.cny
+            }
+            return '\n'.join(
+                f"{currency}: {value if value is not None else 'None'}" for currency, value in currencies.items()
+            )
+
+        return {
+            'opportunity_id': self.opportunity_id,
+            'opportunity_name': self.opportunity_name,
+            'account_name': self.account_name,
+            'close_date': format_datetime(self.close_date) if self.close_date else None,
+            'amount': self.amount,
+            'amount_in_words': self.amount_in_words,
+            'description': self.description,
+            'dealer_id': self.dealer_id,
+            'dealer_code': self.dealer_code,
+            'stage': self.stage,
+            'probability': self.probability,
+            'next_step': self.next_step,
+            'created_date': format_datetime(self.created_date) if self.created_date else None,
+            "employee_id": str(self.employee_id) if self.employee_id else None,
+            "employee_name": f"{self.employee.first_name} {self.employee.last_name}" if self.employee else None,
+            "employee_num": self.employee.emp_num if self.employee else None,
+            "currency_conversions": format_currency_conversions(),
+            'product_id': str(self.product_id) if self.product_id else None,
+            'product_name': self.product_name,
+            'product_brand': self.product_brand,
+            'product_model': self.product_model,
+            'product_image_url': self.product_image_url,
         }

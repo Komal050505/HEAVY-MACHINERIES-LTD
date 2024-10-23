@@ -1,0 +1,17 @@
+CREATE TABLE heavy_machinery_opportunities (
+    opportunity_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    opportunity_name VARCHAR(255) NOT NULL,
+    account_name VARCHAR(255) NOT NULL,
+    close_date TIMESTAMP NOT NULL,
+    amount DECIMAL(15, 2) NOT NULL,
+    description TEXT,
+    dealer_id UUID NOT NULL REFERENCES heavy_machineries_dealer(dealer_id),
+    dealer_code VARCHAR(255) NOT NULL,
+    stage VARCHAR(20) NOT NULL,
+    probability INT,
+    next_step VARCHAR(255),
+    created_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    employee_id UUID REFERENCES employee(id)
+);
+
+select * from heavy_machinery_opportunities

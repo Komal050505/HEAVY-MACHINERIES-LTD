@@ -5,38 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1b66be9c-24a3-4d86-acdc-870390e3d48b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/heavy_machineries_ltd.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/app_employees.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/app_otp.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/app_products.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/constants.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Db_connections/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Db_connections/configurations.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Logging_package/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Logging_package/logging_module.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Logging_package/logging_utility.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project_requirements/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project_requirements/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Sql_scripts/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Sql_scripts/employee_table_queries" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Sql_scripts/otp_store_table_queries" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Sql_scripts/product_table_queries" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Sql_scripts/sales_table_queries" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/User_models/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/User_models/sales_table.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/User_models/tables.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utilities/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Utilities/reusables.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/email_setup/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/email_setup/email_config.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/email_setup/email_operations.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/App/app_accounts.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/App/app_dealers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/App/app_opportunity.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sql_scripts/account_table_queries" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sql_scripts/dealer_table_queries" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sql_scripts/opportunity_table_queries" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/app_products.py" beforeDir="false" afterPath="$PROJECT_DIR$/App/app_products.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/App/constants.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/main.log" beforeDir="false" afterPath="$PROJECT_DIR$/App/main.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/User_models/tables.py" beforeDir="false" afterPath="$PROJECT_DIR$/User_models/tables.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utilities/reusables.py" beforeDir="false" afterPath="$PROJECT_DIR$/Utilities/reusables.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/email_setup/email_operations.py" beforeDir="false" afterPath="$PROJECT_DIR$/email_setup/email_operations.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,9 +34,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2nmecD6vC0HZWOelQfSVyyh39Ds" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -64,7 +45,9 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python.app_dealers.executor": "Run",
     "Python.app_employees.executor": "Run",
+    "Python.app_opportunity.executor": "Run",
     "Python.app_otp.executor": "Run",
     "Python.app_products.executor": "Run",
     "Python.employees_table.executor": "Run",

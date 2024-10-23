@@ -1,0 +1,6 @@
+CREATE TABLE heavy_machineries_accounts (
+    account_id VARCHAR(100) PRIMARY KEY,
+    account_name VARCHAR NOT NULL
+);
+
+select * from heavy_machineries_accounts
