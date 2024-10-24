@@ -1,0 +1,19 @@
+
+CREATE TABLE heavy_machinery_customers (
+    customer_id SERIAL PRIMARY KEY,                -- Unique customer identifier
+    customer_name VARCHAR(255) NOT NULL,           -- Name of the customer
+    customer_contact_info TEXT,                             -- Customer contact info (email, phone)
+    customer_address TEXT,                                  -- Customer address
+    opportunity_id UUID,                            -- Reference to the opportunity that led to conversion (UUID type)
+    dealer_id UUID,                                 -- Reference to the dealer handling the customer
+    employee_id UUID,                               -- Reference to the employee managing the customer
+    customer_status VARCHAR(50) DEFAULT 'new',              -- Status (new, contacted, in-progress, closed)
+    customer_comments TEXT,                                 -- Dealer comments on customer
+    customer_feedback TEXT,                                 -- Feedback provided by the dealer
+    customer_created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Customer creation time
+    customer_updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Initial value for updated_at
+    customer_last_interaction TIMESTAMP,                    -- Last interaction with the customer
+    FOREIGN KEY (opportunity_id) REFERENCES heavy_machinery_opportunities(opportunity_id),  -- Link to opportunity (UUID type)
+    FOREIGN KEY (dealer_id) REFERENCES heavy_machineries_dealer(dealer_id),                  -- Link to dealer
+    FOREIGN KEY (employee_id) REFERENCES employee(emp_id)             -- Link to employee
+);

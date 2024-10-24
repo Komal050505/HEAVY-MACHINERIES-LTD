@@ -14,6 +14,8 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+from Db_connections.configurations import session
+from Logging_package.logging_utility import log_info, log_error, log_debug, log_warning
 # Application-specific imports from our application(for email configuration details)
 from email_setup.email_config import (
     SENDER_EMAIL,
@@ -74,32 +76,32 @@ def generate_employee_email_body(employee):
     :return: A string formatted as the email body.
     """
     email_body = f"""
-    Dear {employee.first_name} {employee.last_name},
+    Dear {employee.emp_first_name} {employee.emp_last_name},
 
-    Welcome to the team! We are excited to have you join us as a {employee.position} in the {employee.department} department.
+    Welcome to the team! We are excited to have you join us as a {employee.emp_position} in the {employee.emp_department} department.
 
     Here are your details:
-    - **Employee Id:** {employee.id}
-    - **Full Name:** {employee.first_name} {employee.last_name}
+    - **Employee Id:** {employee.emp_id}
+    - **Full Name:** {employee.emp_first_name} {employee.emp_last_name}
     - **Email:** {employee.emp_email}
     - **Employee Number:** {employee.emp_num}
-    - **Phone:** {employee.phone}
-    - **Hire Date:** {employee.hire_date.strftime('%Y-%m-%d')}
-    - **Position:** {employee.position}
-    - **Salary:** ${employee.salary:,.2f}
-    - **Age:** {employee.age}
-    - **Sex:** {employee.sex}
-    - **Blood Group:** {employee.blood_group}
-    - **Height:** {employee.height} cm
-    - **Weight:** {employee.weight} kg
-    - **Address:** {employee.address}
-    - **Emergency Contact:** {employee.emergency_contact}
-    - **Nationality:** {employee.nationality}
-    - **Date of Birth:** {employee.date_of_birth.strftime('%Y-%m-%d')}
-    - **Marital Status:** {employee.marital_status}
-    - **Employment Status:** {employee.employment_status}
-    - **Insurance Number:** {employee.insurance_number}
-    - **Created At:** {employee.created_at}
+    - **Phone:** {employee.emp_phone}
+    - **Hire Date:** {employee.emp_hire_date.strftime('%Y-%m-%d')}
+    - **Position:** {employee.emp_position}
+    - **Salary:** ${employee.emp_salary:,.2f}
+    - **Age:** {employee.emp_age}
+    - **Sex:** {employee.emp_sex}
+    - **Blood Group:** {employee.emp_blood_group}
+    - **Height:** {employee.emp_height} cm
+    - **Weight:** {employee.emp_weight} kg
+    - **Address:** {employee.emp_address}
+    - **Emergency Contact:** {employee.emp_emergency_contact}
+    - **Nationality:** {employee.emp_nationality}
+    - **Date of Birth:** {employee.emp_date_of_birth.strftime('%Y-%m-%d')}
+    - **Marital Status:** {employee.emp_marital_status}
+    - **Employment Status:** {employee.emp_employment_status}
+    - **Insurance Number:** {employee.emp_insurance_number}
+    - **Created At:** {employee.emp_created_at}
 
     Please keep this information safe. If you have any questions, feel free to reach out to the HR team.
 
@@ -124,26 +126,26 @@ def generate_employee_notification_body(employee_list, total_count):
     for emp in employee_list:
         body += (
             f"*******************************\n"
-            f"Employee Id: {emp['id']}\n"
-            f"Name: {emp['first_name']} {emp['last_name']}\n"
+            f"Employee Id: {emp['emp_id']}\n"
+            f"Name: {emp['emp_first_name']} {emp['emp_last_name']}\n"
             f"Employee Number: {emp['emp_num']}\n"
             f"Email: {emp['emp_email']}\n"
-            f"Phone: {emp['phone']}\n"
-            f"Position: {emp['position']}\n"
-            f"Department: {emp['department']}\n"
-            f"Salary: {emp['salary']}\n"
-            f"Age: {emp['age']}\n"
-            f"Sex: {emp['sex']}\n"
-            f"Blood Group: {emp['blood_group']}\n"
-            f"Height: {emp['height']}\n"
-            f"Weight: {emp['weight']}\n"
-            f"Address: {emp['address']}\n"
-            f"Emergency Contact: {emp['emergency_contact']}\n"
-            f"Nationality: {emp['nationality']}\n"
-            f"Date of Birth: {emp['date_of_birth']}\n"
-            f"Marital Status: {emp['marital_status']}\n"
-            f"Employment Status: {emp['employment_status']}\n"
-            f"Insurance Number: {emp['insurance_number']}\n"
+            f"Phone: {emp['emp_phone']}\n"
+            f"Position: {emp['emp_position']}\n"
+            f"Department: {emp['emp_department']}\n"
+            f"Salary: {emp['emp_salary']}\n"
+            f"Age: {emp['emp_age']}\n"
+            f"Sex: {emp['emp_sex']}\n"
+            f"Blood Group: {emp['emp_blood_group']}\n"
+            f"Height: {emp['emp_height']}\n"
+            f"Weight: {emp['emp_weight']}\n"
+            f"Address: {emp['emp_address']}\n"
+            f"Emergency Contact: {emp['emp_emergency_contact']}\n"
+            f"Nationality: {emp['emp_nationality']}\n"
+            f"Date of Birth: {emp['emp_date_of_birth']}\n"
+            f"Marital Status: {emp['emp_marital_status']}\n"
+            f"Employment Status: {emp['emp_employment_status']}\n"
+            f"Insurance Number: {emp['emp_insurance_number']}\n"
             f"\n"
         )
 
@@ -164,30 +166,30 @@ def generate_update_notification_body(updated_employee, update_time):
     email_body = f"""
     Employee Update Notification
 
-    The details of employee ID {updated_employee['id']} were successfully updated on {update_time}.
+    The details of employee ID {updated_employee['emp_id']} were successfully updated on {update_time}.
 
     Updated Details:
-    First Name: {updated_employee.get('first_name', 'N/A')}
-    Last Name: {updated_employee.get('last_name', 'N/A')}
+    First Name: {updated_employee.get('emp_first_name', 'N/A')}
+    Last Name: {updated_employee.get('emp_last_name', 'N/A')}
     Email: {updated_employee.get('emp_email', 'N/A')}
     Employee Number: {updated_employee.get('emp_num', 'N/A')}
-    Phone: {updated_employee.get('phone', 'N/A')}
-    Position: {updated_employee.get('position', 'N/A')}
-    Salary: {updated_employee.get('salary', 'N/A')}
-    Department: {updated_employee.get('department', 'N/A')}
-    Hire Date: {updated_employee.get('hire_date', 'N/A')}
-    Age: {updated_employee.get('age', 'N/A')}
-    Sex: {updated_employee.get('sex', 'N/A')}
-    Blood Group: {updated_employee.get('blood_group', 'N/A')}
-    Height: {updated_employee.get('height', 'N/A')}
-    Weight: {updated_employee.get('weight', 'N/A')}
-    Address: {updated_employee.get('address', 'N/A')}
-    Emergency Contact: {updated_employee.get('emergency_contact', 'N/A')}
-    Nationality: {updated_employee.get('nationality', 'N/A')}
-    Date of Birth: {updated_employee.get('date_of_birth', 'N/A')}
-    Marital Status: {updated_employee.get('marital_status', 'N/A')}
-    Employment Status: {updated_employee.get('employment_status', 'N/A')}
-    Insurance Number: {updated_employee.get('insurance_number', 'N/A')}
+    Phone: {updated_employee.get('emp_phone', 'N/A')}
+    Position: {updated_employee.get('emp_position', 'N/A')}
+    Salary: {updated_employee.get('emp_salary', 'N/A')}
+    Department: {updated_employee.get('emp_department', 'N/A')}
+    Hire Date: {updated_employee.get('emp_hire_date', 'N/A')}
+    Age: {updated_employee.get('emp_age', 'N/A')}
+    Sex: {updated_employee.get('emp_sex', 'N/A')}
+    Blood Group: {updated_employee.get('emp_blood_group', 'N/A')}
+    Height: {updated_employee.get('emp_height', 'N/A')}
+    Weight: {updated_employee.get('emp_weight', 'N/A')}
+    Address: {updated_employee.get('emp_address', 'N/A')}
+    Emergency Contact: {updated_employee.get('emp_emergency_contact', 'N/A')}
+    Nationality: {updated_employee.get('emp_nationality', 'N/A')}
+    Date of Birth: {updated_employee.get('emp_date_of_birth', 'N/A')}
+    Marital Status: {updated_employee.get('emp_marital_status', 'N/A')}
+    Employment Status: {updated_employee.get('emp_employment_status', 'N/A')}
+    Insurance Number: {updated_employee.get('emp_insurance_number', 'N/A')}
 
     Regards,
     HR System
@@ -203,27 +205,27 @@ def generate_delete_notification(employee, deleted_time):
     :param deleted_time: The time when the employee was deleted.
     :return: Formatted email body as a string.
     """
-    body = f"Employee {employee.first_name} {employee.last_name} (ID: {employee.id}) has been deleted from the system.\n\n"
+    body = f"Employee {employee.emp_first_name} {employee.emp_last_name} (ID: {employee.emp_id}) has been deleted from the system.\n\n"
     body += "Deleted Employee Details:\n"
     body += f"Employee Number: {employee.emp_num}\n"
     body += f"Email: {employee.emp_email}\n"
-    body += f"Phone: {employee.phone}\n"
-    body += f"Position: {employee.position}\n"
-    body += f"Department: {employee.department}\n"
-    body += f"Hire Date: {employee.hire_date}\n"
-    body += f"Age: {employee.age}\n"
-    body += f"Sex: {employee.sex}\n"
-    body += f"Blood Group: {employee.blood_group}\n"
-    body += f"Height: {employee.height}\n"
-    body += f"Weight: {employee.weight}\n"
-    body += f"Address: {employee.address}\n"
-    body += f"Emergency Contact: {employee.emergency_contact}\n"
-    body += f"Nationality: {employee.nationality}\n"
-    body += f"Date of Birth: {employee.date_of_birth}\n"
-    body += f"Marital Status: {employee.marital_status}\n"
-    body += f"Employment Status: {employee.employment_status}\n"
-    body += f"Insurance Number: {employee.insurance_number}\n"
-    body += f"Created At: {employee.created_at}\n"
+    body += f"Phone: {employee.emp_phone}\n"
+    body += f"Position: {employee.emp_position}\n"
+    body += f"Department: {employee.emp_department}\n"
+    body += f"Hire Date: {employee.emp_hire_date}\n"
+    body += f"Age: {employee.emp_age}\n"
+    body += f"Sex: {employee.emp_sex}\n"
+    body += f"Blood Group: {employee.emp_blood_group}\n"
+    body += f"Height: {employee.emp_height}\n"
+    body += f"Weight: {employee.emp_weight}\n"
+    body += f"Address: {employee.emp_address}\n"
+    body += f"Emergency Contact: {employee.emp_emergency_contact}\n"
+    body += f"Nationality: {employee.emp_nationality}\n"
+    body += f"Date of Birth: {employee.emp_date_of_birth}\n"
+    body += f"Marital Status: {employee.emp_marital_status}\n"
+    body += f"Employment Status: {employee.emp_employment_status}\n"
+    body += f"Insurance Number: {employee.emp_insurance_number}\n"
+    body += f"Created At: {employee.emp_created_at}\n"
     body += f"Deleted Time: {deleted_time}\n"
 
     return body
@@ -244,29 +246,29 @@ def generate_heavy_product_email_body(product, employee):
     A new heavy product has been added to the inventory. Here are the details:
 
     **Product Details:**
-    - **Product ID:** {product.id}
-    - **Name:** {product.name}
-    - **Type:** {product.type}
-    - **Brand:** {product.brand}
-    - **Model:** {product.model}
-    - **Year of Manufacture:** {product.year_of_manufacture}
-    - **Price:** ${product.price:,.2f}
-    - **Weight:** {product.weight} kg
-    - **Dimensions:** {product.dimensions}
-    - **Engine Type:** {product.engine_type}
-    - **Horsepower:** {product.horsepower}
-    - **Fuel Capacity:** {product.fuel_capacity} liters
-    - **Operational Hours:** {product.operational_hours}
-    - **Warranty Period:** {product.warranty_period} months
-    - **Status:** {product.status}
-    - **Description:** {product.description}
-    - **Image URL:** {product.image_url}
-    - **Created At:** {product.created_at.isoformat()}
-    - **Updated At:** {product.updated_at.isoformat()}
+    - **Product ID:** {product.heavy_product_id}
+    - **Name:** {product.heavy_product_name}
+    - **Type:** {product.heavy_product_type}
+    - **Brand:** {product.heavy_product_brand}
+    - **Model:** {product.heavy_product_model}
+    - **Year of Manufacture:** {product.heavy_product_year_of_manufacture}
+    - **Price:** ${product.heavy_product_price:,.2f}
+    - **Weight:** {product.heavy_product_weight} kg
+    - **Dimensions:** {product.heavy_product_dimensions}
+    - **Engine Type:** {product.heavy_product_engine_type}
+    - **Horsepower:** {product.heavy_product_horsepower}
+    - **Fuel Capacity:** {product.heavy_product_fuel_capacity} liters
+    - **Operational Hours:** {product.heavy_product_operational_hours}
+    - **Warranty Period:** {product.heavy_product_warranty_period} months
+    - **Status:** {product.heavy_product_status}
+    - **Description:** {product.heavy_product_description}
+    - **Image URL:** {product.heavy_product_image_url}
+    - **Created At:** {product.heavy_product_created_at.isoformat()}
+    - **Updated At:** {product.heavy_product_updated_at.isoformat()}
 
     **Employee Details:**
-    - **Employee ID:** {employee.id}
-    - **Name:** {employee.first_name} {employee.last_name}
+    - **Employee ID:** {employee.emp_id}
+    - **Name:** {employee.emp_first_name} {employee.emp_last_name}
     - **Employee Number:** {employee.emp_num}
 
     Please review the new product and update the inventory as necessary.
@@ -292,25 +294,25 @@ def generate_heavy_product_fetched_body(heavy_product_list, total_count):
     for product in heavy_product_list:
         body += (
             f"*******************************\n"
-            f"Product Id: {product['id']}\n"
-            f"Name: {product['name']}\n"
-            f"Product Type: {product['type']}\n"
-            f"Brand: {product['brand']}\n"
-            f"Model: {product['model']}\n"
-            f"Year of Manufacture: {product['year_of_manufacture']}\n"
-            f"Price: {product['price']}\n"
-            f"Weight: {product['weight']} kg\n"
-            f"Dimensions: {product['dimensions']}\n"
-            f"Engine Type: {product['engine_type']}\n"
-            f"Horsepower: {product['horsepower']} hp\n"
-            f"Fuel Capacity: {product['fuel_capacity']} liters\n"
-            f"Operational Hours: {product['operational_hours']}\n"
-            f"Warranty Period: {product['warranty_period']} months\n"
-            f"Status: {product['status']}\n"
-            f"Description: {product['description']}\n"
-            f"Image URL: {product['image_url']}\n"
-            f"Created At: {product['created_at']}\n"
-            f"Updated At: {product['updated_at']}\n"
+            f"Product Id: {product['heavy_product_id']}\n"
+            f"Name: {product['heavy_product_name']}\n"
+            f"Product Type: {product['heavy_product_type']}\n"
+            f"Brand: {product['heavy_product_brand']}\n"
+            f"Model: {product['heavy_product_model']}\n"
+            f"Year of Manufacture: {product['heavy_product_year_of_manufacture']}\n"
+            f"Price: {product['heavy_product_price']}\n"
+            f"Weight: {product['heavy_product_weight']} kg\n"
+            f"Dimensions: {product['heavy_product_dimensions']}\n"
+            f"Engine Type: {product['heavy_product_engine_type']}\n"
+            f"Horsepower: {product['heavy_product_horsepower']} hp\n"
+            f"Fuel Capacity: {product['heavy_product_fuel_capacity']} liters\n"
+            f"Operational Hours: {product['heavy_product_operational_hours']}\n"
+            f"Warranty Period: {product['heavy_product_warranty_period']} months\n"
+            f"Status: {product['heavy_product_status']}\n"
+            f"Description: {product['heavy_product_description']}\n"
+            f"Image URL: {product['heavy_product_image_url']}\n"
+            f"Created At: {product['heavy_product_created_at']}\n"
+            f"Updated At: {product['heavy_product_updated_at']}\n"
             f"Employee Id: {product['employee_id']}\n"
             f"Employee Name: {product['employee_name']}\n"
             f"Employee Number: {product['employee_num']}\n"
@@ -335,7 +337,7 @@ def generate_updated_products_body(updated_fields, update_time, employee, produc
     body += f"The following updates were made to the product name:- '{product_name}' and product id:- (ID: {product_id}) on {update_time}:\n\n"
 
     if employee:
-        body += f"Updated by: {employee.first_name} {employee.last_name} (Employee Number: {employee.emp_num})\n\n"
+        body += f"Updated by: {employee.emp_first_name} {employee.emp_last_name} (Employee Number: {employee.emp_num})\n\n"
 
     if not updated_fields:
         body += "No updates were made.\n"
@@ -401,150 +403,372 @@ def notify_failure(subject, details):
 def notify_opportunity_update_success(subject, details):
     """
     Sends a formatted success notification email for opportunity updates.
+
     :param subject: Subject of the email.
     :param details: Dictionary containing the details of the updated opportunity.
     """
-    opportunity_id = details.get("opportunity_id")
-    updated_fields = details.get("updated_fields", {})
+    try:
+        opportunity_id = details.get("opportunity_id", "N/A")
+        updated_fields = details.get("updated_fields", {})
 
-    # Build the email content (email body)
-    email_content = f"Dear Team,\n\nThe opportunity has been successfully updated with the following details:\n"
-    email_content += "********************************************\n"
-    email_content += f"Opportunity ID: {opportunity_id}\n\nUpdated Fields:\n"
+        if not updated_fields:
+            log_warning(f"No fields were updated for Opportunity ID: {opportunity_id}")
+            return
 
-    # Formatting updated fields
-    index = 1
-    if "opportunity_name" in updated_fields:
-        email_content += f"{index}. Opportunity Name: {updated_fields['opportunity_name']}\n"
-        index += 1
-    if "account_name" in updated_fields:
-        email_content += f"{index}. Account Name: {updated_fields['account_name']}\n"
-        index += 1
-    if "close_date" in updated_fields:
-        close_date = updated_fields['close_date'].strftime("%d %B %Y, %I:%M %p")
-        email_content += f"{index}. Close Date: {close_date}\n"
-        index += 1
-    if "amount" in updated_fields:
-        email_content += f"{index}. Amount: {updated_fields['amount']:.2f}\n"
-        index += 1
-    if "currency_conversions" in updated_fields:
-        conversions = updated_fields['currency_conversions']
-        email_content += f"{index}. Currency Conversions:\n"
-        for currency, value in conversions.items():
-            email_content += f"   - {currency.upper()}: {value:.2f}\n"
-        index += 1
-    if "description" in updated_fields:
-        email_content += f"{index}. Description: {updated_fields['description']}\n"
-        index += 1
-    if "dealer_id" in updated_fields:
-        email_content += f"{index}. Dealer ID: {updated_fields['dealer_id']}\n"
-        index += 1
-    if "dealer_code" in updated_fields:
-        email_content += f"{index}. Dealer Code: {updated_fields['dealer_code']}\n"
-        index += 1
-    if "stage" in updated_fields:
-        email_content += f"{index}. Stage: {updated_fields['stage']}\n"
-        index += 1
-    if "probability" in updated_fields:
-        email_content += f"{index}. Probability: {updated_fields['probability']}%\n"
-        index += 1
-    if "next_step" in updated_fields:
-        email_content += f"{index}. Next Step: {updated_fields['next_step']}\n"
-        index += 1
-    if "amount_in_words" in updated_fields:
-        email_content += f"{index}. Amount in Words: {updated_fields['amount_in_words']}\n"
-        index += 1
-    if "vehicle_model" in updated_fields:
-        email_content += f"{index}. Vehicle Model: {updated_fields['vehicle_model']}\n"
-        index += 1
-    if "vehicle_year" in updated_fields:
-        email_content += f"{index}. Vehicle Year: {updated_fields['vehicle_year']}\n"
-        index += 1
+        email_content = (
+            f"Dear Team,\n\n"
+            f"The opportunity has been successfully updated with the following details:\n"
+            f"********************************************\n"
+            f"Opportunity ID: {opportunity_id}\n\nUpdated Fields:\n"
+        )
 
-    email_content += "********************************************\n"
-    email_content += "\nRegards,\nOpportunity Management Team"
+        index = 1
+        for field, label in [
+            ("opportunity_name", "Opportunity Name"),
+            ("account_name", "Account Name"),
+            ("close_date", "Close Date"),
+            ("amount", "Amount"),
+            ("currency_conversions", "Currency Conversions"),
+            ("description", "Description"),
+            ("dealer_id", "Dealer ID"),
+            ("dealer_code", "Dealer Code"),
+            ("stage", "Stage"),
+            ("probability", "Probability"),
+            ("next_step", "Next Step"),
+            ("amount_in_words", "Amount in Words"),
+            ("vehicle_model", "Vehicle Model"),
+            ("vehicle_year", "Vehicle Year")
+        ]:
+            if field in updated_fields:
+                if field == "close_date":
+                    formatted_date = updated_fields[field].strftime("%d %B %Y, %I:%M %p")
+                    email_content += f"{index}. {label}: {formatted_date}\n"
+                elif field == "currency_conversions":
+                    email_content += f"{index}. {label}:\n"
+                    for currency, value in updated_fields[field].items():
+                        email_content += f"   - {currency.upper()}: {value:.2f}\n"
+                elif field == "amount":
+                    email_content += f"{index}. {label}: {updated_fields[field]:.2f}\n"
+                else:
+                    email_content += f"{index}. {label}: {updated_fields[field]}\n"
+                index += 1
 
-    # Send the email with the correct recipient list
-    send_email(RECEIVER_EMAIL, subject, email_content)
+        email_content += "********************************************\n"
+        email_content += "\nRegards,\nOpportunity Management Team"
+
+        log_info(f"Opportunity update notification prepared for Opportunity ID: {opportunity_id}")
+
+        send_email(RECEIVER_EMAIL, subject, email_content)
+        log_info(f"Opportunity update email successfully sent for Opportunity ID: {opportunity_id}")
+
+    except KeyError as e:
+        session.rollback()
+        log_error(f"KeyError encountered while processing the opportunity update: {str(e)}")
+    except Exception as e:
+        session.rollback()
+        log_error(f"An unexpected error occurred while sending opportunity update email: {str(e)}")
 
 
 def format_opportunities_for_email(opportunities):
     """
-    Format opportunities data for email content.
+    Format opportunities data for email content with exception handling and logging.
 
-    :param opportunities: List of opportunities in dictionary format
-    :return: str
+    :param opportunities: List of opportunities in dictionary format.
+    :return: Formatted email content as a string.
     """
     email_content = ""
+
     for opp in opportunities:
-        email_content += (
-            f"Opportunity ID: {opp['opportunity_id']}\n"
-            f"Name: {opp['opportunity_name']}\n"
-            f"Account: {opp['account_name']}\n"
-            f"Amount: {opp['amount']}\n"
-            f"Amount in Words: {opp['amount_in_words']}\n"
-            f"Close Date: {opp['close_date']}\n"
-            f"Created Date: {opp['created_date']}\n"
-            f"Dealer ID: {opp['dealer_id']}\n"
-            f"Dealer Code: {opp['dealer_code']}\n"
-            f"Stage: {opp['stage']}\n"
-            f"Probability: {opp['probability']}%\n"
-            f"Next Step: {opp['next_step']}\n"
-            f"Description: {opp['description']}\n"
-            f"Currency Conversions:\n{opp['currency_conversions']}\n\n"
-            f"Employee ID: {opp['employee_id']}\n"
-            f"Employee Name: {opp['employee_name']}\n"
-            f"Employee Number: {opp['employee_num']}\n"
-            f"Product ID: {opp['product_id']}\n"
-            f"Product Name: {opp['product_name']}\n"
-            f"Product Brand: {opp['product_brand']}\n"
-            f"Product Model: {opp['product_model']}\n"
-            f"Product Image URL: {opp['product_image_url']}\n"
-            f"********************************************\n\n"
-        )
+        try:
+            email_content += (
+                f"Opportunity ID: {opp.get('opportunity_id', 'N/A')}\n"
+                f"Name: {opp.get('opportunity_name', 'N/A')}\n"
+                f"Account: {opp.get('account_name', 'N/A')}\n"
+                f"Amount: {opp.get('amount', 'N/A')}\n"
+                f"Amount in Words: {opp.get('amount_in_words', 'N/A')}\n"
+                f"Close Date: {opp.get('close_date', 'N/A')}\n"
+                f"Created Date: {opp.get('created_date', 'N/A')}\n"
+                f"Dealer ID: {opp.get('dealer_id', 'N/A')}\n"
+                f"Dealer Code: {opp.get('dealer_code', 'N/A')}\n"
+                f"Stage: {opp.get('stage', 'N/A')}\n"
+                f"Probability: {opp.get('probability', 'N/A')}%\n"
+                f"Next Step: {opp.get('next_step', 'N/A')}\n"
+                f"Description: {opp.get('description', 'N/A')}\n"
+                f"Currency Conversions:\n{opp.get('currency_conversions', 'N/A')}\n\n"
+                f"Employee ID: {opp.get('employee_id', 'N/A')}\n"
+                f"Employee Name: {opp.get('employee_name', 'N/A')}\n"
+                f"Employee Number: {opp.get('employee_num', 'N/A')}\n"
+                f"Product ID: {opp.get('product_id', 'N/A')}\n"
+                f"Product Name: {opp.get('product_name', 'N/A')}\n"
+                f"Product Brand: {opp.get('product_brand', 'N/A')}\n"
+                f"Product Model: {opp.get('product_model', 'N/A')}\n"
+                f"Product Image URL: {opp.get('product_image_url', 'N/A')}\n"
+                f"********************************************\n\n"
+            )
+        except KeyError as e:
+            session.rollback()
+            log_error(
+                f"KeyError while formatting opportunity: {str(e)} for opportunity ID {opp.get('opportunity_id', 'Unknown')}")
+        except Exception as e:
+            session.rollback()
+            log_error(
+                f"An unexpected error occurred while formatting opportunity ID {opp.get('opportunity_id', 'Unknown')}: {str(e)}")
+
     return email_content
 
 
 def notify_opportunity_details(subject, opportunities, total_count):
     """
-    Sends an email with detailed opportunity information including the total count.
+    Sends an email with detailed opportunity information including the total count, with exception handling and logging.
 
     :param subject: Subject of the email.
     :param opportunities: List of opportunities in dictionary format to include in the email body.
     :param total_count: Total number of opportunities.
     """
-    body = (
-        f"Opportunity Details:\n"
-        f"********************************************\n"
-        f"Total Count of Opportunities: {total_count}\n\n"
-    )
+    try:
+        log_info(f"Starting email notification for {total_count} opportunities with subject: {subject}")
 
-    # Format opportunities data for the email content
-    for opp in opportunities:
-        body += (
-            f"Opportunity ID: {opp['opportunity_id']}\n"
-            f"Name: {opp['opportunity_name']}\n"
-            f"Account: {opp['account_name']}\n"
-            f"Amount: {opp['amount']}\n"
-            f"Amount in Words: {opp['amount_in_words']}\n"
-            f"Close Date: {opp['close_date']}\n"
-            f"Created Date: {opp['created_date']}\n"
-            f"Dealer ID: {opp['dealer_id']}\n"
-            f"Dealer Code: {opp['dealer_code']}\n"
-            f"Stage: {opp['stage']}\n"
-            f"Probability: {opp['probability']}%\n"
-            f"Next Step: {opp['next_step']}\n"
-            f"Description: {opp['description']}\n"
-            f"Currency Conversions:\n{opp['currency_conversions']}\n\n"
-            f"Employee ID: {opp['employee_id']}\n"
-            f"Employee Name: {opp['employee_name']}\n"
-            f"Employee Number: {opp['employee_num']}\n"
-            f"Product ID: {opp['product_id']}\n"
-            f"Product Name: {opp['product_name']}\n"
-            f"Product Brand: {opp['product_brand']}\n"
-            f"Product Model: {opp['product_model']}\n"
-            f"Product Image URL: {opp['product_image_url']}\n"
-            f"********************************************\n\n"
+        body = (
+            f"Opportunity Details:\n"
+            f"********************************************\n"
+            f"Total Count of Opportunities: {total_count}\n\n"
         )
 
-    send_email(RECEIVER_EMAIL, subject, body)
+        for opp in opportunities:
+            try:
+                body += (
+                    f"Opportunity ID: {opp.get('opportunity_id', 'N/A')}\n"
+                    f"Name: {opp.get('opportunity_name', 'N/A')}\n"
+                    f"Account: {opp.get('account_name', 'N/A')}\n"
+                    f"Amount: {opp.get('amount', 'N/A')}\n"
+                    f"Amount in Words: {opp.get('amount_in_words', 'N/A')}\n"
+                    f"Close Date: {opp.get('close_date', 'N/A')}\n"
+                    f"Created Date: {opp.get('created_date', 'N/A')}\n"
+                    f"Dealer ID: {opp.get('dealer_id', 'N/A')}\n"
+                    f"Dealer Code: {opp.get('dealer_code', 'N/A')}\n"
+                    f"Stage: {opp.get('stage', 'N/A')}\n"
+                    f"Probability: {opp.get('probability', 'N/A')}%\n"
+                    f"Next Step: {opp.get('next_step', 'N/A')}\n"
+                    f"Description: {opp.get('description', 'N/A')}\n"
+                    f"Currency Conversions:\n{opp.get('currency_conversions', 'N/A')}\n\n"
+                    f"Employee ID: {opp.get('employee_id', 'N/A')}\n"
+                    f"Employee Name: {opp.get('employee_name', 'N/A')}\n"
+                    f"Employee Number: {opp.get('employee_num', 'N/A')}\n"
+                    f"Product ID: {opp.get('product_id', 'N/A')}\n"
+                    f"Product Name: {opp.get('product_name', 'N/A')}\n"
+                    f"Product Brand: {opp.get('product_brand', 'N/A')}\n"
+                    f"Product Model: {opp.get('product_model', 'N/A')}\n"
+                    f"Product Image URL: {opp.get('product_image_url', 'N/A')}\n"
+                    f"********************************************\n\n"
+                )
+            except KeyError as e:
+                session.rollback()
+                log_error(
+                    f"KeyError for opportunity ID {opp.get('opportunity_id', 'Unknown')}: Missing key {str(e)}")
+            except Exception as e:
+                session.rollback()
+                log_error(
+                    f"An unexpected error occurred while formatting opportunity ID {opp.get('opportunity_id', 'Unknown')}: {str(e)}")
+
+        log_info("Email body prepared successfully, sending email...")
+
+        send_email(RECEIVER_EMAIL, subject, body)
+
+        log_info(f"Email sent successfully to {RECEIVER_EMAIL} with subject: {subject}")
+
+    except Exception as e:
+        log_error(f"An unexpected error occurred while generating or sending the email: {str(e)}")
+        return "Error: Failed to send opportunity details email. Please check the logs for more information."
+
+
+def send_opportunity_update_email(opportunity, updated_time):
+    """
+    Send an email with the updated opportunity details and return all the details.
+    """
+    try:
+        employee_info = {
+            "employee_name": f"{opportunity.employee.emp_first_name} {opportunity.employee.emplast_name}" if opportunity.employee else "N/A",
+            "employee_id": opportunity.employee_id
+        }
+
+        product_info = {
+            "product_id": opportunity.product_id,
+            "product_name": opportunity.product_name,
+            "product_brand": opportunity.product_brand,
+            "product_model": opportunity.product_model,
+            "product_image_url": opportunity.product_image_url
+        }
+
+        currency_conversions = opportunity.serialize_to_dict().get('currency_conversions',
+                                                                   "No currency conversion details")
+
+        email_subject = f"Opportunity Update Notification - {opportunity.opportunity_name}"
+        email_body = f"""
+        The following opportunity has been updated:
+
+        Opportunity ID: {opportunity.opportunity_id}
+        Opportunity Name: {opportunity.opportunity_name}
+        Account Name: {opportunity.account_name}
+        Close Date: {opportunity.close_date}
+        Amount: {opportunity.amount} (In Words: {opportunity.amount_in_words})
+        Description: {opportunity.description}
+        Dealer Code: {opportunity.dealer_code}
+        Stage: {opportunity.stage}
+        Probability: {opportunity.probability}
+        Next Step: {opportunity.next_step}
+
+        Employee Details:
+        Employee Name: {employee_info['employee_name']}
+        Employee ID: {employee_info['employee_id']}
+
+        Product Details:
+        Product ID: {product_info['product_id']}
+        Product Name: {product_info['product_name']}
+        Product Brand: {product_info['product_brand']}
+        Product Model: {product_info['product_model']}
+        Product Image URL: {product_info['product_image_url']}
+
+        Currency Conversions:
+        {currency_conversions}
+
+        Updated At: {updated_time}
+        """
+
+        log_debug(f"Preparing to send email with the following content: {email_body}")
+
+        send_email(
+            too_email=RECEIVER_EMAIL,
+            subject=email_subject,
+            body=email_body
+        )
+
+        opportunity_details = {
+            "opportunity_id": opportunity.opportunity_id,
+            "opportunity_name": opportunity.opportunity_name,
+            "account_name": opportunity.account_name,
+            "close_date": opportunity.close_date,
+            "amount": opportunity.amount,
+            "amount_in_words": opportunity.amount_in_words,
+            "description": opportunity.description,
+            "dealer_code": opportunity.dealer_code,
+            "stage": opportunity.stage,
+            "probability": opportunity.probability,
+            "next_step": opportunity.next_step,
+            "employee_details": employee_info,
+            "product_details": product_info,
+            "currency_conversions": currency_conversions,
+            "updated_time": updated_time
+        }
+
+        log_info(f"Opportunity email sent successfully for Opportunity ID: {opportunity.opportunity_id}")
+
+        return opportunity_details
+
+    except Exception as e:
+        session.rollback()
+        log_error(f"Error while sending opportunity update email: {str(e)}")
+
+        return {"error": f"Error while sending email: {str(e)}"}
+
+
+def construct_success_message(deleted_customers_info):
+    """
+    Constructs a success message for deleted customers and sends it via email.
+
+    :param deleted_customers_info: List of dictionaries containing deleted customer information.
+    :return: Formatted success message string.
+    """
+    try:
+        if not deleted_customers_info:
+            return "No customers were deleted."
+
+        message_lines = [
+            "Customer(s) deleted successfully.\n",
+            "Deleted Customers:\n"
+        ]
+
+        for info in deleted_customers_info:
+            message_lines.append(
+                f"Opportunity ID: {info['opportunity_id']}\n"
+                f"Opportunity Name: {info['opportunity_name']}\n"
+                f"Account Name: {info['account_name']}\n"
+                f"Dealer ID: {info['dealer_id']}\n"
+                f"Dealer Code: {info['dealer_code']}\n"
+                f"Amount: {info['amount']}\n"
+                f"Close Date: {info['close_date']}\n"
+                f"Created Date: {info['created_date']}\n"
+                f"Employee ID: {info['employee_id']}\n"
+                f"Employee Name: {info['employee_name']}\n"
+                f"Employee Number: {info['employee_num']}\n"
+                f"Product ID: {info['product_id']}\n"
+                f"Product Name: {info['product_name']}\n"
+                f"Product Brand: {info['product_brand']}\n"
+                f"Product Model: {info['product_model']}\n"
+                "------------------------------------------\n"
+            )
+
+        final_message = "\n".join(message_lines)
+
+        send_email(
+            too_email=RECEIVER_EMAIL,
+            subject="Deleted Customer Notification",
+            body=final_message
+        )
+
+        return final_message
+
+    except Exception as e:
+        log_error(f"Error constructing success message: {str(e)}")
+        return "An error occurred while constructing the success message."
+
+
+# -------------------------------------------- Customers Table ---------------------------------------------------------
+
+
+def generate_customer_email_body(customer):
+    """
+    Generates the email body for a newly added heavy machinery customer with logging and exception handling.
+
+    :param customer: The HeavyMachineryCustomer object containing customer details.
+    :return: A string formatted as the email body or a default error message in case of an exception.
+    """
+    try:
+        log_info(f"Generating email body for customer: {customer.customer_name}")
+
+        email_body = f"""
+        Dear {customer.customer_name},
+
+        Thank you for choosing us! We are thrilled to welcome you as one of our valued customers.
+
+        Here are your details:
+        - **Customer Name:** {customer.customer_name}
+        - **Contact Information:** {customer.customer_contact_info}
+        - **Address:** {customer.customer_address}
+        - **Opportunity ID:** {customer.opportunity_id if customer.opportunity_id else 'N/A'}
+        - **Dealer ID:** {customer.dealer_id if customer.dealer_id else 'N/A'}
+        - **Employee ID:** {customer.employee_id if customer.employee_id else 'N/A'}
+        - **Status:** {customer.customer_status}
+        - **Comments:** {customer.customer_comments if customer.customer_comments else 'No comments provided'}
+        - **Feedback:** {customer.customer_feedback if customer.customer_feedback else 'No feedback provided'}
+        - **Last Interaction:** {customer.customer_last_interaction.strftime('%Y-%m-%d') if customer.customer_last_interaction else 'No interaction yet'}
+        - **Created At:** {customer.created_at.strftime('%Y-%m-%d %H:%M:%S')}
+
+        Please do not hesitate to reach out if you have any questions or concerns. We look forward to building a long-lasting relationship with you.
+
+        Best Regards,
+        Customer Relations Team
+        """
+
+        log_info(f"Email body successfully generated for customer: {customer.customer_name}")
+
+        return email_body
+
+    except AttributeError as e:
+        session.rollback()
+        log_error(f"AttributeError while generating email body: {str(e)}")
+        return "Error: Missing required customer information. Please contact support."
+
+    except Exception as e:
+        session.rollback()
+        log_error(f"An unexpected error occurred while generating email body: {str(e)}")
+        return "Error: Unable to generate the email. Please contact support."

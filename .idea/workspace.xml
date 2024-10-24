@@ -5,18 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1b66be9c-24a3-4d86-acdc-870390e3d48b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/App/app_accounts.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/app_dealers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/app_opportunity.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Sql_scripts/account_table_queries" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Sql_scripts/dealer_table_queries" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Sql_scripts/opportunity_table_queries" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/App/app_customers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Sql_scripts/customer_table_queries" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/app_employees.py" beforeDir="false" afterPath="$PROJECT_DIR$/App/app_employees.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/app_opportunity.py" beforeDir="false" afterPath="$PROJECT_DIR$/App/app_opportunity.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/app_products.py" beforeDir="false" afterPath="$PROJECT_DIR$/App/app_products.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/App/constants.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/main.log" beforeDir="false" afterPath="$PROJECT_DIR$/App/main.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sql_scripts/employee_table_queries" beforeDir="false" afterPath="$PROJECT_DIR$/Sql_scripts/employee_table_queries" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sql_scripts/product_table_queries" beforeDir="false" afterPath="$PROJECT_DIR$/Sql_scripts/product_table_queries" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/User_models/tables.py" beforeDir="false" afterPath="$PROJECT_DIR$/User_models/tables.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utilities/reusables.py" beforeDir="false" afterPath="$PROJECT_DIR$/Utilities/reusables.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/email_setup/email_operations.py" beforeDir="false" afterPath="$PROJECT_DIR$/email_setup/email_operations.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -50,6 +49,7 @@
     "Python.app_opportunity.executor": "Run",
     "Python.app_otp.executor": "Run",
     "Python.app_products.executor": "Run",
+    "Python.email_operations.executor": "Run",
     "Python.employees_table.executor": "Run",
     "Python.tables.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true"

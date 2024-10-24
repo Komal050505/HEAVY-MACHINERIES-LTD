@@ -27,3 +27,29 @@ ADD COLUMN image_url VARCHAR(255); -- Adds a column named 'description' of type 
 
 
 select * from heavy_products
+
+
+
+
+ALTERED COLUM NAMES -----
+
+ALTER TABLE heavy_products RENAME COLUMN id TO heavy_product_id;
+ALTER TABLE heavy_products RENAME COLUMN name TO heavy_product_name;
+ALTER TABLE heavy_products RENAME COLUMN type TO heavy_product_type;
+ALTER TABLE heavy_products RENAME COLUMN brand TO heavy_product_brand;
+ALTER TABLE heavy_products RENAME COLUMN model TO heavy_product_model;
+
+ALTER TABLE heavy_products RENAME COLUMN year_of_manufacture TO heavy_product_year_of_manufacture;
+ALTER TABLE heavy_products RENAME COLUMN price TO heavy_product_price;
+ALTER TABLE heavy_products RENAME COLUMN weight TO heavy_product_weight;
+ALTER TABLE heavy_products RENAME COLUMN dimensions TO heavy_product_dimensions;
+ALTER TABLE heavy_products RENAME COLUMN engine_type TO heavy_product_engine_type;
+ALTER TABLE heavy_products RENAME COLUMN horsepower TO heavy_product_horsepower;
+ALTER TABLE heavy_products RENAME COLUMN fuel_capacity TO heavy_product_fuel_capacity;
+ALTER TABLE heavy_products RENAME COLUMN operational_hours TO heavy_product_operational_hours;
+ALTER TABLE heavy_products RENAME COLUMN warranty_period TO heavy_product_warranty_period;
+ALTER TABLE heavy_products RENAME COLUMN status TO heavy_product_status;
+ALTER TABLE heavy_products RENAME COLUMN description TO heavy_product_description;
+ALTER TABLE heavy_products RENAME COLUMN image_url TO heavy_product_image_url;
+ALTER TABLE heavy_products RENAME COLUMN created_at TO heavy_product_created_at;
+ALTER TABLE heavy_products RENAME COLUMN updated_at TO heavy_product_updated_at;

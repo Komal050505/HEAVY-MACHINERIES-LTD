@@ -5,15 +5,14 @@ from datetime import datetime
 import pytz
 from flask import jsonify, request, Flask
 from sqlalchemy.exc import SQLAlchemyError
-from werkzeug.http import parse_date
 
 from Db_connections.configurations import session
-from Logging_package.logging_utility import log_info, log_error, log_debug
+from Logging_package.logging_utility import log_info, log_error, log_debug, log_warning
 from User_models.tables import HeavyMachineryOpportunity, Account, HeavyMachineriesDealer, Employee, HeavyProduct
 from Utilities.reusables import otp_required, get_opportunity_stage, get_currency_conversion, validate_probability, \
-    validate_stage, validate_positive_number
-from email_setup.email_operations import notify_failure, notify_success, notify_opportunity_update_success, \
-    notify_opportunity_details
+    validate_stage
+from email_setup.email_operations import notify_failure, notify_success, notify_opportunity_details, \
+    send_opportunity_update_email, construct_success_message
 
 app = Flask(__name__)
 
@@ -113,14 +112,14 @@ def create_new_customer():
         log_info(f"Looking for employee with ID: {employee_id}")
 
         if employee_id:
-            employee = session.query(Employee).filter_by(id=employee_id).first()  # Make sure 'id' is UUID
+            employee = session.query(Employee).filter_by(emp_id=employee_id).first()  # Make sure 'id' is UUID
             if not employee:
                 error_message = f"Employee with ID {employee_id} not found."
                 log_error(error_message)
                 notify_failure("Customer Creation Failed", error_message)
                 return jsonify({"error": error_message}), 404
             else:
-                log_info(f"Employee found: {employee.first_name} {employee.last_name}, ID: {employee.emp_num}")
+                log_info(f"Employee found: {employee.emp_first_name} {employee.emp_last_name}, ID: {employee.emp_num}")
         else:
             error_message = "Employee ID is required."
             log_error(error_message)
@@ -129,15 +128,15 @@ def create_new_customer():
 
         product_id = payload.get("product_id")
         if product_id:
-            product = session.query(HeavyProduct).filter_by(id=product_id).first()
+            product = session.query(HeavyProduct).filter_by(heavy_product_id=product_id).first()
             if product:
-                log_info(f"Product found: {product.name}")
+                log_info(f"Product found: {product.heavy_product_name}")
                 payload.update({
-                    "product_id": str(product.id),
-                    "product_name": product.name,
-                    "product_brand": product.brand,
-                    "product_model": product.model,
-                    "product_image_url": product.image_url
+                    "product_id": str(product.heavy_product_id),
+                    "product_name": product.heavy_product_name,
+                    "product_brand": product.heavy_product_brand,
+                    "product_model": product.heavy_product_model,
+                    "product_image_url": product.heavy_product_image_url
                 })
             else:
                 log_error(f"Product with ID {product_id} not found.")
@@ -201,7 +200,7 @@ def create_new_customer():
                            f"Employee ID: {employee_id}\n\n"
                            f"Employee Name: {employee_name}\n\n"
                            f"Employee Number: {employee_num}\n\n"
-                           f"Product Id: {payload['product_id']}\n\n" 
+                           f"Product Id: {payload['product_id']}\n\n"
                            f"Product Name: {payload['product_name']}\n\n"
                            f"Product Brand: {payload['product_brand']}\n\n"
                            f"Product product_model: {payload['product_model']}\n\n"
@@ -243,7 +242,6 @@ def get_opportunities():
     log_info("Received request to get opportunities with query parameters")
 
     try:
-        # Retrieve query parameters
         opportunity_id = request.args.get('opportunity_id')
         opportunity_name = request.args.get('opportunity_name', '').strip()
         account_name = request.args.get('account_name', '').strip()
@@ -255,7 +253,6 @@ def get_opportunities():
         amount_min = request.args.get('amount_min', type=float)
         amount_max = request.args.get('amount_max', type=float)
 
-        # New parameters for employee and product
         employee_id = request.args.get('employee_id', '').strip()
         product_id = request.args.get('product_id', '').strip()
         product_name = request.args.get('product_name', '').strip()
@@ -270,7 +267,6 @@ def get_opportunities():
                  f"product_id={product_id}, product_name={product_name}, "
                  f"product_brand={product_brand}, product_model={product_model}")
 
-        # Parse dates if provided
         if created_date_start:
             created_date_start = datetime.fromisoformat(created_date_start.replace('Z', '+00:00'))
             log_info(f"Parsed created_date_start: {created_date_start}")
@@ -279,7 +275,6 @@ def get_opportunities():
             close_date_end = datetime.fromisoformat(close_date_end.replace('Z', '+00:00'))
             log_info(f"Parsed close_date_end: {close_date_end}")
 
-        # Validate probabilities
         if probability_min is not None and not validate_probability(probability_min):
             error_message = f"Invalid minimum probability: {probability_min}. Must be between 0 and 100"
             log_error(error_message)
@@ -299,11 +294,9 @@ def get_opportunities():
             stage = validate_stage(stage)
             log_info(f"Validated stage: {stage}")
 
-        # Construct the query
         query = session.query(HeavyMachineryOpportunity)
         log_info("Constructed initial query")
 
-        # Apply filters based on provided parameters
         if opportunity_id:
             query = query.filter(HeavyMachineryOpportunity.opportunity_id == opportunity_id)
             log_info(f"Applied filter: opportunity_id = {opportunity_id}")
@@ -352,7 +345,6 @@ def get_opportunities():
             query = query.filter(HeavyMachineryOpportunity.amount <= amount_max)
             log_info(f"Applied filter: amount <= {amount_max}")
 
-        # New filters for employee and product
         if employee_id:
             query = query.filter(HeavyMachineryOpportunity.employee_id == employee_id)
             log_info(f"Applied filter: employee_id = {employee_id}")
@@ -373,16 +365,13 @@ def get_opportunities():
             query = query.filter(HeavyMachineryOpportunity.product_model.ilike(f'%{product_model}%'))
             log_info(f"Applied filter: product_model case-insensitive contains '{product_model}'")
 
-        # Execute the query and fetch results
         opportunities = query.all()
         total_count = len(opportunities)
         log_info(f"Fetched {total_count} opportunities based on query parameters")
 
-        # Serialize the results
         opportunities_list = [opportunity.serialize_to_dict() for opportunity in opportunities]
         log_info("Serialized opportunities to dictionary format")
 
-        # Notify with detailed opportunity information
         notify_opportunity_details("Get Opportunities Successful", opportunities_list, total_count)
 
         return jsonify({"Opportunities": opportunities_list, "Total count of opportunities": total_count}), 200
@@ -398,7 +387,7 @@ def get_opportunities():
         session.rollback()
         error_message = f"Database error: {str(sae)}"
         log_error(error_message)
-        log_error(git traceback.format_exc())
+        log_error(traceback.format_exc())
         notify_failure("Get Opportunities Database Error", error_message)
         return jsonify({"error": "Internal server error", "details": error_message}), 500
 
@@ -414,227 +403,86 @@ def get_opportunities():
         log_info("End of get_opportunities function")
 
 
-@app.route('/update-opportunity', methods=['PUT'])
-@otp_required  # Apply the OTP decorator
+@app.route('/update_opportunity', methods=['PUT'])
+@otp_required
 def update_opportunity():
-    """
-    Update an existing Opportunity record.
-    :return: JSON response indicating success or failure.
-    """
-    log_info("Received request to update opportunity")
-
     try:
-        data = request.get_json()
-        log_info(f"Request data: {data}")
+        data = request.json
 
         opportunity_id = data.get('opportunity_id')
-        opportunity_name = data.get('opportunity_name')
-        account_name = data.get('account_name')
-        close_date = data.get('close_date')
-        amount = data.get('amount')
-        description = data.get('description')
-        dealer_id = data.get('dealer_id')
-        dealer_code = data.get('dealer_code')
-        stage = data.get('stage')
-        probability = data.get('probability')
-        next_step = data.get('next_step')
-        amount_in_words = data.get('amount_in_words')
-        currency_conversions = data.get('currency_conversions', {})
-        vehicle_model = data.get('vehicle_model')
-        vehicle_year = data.get('vehicle_year')
-        vehicle_color = data.get('vehicle_color')
-        vehicle_model_id = data.get('vehicle_model_id')
-        log_info(f"Extracted fields: opportunity_id={opportunity_id}, opportunity_name={opportunity_name}, "
-                 f"account_name={account_name}, close_date={close_date}, amount={amount}, description={description}, "
-                 f"dealer_id={dealer_id}, dealer_code={dealer_code}, stage={stage}, probability={probability}, "
-                 f"next_step={next_step}, amount_in_words={amount_in_words}, currency_conversions={currency_conversions}, "
-                 f"vehicle_model={vehicle_model}, vehicle_year={vehicle_year}, vehicle_color={vehicle_color},"
-                 f"vehicle_model_id={vehicle_model_id}")
         if not opportunity_id:
-            raise ValueError("Opportunity ID is required.")
-        log_info("Opportunity ID provided.")
-
-        if opportunity_name and len(opportunity_name) > 255:
-            raise ValueError("Opportunity name is too long. Maximum length is 255 characters.")
-
-        if account_name and len(account_name) > 255:
-            raise ValueError("Account name is too long. Maximum length is 255 characters.")
-        log_info("Validated length of opportunity_name and account_name.")
-
-        if close_date:
-            close_date = parse_date(close_date)
-            log_info(f"Parsed close_date: {close_date}")
-
-        if amount is not None and not validate_positive_number(amount):
-            raise ValueError("Amount must be a positive number.")
-
-        if probability is not None and not validate_probability(probability):
-            raise ValueError("Probability must be between 0 and 100.")
-
-        if stage:
-            stage = validate_stage(stage)
-            log_info(f"Validated stage: {stage}")
-
-        valid_currencies = ['usd', 'aus', 'cad', 'jpy', 'eur', 'gbp', 'cny']
-
-        for currency in valid_currencies:
-            if currency in currency_conversions:
-                if not validate_positive_number(currency_conversions[currency]):
-                    raise ValueError(f"Invalid value for currency conversion {currency}. Must be a positive number.")
-        log_info("Validated currency conversions.")
-
-        if vehicle_model_id and not isinstance(vehicle_model_id, int):
-            raise ValueError("Vehicle model ID must be an integer.")
+            log_error("Opportunity ID missing in the request")
+            return jsonify({'error': 'Opportunity ID is required'}), 400
 
         opportunity = session.query(HeavyMachineryOpportunity).filter_by(opportunity_id=opportunity_id).first()
 
         if not opportunity:
-            raise ValueError("Opportunity not found.")
-        log_info(f"Found opportunity with ID {opportunity_id}.")
+            log_warning(f"Opportunity with ID {opportunity_id} not found")
+            return jsonify({'error': 'Opportunity not found'}), 404
 
-        updated_fields = {}
+        log_info(f"Current Opportunity Details: {opportunity.serialize_to_dict()}")
 
-        if opportunity_name:
-            opportunity.opportunity_name = opportunity_name
-            updated_fields['opportunity_name'] = opportunity_name
+        updated_time = datetime.now(pytz.timezone('Asia/Kolkata')).strftime('%I:%M %p, %B %d, %Y')
 
-        if account_name:
-            opportunity.account_name = account_name
-            updated_fields['account_name'] = account_name
+        opportunity.opportunity_name = data.get('opportunity_name', opportunity.opportunity_name)
+        opportunity.account_name = data.get('account_name', opportunity.account_name)
+        opportunity.close_date = datetime.fromisoformat(data.get('close_date')) if data.get(
+            'close_date') else opportunity.close_date
 
-        if close_date:
-            opportunity.close_date = close_date
-            updated_fields['close_date'] = close_date
+        opportunity.amount = data.get('amount', opportunity.amount)
+        opportunity.amount_in_words = data.get('amount_in_words', opportunity.amount_in_words)
+        opportunity.description = data.get('description', opportunity.description)
+        opportunity.dealer_id = data.get('dealer_id', opportunity.dealer_id)
+        opportunity.dealer_code = data.get('dealer_code', opportunity.dealer_code)
+        opportunity.stage = data.get('stage', opportunity.stage)
+        opportunity.probability = data.get('probability', opportunity.probability)
+        opportunity.next_step = data.get('next_step', opportunity.next_step)
 
-        if amount is not None:
-            opportunity.amount = amount
-            conversions = get_currency_conversion(amount)
-            opportunity.usd = conversions.get('USD')
-            opportunity.aus = conversions.get('AUD')
-            opportunity.cad = conversions.get('CAD')
-            opportunity.jpy = conversions.get('JPY')
-            opportunity.eur = conversions.get('EUR')
-            opportunity.gbp = conversions.get('GBP')
-            opportunity.cny = conversions.get('CNY')
-            updated_fields['amount'] = amount
-            updated_fields['currency_conversions'] = conversions
+        opportunity.employee_id = data.get('employee_id', opportunity.employee_id)
+        opportunity.product_id = data.get('product_id', opportunity.product_id)
+        opportunity.product_name = data.get('product_name', opportunity.product_name)
+        opportunity.product_brand = data.get('product_brand', opportunity.product_brand)
+        opportunity.product_model = data.get('product_model', opportunity.product_model)
+        opportunity.product_image_url = data.get('product_image_url', opportunity.product_image_url)
 
-        if description:
-            opportunity.description = description
-            updated_fields['description'] = description
+        opportunity.usd = data.get('usd', opportunity.usd)
+        opportunity.aus = data.get('aus', opportunity.aus)
+        opportunity.cad = data.get('cad', opportunity.cad)
+        opportunity.jpy = data.get('jpy', opportunity.jpy)
+        opportunity.eur = data.get('eur', opportunity.eur)
+        opportunity.gbp = data.get('gbp', opportunity.gbp)
+        opportunity.cny = data.get('cny', opportunity.cny)
 
-        if dealer_id:
-            opportunity.dealer_id = dealer_id
-            updated_fields['dealer_id'] = dealer_id
-
-        if dealer_code:
-            opportunity.dealer_code = dealer_code
-            updated_fields['dealer_code'] = dealer_code
-
-        if stage:
-            opportunity.stage = stage
-            updated_fields['stage'] = stage
-
-        if probability is not None:
-            opportunity.probability = probability
-            updated_fields['probability'] = probability
-
-        if next_step:
-            opportunity.next_step = next_step
-            updated_fields['next_step'] = next_step
-
-        if amount_in_words:
-            opportunity.amount_in_words = amount_in_words
-            updated_fields['amount_in_words'] = amount_in_words
-
-        if vehicle_model:
-            opportunity.vehicle_model = vehicle_model
-            updated_fields['vehicle_model'] = vehicle_model
-
-        if vehicle_year:
-            if not isinstance(vehicle_year, int) or vehicle_year < 1900 or vehicle_year > datetime.now().year:
-                raise ValueError("Vehicle year must be a valid year.")
-            opportunity.vehicle_year = vehicle_year
-            updated_fields['vehicle_year'] = vehicle_year
-
-        if vehicle_color:
-            opportunity.vehicle_color = vehicle_color
-            updated_fields['vehicle_color'] = vehicle_color
-
-        if vehicle_model_id:
-            opportunity.vehicle_model_id = vehicle_model_id
-            updated_fields['vehicle_model_id'] = vehicle_model_id
-
-        if currency_conversions:
-            opportunity.usd = currency_conversions.get('usd')
-            opportunity.aus = currency_conversions.get('aus')
-            opportunity.cad = currency_conversions.get('cad')
-            opportunity.jpy = currency_conversions.get('jpy')
-            opportunity.eur = currency_conversions.get('eur')
-            opportunity.gbp = currency_conversions.get('gbp')
-            opportunity.cny = currency_conversions.get('cny')
-            updated_fields['currency_conversions'] = currency_conversions
-
-        log_info(f"Updating fields: {updated_fields}")
         session.commit()
-        log_info(f"Opportunity with ID {opportunity_id} updated successfully.")
 
-        notify_opportunity_update_success(
-            "Update Opportunity Successful",
-            {"opportunity_id": opportunity_id, "updated_fields": updated_fields}
-        )
+        log_info(f"Updated Opportunity Details: {opportunity.serialize_to_dict()}")
+
+        send_opportunity_update_email(opportunity, updated_time)
 
         return jsonify({
-            "message": "Opportunity updated successfully.",
-            "opportunity_id": opportunity_id,
-            "updated_fields": updated_fields
+            'message': 'Opportunity updated successfully',
+            'updated_time': updated_time,
+            'opportunity_details': opportunity.serialize_to_dict()
         }), 200
-
-    except ValueError as ve:
-        session.rollback()
-        error_message = f"Validation error: {str(ve)}"
-        log_error(error_message)
-        notify_failure("Update Opportunity Validation Failed", error_message)
-        return jsonify({"error": "Bad Request", "details": error_message}), 400
-
-    except SQLAlchemyError as sae:
-        session.rollback()
-        error_message = f"Database error: {str(sae)}"
-        log_error(error_message)
-        notify_failure("Update Opportunity Database Error", error_message)
-        return jsonify({"error": "Internal server error", "details": error_message}), 500
 
     except Exception as e:
         session.rollback()
-        error_message = f"Error updating opportunity: {str(e)}"
-        log_error(error_message)
-        notify_failure("Update Opportunity Failed", error_message)
-        return jsonify({"error": "Internal server error", "details": error_message}), 500
-
+        log_error(f"Error while updating opportunity: {str(e)}")
+        return jsonify({'error': 'Internal server error'}), 500
     finally:
         session.close()
         log_info("End of update_opportunity function")
 
 
-@app.route('/delete-customer', methods=["DELETE"])
-@otp_required  # Apply the OTP decorator
-def delete_customer():
+@app.route('/delete-opportunity', methods=["DELETE"])
+@otp_required
+def delete_opportunity():
     """
     Deletes a customer from the opportunity table based on query parameters.
     :return: JSON response with email notifications and result of deletion.
     """
     log_info("Received request to delete customer")
     try:
-        otp = request.args.get('otp')
-        email = request.args.get('email')
-
-        if not otp or not email:
-            error_message = "OTP and email are required as query parameters."
-            log_error(error_message)
-            return jsonify({"error": error_message}), 400
-
-        log_debug(f"Received OTP: {otp}, Email: {email}")
-
         opportunity_id = request.args.get("opportunity_id")
         account_name = request.args.get("account_name")
         dealer_id = request.args.get("dealer_id")
@@ -649,8 +497,7 @@ def delete_customer():
             error_message = ("At least one query parameter (opportunity_id, account_name, dealer_id, dealer_code, "
                              "opportunity_name, stage, probability, or close_date) is required for deletion.")
             log_error(error_message)
-            detailed_error_message = "Failed to delete customer due to missing query parameters."
-            notify_failure("Customer Deletion Failed", detailed_error_message)
+            notify_failure("Customer Deletion Failed", "Failed to delete customer due to missing query parameters.")
             return jsonify({"error": error_message}), 400
 
         if close_date:
@@ -659,33 +506,25 @@ def delete_customer():
             except ValueError:
                 error_message = "Invalid close_date format. Use 'YYYY-MM-DD HH:MM:SS'."
                 log_error(error_message)
-                detailed_error_message = "Failed to delete customer due to invalid close_date format."
-                notify_failure("Customer Deletion Failed", detailed_error_message)
+                notify_failure("Customer Deletion Failed",
+                               "Failed to delete customer due to invalid close_date format.")
                 return jsonify({"error": error_message}), 400
 
         query = session.query(HeavyMachineryOpportunity)
-
         if opportunity_id:
             query = query.filter(HeavyMachineryOpportunity.opportunity_id == opportunity_id)
-
         if account_name:
             query = query.filter(HeavyMachineryOpportunity.account_name == account_name)
-
         if dealer_id:
             query = query.filter(HeavyMachineryOpportunity.dealer_id == dealer_id)
-
         if dealer_code:
             query = query.filter(HeavyMachineryOpportunity.dealer_code == dealer_code)
-
         if opportunity_name:
             query = query.filter(HeavyMachineryOpportunity.opportunity_name == opportunity_name)
-
         if stage:
             query = query.filter(HeavyMachineryOpportunity.stage == stage)
-
         if probability is not None:
             query = query.filter(HeavyMachineryOpportunity.probability == probability)
-
         if close_date:
             query = query.filter(HeavyMachineryOpportunity.close_date == close_date)
 
@@ -694,38 +533,43 @@ def delete_customer():
         if not customers_to_delete:
             error_message = "Customer(s) not found based on provided query parameters."
             log_error(error_message)
-            detailed_error_message = "Failed to delete customer(s). No matching customer(s) found."
-            notify_failure("Customer Deletion Failed", detailed_error_message)
+            notify_failure("Customer Deletion Failed", "Failed to delete customer(s). No matching customer(s) found.")
             return jsonify({"error": error_message}), 404
 
+        deleted_customers_info = []
         for customer in customers_to_delete:
+            deleted_customers_info.append({
+                "opportunity_id": customer.opportunity_id,
+                "opportunity_name": customer.opportunity_name,
+                "account_name": customer.account_name,
+                "dealer_id": customer.dealer_id,
+                "dealer_code": customer.dealer_code,
+                "amount": customer.amount,
+                "close_date": customer.close_date.strftime('%Y-%m-%d %H:%M:%S') if customer.close_date else None,
+                "created_date": customer.created_date.strftime('%Y-%m-%d %H:%M:%S'),
+                "employee_id": str(customer.employee_id) if customer.employee_id else None,
+                "employee_name": f"{customer.employee.emp_first_name} {customer.employee.emp_last_name}" if customer.employee else None,
+                "employee_num": customer.employee.emp_num if customer.employee else None,
+                "product_id": str(customer.product_id) if customer.product_id else None,
+                "product_name": customer.product_name,
+                "product_brand": customer.product_brand,
+                "product_model": customer.product_model,
+            })
             session.delete(customer)
 
         session.commit()
 
-        success_message = (
-                f"Customer(s) deleted successfully.\n\n\n"
-                f"Deleted Customers:\n" + "\n".join([f"Opportunity ID: {customer.opportunity_id}\n"
-                                                     f"Opportunity Name: {customer.opportunity_name}\n"
-                                                     f"Account Name: {customer.account_name}\n"
-                                                     f"Dealer ID: {customer.dealer_id}\n"
-                                                     f"Dealer Code: {customer.dealer_code}\n"
-                                                     f"Amount: {customer.amount}\n"
-                                                     f"Close Date: {customer.close_date.strftime('%Y-%m-%d %H:%M:%S') if customer.close_date else None}\n"
-                                                     f"Created Date: {customer.created_date.strftime('%Y-%m-%d %H:%M:%S')}\n"
-                                                     for customer in customers_to_delete])
+        success_message = construct_success_message(deleted_customers_info)
+        log_debug(f"Success message constructed for deleted customers.{success_message}")
 
-        )
-        notify_success("Customer Deletion Successful", success_message)
-
-        return jsonify({"message": "Deleted successfully"}), 200
+        return jsonify({"message": "Deleted successfully", "details": deleted_customers_info}), 200
 
     except Exception as e:
         session.rollback()
         error_message = f"Error in deleting customer: {str(e)}"
         log_error(error_message)
-        detailed_error_message = f"Failed to delete customer due to an internal server error.\nDetails: {str(e)}"
-        notify_failure("Customer Deletion Failed", detailed_error_message)
+        notify_failure("Customer Deletion Failed",
+                       f"Failed to delete customer due to an internal server error.\nDetails: {str(e)}")
         return jsonify({"error": "Internal server error", "details": error_message}), 500
 
     finally:

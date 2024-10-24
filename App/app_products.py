@@ -33,20 +33,20 @@ def add_heavy_product():
         employee_id = data.get('employee_id')
         log_debug(f"Employee ID received: {employee_id}")
 
-        employee = session.query(Employee).filter_by(id=employee_id).first()
+        employee = session.query(Employee).filter_by(emp_id=employee_id).first()
         if not employee:
             log_error(f"Employee with ID {employee_id} not found.")
             return jsonify({"error": "Employee not found"}), 404
 
-        log_info(f"Found employee: {employee.first_name} {employee.last_name} (ID: {employee_id})")
+        log_info(f"Found employee: {employee.emp_first_name} {employee.emp_last_name} (ID: {employee_id})")
 
         try:
-            data['price'] = float(data['price'])
-            data['weight'] = float(data['weight'])
-            data['horsepower'] = int(data['horsepower'])
-            data['fuel_capacity'] = float(data['fuel_capacity'])
-            data['operational_hours'] = int(data['operational_hours'])
-            data['warranty_period'] = int(data['warranty_period'])
+            data['heavy_product_price'] = float(data['heavy_product_price'])
+            data['heavy_product_weight'] = float(data['heavy_product_weight'])
+            data['heavy_product_horsepower'] = int(data['heavy_product_horsepower'])
+            data['heavy_product_fuel_capacity'] = float(data['heavy_product_fuel_capacity'])
+            data['heavy_product_operational_hours'] = int(data['heavy_product_operational_hours'])
+            data['heavy_product_warranty_period'] = int(data['heavy_product_warranty_period'])
         except (ValueError, TypeError) as e:
             log_error(f"Data type validation error: {str(e)}")
             return jsonify({"error": "Invalid data types for numeric fields."}), 400
@@ -57,24 +57,24 @@ def add_heavy_product():
                 {"error": f"Invalid status value: {data.get('status')}. Valid values are: {VALID_STATUSES}."}), 400
 
         new_product = HeavyProduct(
-            name=data.get('name'),
-            type=data.get('type'),
-            brand=data.get('brand'),
-            model=data.get('model'),
-            year_of_manufacture=data.get('year_of_manufacture'),
-            price=data['price'],
-            weight=data['weight'],
-            dimensions=data.get('dimensions'),
-            engine_type=data.get('engine_type'),
-            horsepower=data['horsepower'],
-            fuel_capacity=data['fuel_capacity'],
-            operational_hours=data['operational_hours'],
-            warranty_period=data['warranty_period'],
-            status=data['status'],
-            description=data.get('description'),
-            image_url=data.get('image_url'),
-            employee_id=employee.id,
-            employee_name=f"{employee.first_name} {employee.last_name}",
+            heavy_product_name=data.get('heavy_product_name'),
+            heavy_product_type=data.get('heavy_product_type'),
+            heavy_product_brand=data.get('heavy_product_brand'),
+            heavy_product_model=data.get('heavy_product_model'),
+            heavy_product_year_of_manufacture=data.get('heavy_product_year_of_manufacture'),
+            heavy_product_price=data['heavy_product_price'],
+            heavy_product_weight=data['heavy_product_weight'],
+            heavy_product_dimensions=data.get('heavy_product_dimensions'),
+            heavy_product_engine_type=data.get('heavy_product_engine_type'),
+            heavy_product_horsepower=data['heavy_product_horsepower'],
+            heavy_product_fuel_capacity=data['heavy_product_fuel_capacity'],
+            heavy_product_operational_hours=data['heavy_product_operational_hours'],
+            heavy_product_warranty_period=data['heavy_product_warranty_period'],
+            heavy_product_status=data['heavy_product_status'],
+            heavy_product_description=data.get('heavy_product_description'),
+            heavy_product_image_url=data.get('heavy_product_image_url'),
+            employee_id=employee.emp_id,
+            employee_name=f"{employee.emp_first_name} {employee.emp_last_name}",
             employee_num=employee.emp_num
         )
 
@@ -82,7 +82,7 @@ def add_heavy_product():
 
         session.add(new_product)
         session.commit()
-        log_info(f"New heavy product added: {new_product.name} (ID: {new_product.id})")
+        log_info(f"New heavy product added: {new_product.heavy_product_name} (ID: {new_product.heavy_product_id})")
 
         email_subject = "New Heavy Product Added"
         email_body = generate_heavy_product_email_body(new_product, employee)
@@ -106,24 +106,24 @@ def get_heavy_products():
     If no parameters are provided, all heavy product records are returned.
 
     Query parameters:
-    id (optional)
-    name (optional)
-    type (optional)
-    brand (optional)
-    model (optional)
-    year_of_manufacture (optional)
-    price (optional)
-    weight (optional)
-    dimensions (optional)
-    engine_type (optional)
-    horsepower (optional)
-    fuel_capacity (optional)
-    operational_hours (optional)
-    warranty_period (optional)
-    status (optional)
-    description (optional)
-    created_at (optional)
-    updated_at (optional)
+    heavy_product_id (optional)
+    heavy_product_name (optional)
+    heavy_product_type (optional)
+    heavy_product_brand (optional)
+    heavy_product_model (optional)
+    heavy_product_year_of_manufacture (optional)
+    heavy_product_price (optional)
+    heavy_product_weight (optional)
+    heavy_product_dimensions (optional)
+    heavy_product_engine_type (optional)
+    heavy_product_horsepower (optional)
+    heavy_product_fuel_capacity (optional)
+    heavy_product_operational_hours (optional)
+    heavy_product_warranty_period (optional)
+    heavy_product_status (optional)
+    heavy_product_description (optional)
+    heavy_product_created_at (optional)
+    heavy_product_updated_at (optional)
     employee_id (optional)
 
     Returns:
@@ -131,25 +131,25 @@ def get_heavy_products():
     """
     log_info("Entered /get-heavy-products endpoint.")
     try:
-        product_id = request.args.get('id')
-        name = request.args.get('name')
-        product_type = request.args.get('type')
-        brand = request.args.get('brand')
-        model = request.args.get('model')
-        year_of_manufacture = request.args.get('year_of_manufacture')
-        price = request.args.get('price')
-        weight = request.args.get('weight')
-        dimensions = request.args.get('dimensions')
-        engine_type = request.args.get('engine_type')
-        horsepower = request.args.get('horsepower')
-        fuel_capacity = request.args.get('fuel_capacity')
-        operational_hours = request.args.get('operational_hours')
-        warranty_period = request.args.get('warranty_period')
-        status = request.args.get('status')
-        description = request.args.get('description')
-        created_at = request.args.get('created_at')
-        updated_at = request.args.get('updated_at')
-        employee_id = request.args.get('employee_id')
+        product_id = request.args.get('heavy_product_id')
+        heavy_product_name = request.args.get('heavy_product_name')
+        heavy_product_product_type = request.args.get('heavy_product_type')
+        heavy_product_brand = request.args.get('heavy_product_brand')
+        heavy_product_model = request.args.get('heavy_product_model')
+        heavy_product_year_of_manufacture = request.args.get('heavy_product_year_of_manufacture')
+        heavy_product_price = request.args.get('heavy_product_price')
+        heavy_product_weight = request.args.get('heavy_product_weight')
+        heavy_product_dimensions = request.args.get('heavy_product_dimensions')
+        heavy_product_engine_type = request.args.get('heavy_product_engine_type')
+        heavy_product_horsepower = request.args.get('heavy_product_horsepower')
+        heavy_product_fuel_capacity = request.args.get('heavy_product_fuel_capacity')
+        heavy_product_operational_hours = request.args.get('heavy_product_operational_hours')
+        heavy_product_warranty_period = request.args.get('heavy_product_warranty_period')
+        heavy_product_status = request.args.get('heavy_product_status')
+        heavy_product_description = request.args.get('heavy_product_description')
+        heavy_product_created_at = request.args.get('heavy_product_created_at')
+        heavy_product_updated_at = request.args.get('heavy_product_updated_at')
+        heavy_product_employee_id = request.args.get('employee_id')
 
         log_info(f"Query parameters: {request.args}")
 
@@ -157,61 +157,61 @@ def get_heavy_products():
 
         if product_id:
             log_debug(f"Filtering by id: {product_id}")
-            query = query.filter(HeavyProduct.id == product_id)
-        if name:
-            log_debug(f"Filtering by name: {name}")
-            query = query.filter(HeavyProduct.name.ilike(f'%{name}%'))
-        if product_type:
-            log_debug(f"Filtering by type: {product_type}")
-            query = query.filter(HeavyProduct.type.ilike(f'%{product_type}%'))
-        if brand:
-            log_debug(f"Filtering by brand: {brand}")
-            query = query.filter(HeavyProduct.brand.ilike(f'%{brand}%'))
-        if model:
-            log_debug(f"Filtering by model: {model}")
-            query = query.filter(HeavyProduct.model.ilike(f'%{model}%'))
-        if year_of_manufacture:
-            log_debug(f"Filtering by year_of_manufacture: {year_of_manufacture}")
-            query = query.filter(HeavyProduct.year_of_manufacture == year_of_manufacture)
-        if price:
-            log_debug(f"Filtering by price: {price}")
-            query = query.filter(HeavyProduct.price == price)
-        if weight:
-            log_debug(f"Filtering by weight: {weight}")
-            query = query.filter(HeavyProduct.weight == weight)
-        if dimensions:
-            log_debug(f"Filtering by dimensions: {dimensions}")
-            query = query.filter(HeavyProduct.dimensions.ilike(f'%{dimensions}%'))
-        if engine_type:
-            log_debug(f"Filtering by engine_type: {engine_type}")
-            query = query.filter(HeavyProduct.engine_type.ilike(f'%{engine_type}%'))
-        if horsepower:
-            log_debug(f"Filtering by horsepower: {horsepower}")
-            query = query.filter(HeavyProduct.horsepower == horsepower)
-        if fuel_capacity:
-            log_debug(f"Filtering by fuel_capacity: {fuel_capacity}")
-            query = query.filter(HeavyProduct.fuel_capacity == fuel_capacity)
-        if operational_hours:
-            log_debug(f"Filtering by operational_hours: {operational_hours}")
-            query = query.filter(HeavyProduct.operational_hours == operational_hours)
-        if warranty_period:
-            log_debug(f"Filtering by warranty_period: {warranty_period}")
-            query = query.filter(HeavyProduct.warranty_period == warranty_period)
-        if status:
-            log_debug(f"Filtering by status: {status}")
-            query = query.filter(HeavyProduct.status.ilike(f'%{status}%'))
-        if description:
-            log_debug(f"Filtering by description: {description}")
-            query = query.filter(HeavyProduct.description.ilike(f'%{description}%'))
-        if created_at:
-            log_debug(f"Filtering by created_at: {created_at}")
-            query = query.filter(HeavyProduct.created_at == created_at)
-        if updated_at:
-            log_debug(f"Filtering by updated_at: {updated_at}")
-            query = query.filter(HeavyProduct.updated_at == updated_at)
-        if employee_id:
-            log_debug(f"Filtering by employee_id: {employee_id}")
-            query = query.filter(HeavyProduct.employee_id == employee_id)
+            query = query.filter(HeavyProduct.heavy_product_id == product_id)
+        if heavy_product_name:
+            log_debug(f"Filtering by name: {heavy_product_name}")
+            query = query.filter(HeavyProduct.heavy_product_name.ilike(f'%{heavy_product_name}%'))
+        if heavy_product_product_type:
+            log_debug(f"Filtering by type: {heavy_product_product_type}")
+            query = query.filter(HeavyProduct.heavy_product_type.ilike(f'%{heavy_product_product_type}%'))
+        if heavy_product_brand:
+            log_debug(f"Filtering by brand: {heavy_product_brand}")
+            query = query.filter(HeavyProduct.heavy_product_brand.ilike(f'%{heavy_product_brand}%'))
+        if heavy_product_model:
+            log_debug(f"Filtering by model: {heavy_product_model}")
+            query = query.filter(HeavyProduct.heavy_product_model.ilike(f'%{heavy_product_model}%'))
+        if heavy_product_year_of_manufacture:
+            log_debug(f"Filtering by year_of_manufacture: {heavy_product_year_of_manufacture}")
+            query = query.filter(HeavyProduct.heavy_product_year_of_manufacture == heavy_product_year_of_manufacture)
+        if heavy_product_price:
+            log_debug(f"Filtering by price: {heavy_product_price}")
+            query = query.filter(HeavyProduct.heavy_product_price == heavy_product_price)
+        if heavy_product_weight:
+            log_debug(f"Filtering by weight: {heavy_product_weight}")
+            query = query.filter(HeavyProduct.heavy_product_weight == heavy_product_weight)
+        if heavy_product_dimensions:
+            log_debug(f"Filtering by dimensions: {heavy_product_dimensions}")
+            query = query.filter(HeavyProduct.dimensions.ilike(f'%{heavy_product_dimensions}%'))
+        if heavy_product_engine_type:
+            log_debug(f"Filtering by engine_type: {heavy_product_engine_type}")
+            query = query.filter(HeavyProduct.heavy_product_engine_type.ilike(f'%{heavy_product_engine_type}%'))
+        if heavy_product_horsepower:
+            log_debug(f"Filtering by horsepower: {heavy_product_horsepower}")
+            query = query.filter(HeavyProduct.heavy_product_horsepower == heavy_product_horsepower)
+        if heavy_product_fuel_capacity:
+            log_debug(f"Filtering by fuel_capacity: {heavy_product_fuel_capacity}")
+            query = query.filter(HeavyProduct.heavy_product_fuel_capacity == heavy_product_fuel_capacity)
+        if heavy_product_operational_hours:
+            log_debug(f"Filtering by operational_hours: {heavy_product_operational_hours}")
+            query = query.filter(HeavyProduct.heavy_product_operational_hours == heavy_product_operational_hours)
+        if heavy_product_warranty_period:
+            log_debug(f"Filtering by warranty_period: {heavy_product_warranty_period}")
+            query = query.filter(HeavyProduct.heavy_product_warranty_period == heavy_product_warranty_period)
+        if heavy_product_status:
+            log_debug(f"Filtering by status: {heavy_product_status}")
+            query = query.filter(HeavyProduct.heavy_product_status.ilike(f'%{heavy_product_status}%'))
+        if heavy_product_description:
+            log_debug(f"Filtering by description: {heavy_product_description}")
+            query = query.filter(HeavyProduct.heavy_product_description.ilike(f'%{heavy_product_description}%'))
+        if heavy_product_created_at:
+            log_debug(f"Filtering by created_at: {heavy_product_created_at}")
+            query = query.filter(HeavyProduct.heavy_product_created_at == heavy_product_created_at)
+        if heavy_product_updated_at:
+            log_debug(f"Filtering by updated_at: {heavy_product_updated_at}")
+            query = query.filter(HeavyProduct.heavy_product_updated_at == heavy_product_updated_at)
+        if heavy_product_employee_id:
+            log_debug(f"Filtering by employee_id: {heavy_product_employee_id}")
+            query = query.filter(HeavyProduct.heavy_product_employee_id == heavy_product_employee_id)
 
         heavy_products = query.all()
         total_count = query.count()
@@ -242,22 +242,22 @@ def update_heavy_product():
 
     The API accepts the following fields for update:
     product_id (required)
-    name (optional)
-    type (optional)
-    brand (optional)
-    model (optional)
-    year_of_manufacture (optional)
-    price (optional)
-    weight (optional)
-    dimensions (optional)
-    engine_type (optional)
-    horsepower (optional)
-    fuel_capacity (optional)
-    operational_hours (optional)
-    warranty_period (optional)
-    status (optional)
-    description (optional)
-    image_url (optional)
+    heavy_product_name (optional)
+    heavy_product_type (optional)
+    heavy_product_brand (optional)
+    heavy_product_model (optional)
+    heavy_product_year_of_manufacture (optional)
+    heavy_product_price (optional)
+    heavy_product_weight (optional)
+    heavy_product_dimensions (optional)
+    heavy_product_engine_type (optional)
+    heavy_product_horsepower (optional)
+    heavy_product_fuel_capacity (optional)
+    heavy_product_operational_hours (optional)
+    heavy_product_warranty_period (optional)
+    heavy_product_status (optional)
+    heavy_product_description (optional)
+    heavy_product_image_url (optional)
     employee_id (optional)
     employee_name (optional)
     employee_num (optional)
@@ -274,19 +274,19 @@ def update_heavy_product():
         data = request.get_json()
         log_info(f"Received update request data: {data}")
 
-        product_id = data.get('id')
+        product_id = data.get('heavy_product_id')
         if not product_id:
             log_error("Product ID is missing from the request body.")
             return jsonify({"error": "Product ID is required"}), 400
 
         log_info(f"Fetching product with ID: {product_id}")
 
-        product = session.query(HeavyProduct).filter_by(id=product_id).first()
+        product = session.query(HeavyProduct).filter_by(heavy_product_id=product_id).first()
         if not product:
             log_error(f"Product with ID {product_id} not found.")
             return jsonify({"error": "Product not found"}), 404
 
-        product_name = product.name
+        product_name = product.heavy_product_name
         log_info(f"Product {product_id} found in the database.")
 
         updated_fields = {}
@@ -303,14 +303,14 @@ def update_heavy_product():
         if employee_id:
             log_debug(f"Employee ID received for update: {employee_id}")
 
-            employee = session.query(Employee).filter_by(id=employee_id).first()
+            employee = session.query(Employee).filter_by(emp_id=employee_id).first()
             if not employee:
                 log_error(f"Employee with ID {employee_id} not found.")
                 return jsonify({"error": "Employee not found"}), 404
 
-            log_info(f"Found employee: {employee.first_name} {employee.last_name} (ID: {employee_id})")
+            log_info(f"Found employee: {employee.emp_first_name} {employee.emp_last_name} (ID: {employee_id})")
             # Update employee details
-            product.employee_name = f"{employee.first_name} {employee.last_name}"
+            product.employee_name = f"{employee.emp_first_name} {employee.emp_last_name}"
             product.employee_num = employee.emp_num
             updated_fields['employee_name'] = product.employee_name
             updated_fields['employee_num'] = product.employee_num
@@ -332,8 +332,8 @@ def update_heavy_product():
         return jsonify({
             "message": "Product updated successfully",
             "product": product.to_dict(),
-            "product_id": product.id,
-            "product_name": product.name,
+            "product_id": product.heavy_product_id,
+            "product_name": product.heavy_product_name,
             "employee_name": product.employee_name,
             "employee_num": product.employee_num
         }), 200
@@ -364,36 +364,36 @@ def delete_heavy_product():
     product_id = None
 
     try:
-        product_id = request.args.get('id')
+        product_id = request.args.get('heavy_product_id')
         if not product_id:
             log_error("Product ID is missing from the query parameters.")
             return jsonify({"error": "Product ID is required"}), 400
 
         log_info(f"Fetching product with ID: {product_id}")
 
-        product = session.query(HeavyProduct).filter_by(id=product_id).first()
+        product = session.query(HeavyProduct).filter_by(heavy_product_id=product_id).first()
         if not product:
             log_error(f"Product with ID {product_id} not found.")
             return jsonify({"error": "Product not found"}), 404
 
         product_details = {
-            "product_id": product.id,
-            "name": product.name,
-            "type": product.type,
-            "brand": product.brand,
-            "model": product.model,
-            "year_of_manufacture": product.year_of_manufacture,
-            "price": product.price,
-            "weight": product.weight,
-            "dimensions": product.dimensions,
-            "engine_type": product.engine_type,
-            "horsepower": product.horsepower,
-            "fuel_capacity": product.fuel_capacity,
-            "operational_hours": product.operational_hours,
-            "warranty_period": product.warranty_period,
-            "status": product.status,
-            "description": product.description,
-            "image_url": product.image_url,
+            "product_id": product.heavy_product_id,
+            "name": product.heavy_product_name,
+            "type": product.heavy_product_type,
+            "brand": product.heavy_product_brand,
+            "model": product.heavy_product_model,
+            "year_of_manufacture": product.heavy_product_year_of_manufacture,
+            "price": product.heavy_product_price,
+            "weight": product.heavy_product_weight,
+            "dimensions": product.heavy_product_dimensions,
+            "engine_type": product.heavy_product_engine_type,
+            "horsepower": product.heavy_product_horsepower,
+            "fuel_capacity": product.heavy_product_fuel_capacity,
+            "operational_hours": product.heavy_product_operational_hours,
+            "warranty_period": product.heavy_product_warranty_period,
+            "status": product.heavy_product_status,
+            "description": product.heavy_product_description,
+            "image_url": product.heavy_product_image_url,
             "employee_id": product.employee_id,
             "employee_name": product.employee_name,
             "employee_num": product.employee_num,

@@ -25,27 +25,27 @@ def add_employee():
     and adds a new employee record if all validations pass.
 
     The required fields are:
-    - first_name
-    - last_name
+    - emp_first_name
+    - emp_last_name
     - emp_email
     - emp_num
-    - phone
-    - hire_date
-    - position
-    - salary
-    - department
-    - age
-    - sex
-    - blood_group
-    - height
-    - weight
-    - address
-    - emergency_contact
-    - nationality
-    - date_of_birth
-    - marital_status
-    - employment_status
-    - insurance_number
+    - emp_phone
+    - emp_hire_date
+    - emp_position
+    - emp_salary
+    - emp_department
+    - emp_age
+    - emp_sex
+    - emp_blood_group
+    - emp_height
+    - emp_weight
+    - emp_address
+    - emp_emergency_contact
+    - emp_nationality
+    - emp_date_of_birth
+    - emp_marital_status
+    - emp_employment_status
+    - emp_insurance_number
 
     Validations include checking for required fields, ensuring valid email format,
     positive salary and age, and correct date formats.
@@ -72,53 +72,53 @@ def add_employee():
             log_warning("Missing emp_num in request data")
             return jsonify({"message": "emp_num is required"}), 400
 
-        if 'salary' in data and (data['salary'] <= 0):
-            log_warning(f"Invalid salary: {data['salary']} - must be positive")
+        if 'emp_salary' in data and (data['emp_salary'] <= 0):
+            log_warning(f"Invalid salary: {data['emp_salary']} - must be positive")
             return jsonify({"message": "Salary must be a positive number"}), 400
 
-        if 'age' in data and (data['age'] <= 0):
-            log_warning(f"Invalid age: {data['age']} - must be positive")
+        if 'emp_age' in data and (data['emp_age'] <= 0):
+            log_warning(f"Invalid age: {data['emp_age']} - must be positive")
             return jsonify({"message": "Age must be a positive number"}), 400
 
-        if 'sex' in data and data['sex'] not in ['Male', 'Female', 'Other']:
-            log_warning(f"Invalid sex: {data['sex']}")
+        if 'emp_sex' in data and data['emp_sex'] not in ['Male', 'Female', 'Other']:
+            log_warning(f"Invalid sex: {data['emp_sex']}")
             return jsonify({"message": "Sex must be 'Male', 'Female', or 'Other'"}), 400
 
         try:
-            hire_date = datetime.strptime(data['hire_date'], '%Y-%m-%d')
+            hire_date = datetime.strptime(data['emp_hire_date'], '%Y-%m-%d')
         except ValueError:
-            log_warning(f"Invalid hire date format: {data['hire_date']}")
+            log_warning(f"Invalid hire date format: {data['emp_hire_date']}")
             return jsonify({"message": "Hire date must be in YYYY-MM-DD format"}), 400
 
         try:
-            date_of_birth = datetime.strptime(data['date_of_birth'], '%Y-%m-%d')
+            date_of_birth = datetime.strptime(data['emp_date_of_birth'], '%Y-%m-%d')
         except ValueError:
-            log_warning(f"Invalid date of birth format: {data['date_of_birth']}")
+            log_warning(f"Invalid date of birth format: {data['emp_date_of_birth']}")
             return jsonify({"message": "Date of birth must be in YYYY-MM-DD format"}), 400
 
         # Create new employee record
         new_employee = Employee(
-            first_name=data['first_name'],
-            last_name=data['last_name'],
+            emp_first_name=data['emp_first_name'],
+            emp_last_name=data['emp_last_name'],
             emp_email=data['emp_email'],
             emp_num=data['emp_num'],
-            phone=data.get('phone'),
+            emp_phone=data.get('emp_phone'),
             hire_date=hire_date,
-            position=data['position'],
-            salary=data['salary'],
-            department=data['department'],
-            age=data['age'],
-            sex=data['sex'],
-            blood_group=data.get('blood_group'),
-            height=data.get('height'),
-            weight=data.get('weight'),
-            address=data.get('address'),
-            emergency_contact=data.get('emergency_contact'),
-            nationality=data.get('nationality'),
+            emp_position=data['emp_position'],
+            emp_salary=data['emp_salary'],
+            emp_department=data['emp_department'],
+            emp_age=data['emp_age'],
+            emp_sex=data['emp_sex'],
+            emp_blood_group=data.get('emp_blood_group'),
+            emp_height=data.get('emp_height'),
+            emp_weight=data.get('emp_weight'),
+            emp_address=data.get('emp_address'),
+            emp_emergency_contact=data.get('emp_emergency_contact'),
+            emp_nationality=data.get('emp_nationality'),
             date_of_birth=date_of_birth,
-            marital_status=data['marital_status'],
-            employment_status=data['employment_status'],
-            insurance_number=data['insurance_number']
+            emp_marital_status=data['emp_marital_status'],
+            emp_employment_status=data['emp_employment_status'],
+            emp_insurance_number=data['emp_insurance_number']
         )
 
         log_info(f"New employee created: {new_employee.emp_email} - Ready for database insertion")
@@ -153,56 +153,56 @@ def get_employees():
     If no parameters are provided, all employee records are returned.
 
     Query parameters:
-    first_name (optional)
-    last_name (optional)
+    emp_first_name (optional)
+    emp_last_name (optional)
     emp_email (optional)
     emp_num (optional)
-    phone (optional)
-    position (optional)
-    department (optional)
-    hire_date (optional)
-    age (optional)
-    sex (optional)
-    blood_group (optional)
-    height (optional)
-    weight (optional)
-    address (optional)
-    emergency_contact (optional)
-    nationality (optional)
-    date_of_birth (optional)
-    marital_status (optional)
-    employment_status (optional)
-    insurance_number (optional)
-    created_at (optional)
+    emp_phone (optional)
+    emp_position (optional)
+    emp_department (optional)
+    emp_hire_date (optional)
+    emp_age (optional)
+    emp_sex (optional)
+    emp_blood_group (optional)
+    emp_height (optional)
+    emp_weight (optional)
+    emp_address (optional)
+    emp_emergency_contact (optional)
+    emp_nationality (optional)
+    emp_date_of_birth (optional)
+    emp_marital_status (optional)
+    emp_employment_status (optional)
+    emp_insurance_number (optional)
+    emp_created_at (optional)
 
     Returns:
      JSON response with employee details and total count.
     """
     log_info("Entered /get-employees endpoint.")
     try:
-        emp_id = request.args.get('id')
-        first_name = request.args.get('first_name')
-        last_name = request.args.get('last_name')
+        emp_id = request.args.get('emp_id')
+        first_name = request.args.get('emp_first_name')
+        last_name = request.args.get('emp_last_name')
         emp_email = request.args.get('emp_email')
         emp_num = request.args.get('emp_num')
-        phone = request.args.get('phone')
-        position = request.args.get('position')
-        salary = request.args.get('salary')
-        department = request.args.get('department')
-        hire_date = request.args.get('hire_date')
-        age = request.args.get('age')
-        sex = request.args.get('sex')
-        blood_group = request.args.get('blood_group')
-        height = request.args.get('height')
-        weight = request.args.get('weight')
-        address = request.args.get('address')
-        emergency_contact = request.args.get('emergency_contact')
-        nationality = request.args.get('nationality')
-        date_of_birth = request.args.get('date_of_birth')
-        marital_status = request.args.get('marital_status')
-        employment_status = request.args.get('employment_status')
-        insurance_number = request.args.get('insurance_number')
-        created_at = request.args.get('created_at')
+        phone = request.args.get('emp_phone')
+        position = request.args.get('emp_position')
+        salary = request.args.get('emp_salary')
+        department = request.args.get('emp_department')
+        hire_date = request.args.get('emp_hire_date')
+        age = request.args.get('emp_age')
+        sex = request.args.get('emp_sex')
+        blood_group = request.args.get('emp_blood_group')
+        height = request.args.get('emp_height')
+        weight = request.args.get('emp_weight')
+        address = request.args.get('emp_address')
+        emergency_contact = request.args.get('emp_emergency_contact')
+        nationality = request.args.get('emp_nationality')
+        date_of_birth = request.args.get('emp_date_of_birth')
+        marital_status = request.args.get('emp_marital_status')
+        employment_status = request.args.get('emp_employment_status')
+        insurance_number = request.args.get('emp_insurance_number')
+        created_at = request.args.get('emp_created_at')
 
         log_info(f"Query parameters: {request.args}")
 
@@ -305,28 +305,28 @@ def update_employee():
      Update an employee's details. All fields except 'id' can be edited.
 
     Request Body Parameters:
-    id (required)
-    first_name (optional)
-    last_name (optional)
+    emp_id (required)
+    emp_first_name (optional)
+    emp_last_name (optional)
     emp_email (optional)
     emp_num (optional)
-    phone (optional)
-    position (optional)
-    salary (optional)
-    department (optional)
-    hire_date (optional)
-    age (optional)
-    sex (optional)
-    blood_group (optional)
-    height (optional)
-    weight (optional)
-    address (optional)
-    emergency_contact (optional)
-    nationality (optional)
-    date_of_birth (optional)
-    marital_status (optional)
-    employment_status (optional)
-    insurance_number (optional)
+    emp_phone (optional)
+    emp_position (optional)
+    emp_salary (optional)
+    emp_department (optional)
+    emp_hire_date (optional)
+    emp_age (optional)
+    emp_sex (optional)
+    emp_blood_group (optional)
+    emp_height (optional)
+    emp_weight (optional)
+    emp_address (optional)
+    emp_emergency_contact (optional)
+    emp_nationality (optional)
+    emp_date_of_birth (optional)
+    emp_marital_status (optional)
+    emp_employment_status (optional)
+    emp_insurance_number (optional)
 
     :return: JSON response with the updated employee details.
     """
@@ -337,13 +337,13 @@ def update_employee():
         data = request.json
         log_debug(f"Request body received: {data}")
 
-        emp_id = data.get('id')
+        emp_id = data.get('emp_id')
         if not emp_id:
             log_warning("Employee ID not provided in the request.")
             return jsonify({"message": "Employee ID is required."}), 400
 
         log_info(f"Fetching employee with ID: {emp_id}")
-        employee = session.query(Employee).filter_by(id=emp_id).first()
+        employee = session.query(Employee).filter_by(emp_id=emp_id).first()
 
         if not employee:
             log_warning(f"Employee with ID {emp_id} not found.")
@@ -351,27 +351,27 @@ def update_employee():
 
         log_info(f"Current employee details: {employee.to_dict()}")
 
-        employee.first_name = data.get('first_name', employee.first_name)
-        employee.last_name = data.get('last_name', employee.last_name)
+        employee.emp_first_name = data.get('emp_first_name', employee.emp_first_name)
+        employee.emp_last_name = data.get('emp_last_name', employee.emp_last_name)
         employee.emp_email = data.get('emp_email', employee.emp_email)
         employee.emp_num = data.get('emp_num', employee.emp_num)
-        employee.phone = data.get('phone', employee.phone)
-        employee.position = data.get('position', employee.position)
-        employee.salary = data.get('salary', employee.salary)
-        employee.department = data.get('department', employee.department)
-        employee.hire_date = data.get('hire_date', employee.hire_date)
-        employee.age = data.get('age', employee.age)
-        employee.sex = data.get('sex', employee.sex)
-        employee.blood_group = data.get('blood_group', employee.blood_group)
-        employee.height = data.get('height', employee.height)
-        employee.weight = data.get('weight', employee.weight)
-        employee.address = data.get('address', employee.address)
-        employee.emergency_contact = data.get('emergency_contact', employee.emergency_contact)
-        employee.nationality = data.get('nationality', employee.nationality)
-        employee.date_of_birth = data.get('date_of_birth', employee.date_of_birth)
-        employee.marital_status = data.get('marital_status', employee.marital_status)
-        employee.employment_status = data.get('employment_status', employee.employment_status)
-        employee.insurance_number = data.get('insurance_number', employee.insurance_number)
+        employee.emp_phone = data.get('emp_phone', employee.emp_phone)
+        employee.emp_position = data.get('emp_position', employee.emp_position)
+        employee.emp_salary = data.get('emp_salary', employee.emp_salary)
+        employee.emp_department = data.get('emp_department', employee.emp_department)
+        employee.emp_hire_date = data.get('emp_hire_date', employee.emp_hire_date)
+        employee.emp_age = data.get('emp_age', employee.emp_age)
+        employee.emp_sex = data.get('emp_sex', employee.emp_sex)
+        employee.emp_blood_group = data.get('emp_blood_group', employee.emp_blood_group)
+        employee.emp_height = data.get('emp_height', employee.emp_height)
+        employee.emp_weight = data.get('emp_weight', employee.emp_weight)
+        employee.emp_address = data.get('emp_address', employee.emp_address)
+        employee.emp_emergency_contact = data.get('emp_emergency_contact', employee.emp_emergency_contact)
+        employee.emp_nationality = data.get('emp_nationality', employee.emp_nationality)
+        employee.emp_date_of_birth = data.get('emp_date_of_birth', employee.emp_date_of_birth)
+        employee.emp_marital_status = data.get('emp_marital_status', employee.emp_marital_status)
+        employee.emp_employment_status = data.get('emp_employment_status', employee.emp_employment_status)
+        employee.emp_insurance_number = data.get('emp_insurance_number', employee.emp_insurance_number)
 
         log_info(f"Updated employee details (before commit): {employee.to_dict()}")
 
@@ -408,10 +408,10 @@ def delete_employee():
     Delete an employee from the database based on provided identifiers.
 
     Query parameters:
-    - id (optional)
+    - emp_id (optional)
     - emp_num (optional)
     - emp_email (optional)
-    - phone (optional)
+    - emp_phone (optional)
 
     Returns:
     - JSON response with complete details of the deleted employee and a success message.
@@ -419,31 +419,31 @@ def delete_employee():
     log_info("Entered /delete-employee endpoint.")
 
     try:
-        employee_id = request.args.get('id')
+        employee_id = request.args.get('emp_id')
         emp_num = request.args.get('emp_num')
         emp_email = request.args.get('emp_email')
-        phone = request.args.get('phone')
+        emp_phone = request.args.get('emp_phone')
 
         log_debug(
-            f"Query parameters received: id={employee_id}, emp_num={emp_num}, emp_email={emp_email}, phone={phone}")
+            f"Query parameters received: emp_id={employee_id}, emp_num={emp_num}, emp_email={emp_email}, emp_phone={emp_phone}")
 
         query = session.query(Employee)
 
         if employee_id:
             log_info(f"Filtering employee by ID: {employee_id}")
-            query = query.filter(Employee.id == employee_id)
+            query = query.filter(Employee.emp_id == employee_id)
         elif emp_num:
             log_info(f"Filtering employee by emp_num: {emp_num}")
             query = query.filter(Employee.emp_num == emp_num)
         elif emp_email:
             log_info(f"Filtering employee by email: {emp_email}")
             query = query.filter(Employee.emp_email == emp_email)
-        elif phone:
-            log_info(f"Filtering employee by phone: {phone}")
-            query = query.filter(Employee.phone == phone)
+        elif emp_phone:
+            log_info(f"Filtering employee by phone: {emp_phone}")
+            query = query.filter(Employee.emp_phone == emp_phone)
         else:
             log_warning("No identifier provided in request")
-            return jsonify({"message": "Please provide at least one identifier (id, emp_num, emp_email, phone)."}), 400
+            return jsonify({"message": "Please provide at least one identifier (emp_id, emp_num, emp_email, emp_phone)."}), 400
 
         employee = query.first()
         if not employee:
@@ -453,43 +453,43 @@ def delete_employee():
         log_info(f"Employee found for deletion: {employee.to_dict()}")
 
         employee_details = {
-            "id": employee.id,
+            "emp_id": employee.emp_id,
             "emp_num": employee.emp_num,
-            "first_name": employee.first_name,
-            "last_name": employee.last_name,
+            "emp_first_name": employee.emp_first_name,
+            "emp_last_name": employee.emp_last_name,
             "emp_email": employee.emp_email,
-            "phone": employee.phone,
-            "position": employee.position,
-            "department": employee.department,
-            "hire_date": str(employee.hire_date),
-            "age": employee.age,
-            "sex": employee.sex,
-            "blood_group": employee.blood_group,
-            "height": employee.height,
-            "weight": employee.weight,
-            "address": employee.address,
-            "emergency_contact": employee.emergency_contact,
-            "nationality": employee.nationality,
-            "date_of_birth": str(employee.date_of_birth),
-            "marital_status": employee.marital_status,
-            "employment_status": employee.employment_status,
-            "insurance_number": employee.insurance_number,
-            "created_at": str(employee.created_at)
+            "emp_phone": employee.emp_phone,
+            "emp_position": employee.emp_position,
+            "emp_department": employee.emp_department,
+            "emp_hire_date": str(employee.emp_hire_date),
+            "emp_age": employee.emp_age,
+            "emp_sex": employee.emp_sex,
+            "emp_blood_group": employee.emp_blood_group,
+            "emp_height": employee.emp_height,
+            "emp_weight": employee.emp_weight,
+            "emp_address": employee.emp_address,
+            "emp_emergency_contact": employee.emp_emergency_contact,
+            "emp_nationality": employee.emp_nationality,
+            "emp_date_of_birth": str(employee.emp_date_of_birth),
+            "emp_marital_status": employee.emp_marital_status,
+            "emp_employment_status": employee.emp_employment_status,
+            "emp_insurance_number": employee.emp_insurance_number,
+            "emp_created_at": str(employee.emp_created_at)
         }
 
         deleted_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        log_info(f"Deleting employee with ID {employee.id}")
+        log_info(f"Deleting employee with ID {employee.emp_id}")
         session.delete(employee)
         session.commit()
-        log_info(f"Successfully deleted employee with ID {employee.id}")
+        log_info(f"Successfully deleted employee with ID {employee.emp_id}")
 
         email_body = generate_delete_notification(employee, deleted_time)
         send_email(RECEIVER_EMAIL, "Employee Deleted", email_body)
-        log_info(f"Email notification sent for deleted employee ID: {employee.id}")
+        log_info(f"Email notification sent for deleted employee ID: {employee.emp_id}")
 
         return jsonify({
-                "message": f"Employee with ID {employee.id} has been deleted successfully.",
+                "message": f"Employee with ID {employee.emp_id} has been deleted successfully.",
                 "deleted_employee_details": employee_details,
                 "deleted_time": deleted_time
             }), 20

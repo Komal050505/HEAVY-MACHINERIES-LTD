@@ -31,3 +31,72 @@ ALTER TABLE employee ADD COLUMN emp_num VARCHAR(255) UNIQUE NOT NULL;
 ALTER TABLE employee ADD COLUMN emp_num VARCHAR(255) NULL;
 UPDATE employee SET emp_num = 'EMP001' WHERE emp_num IS NULL;
 ALTER TABLE employee ALTER COLUMN emp_num SET NOT NULL;
+
+
+ALTERED NAMES-----
+
+-- Rename 'id' to 'emp_id'
+ALTER TABLE employee RENAME COLUMN id TO emp_id;
+
+-- Rename 'first_name' to 'emp_first_name'
+ALTER TABLE employee RENAME COLUMN first_name TO emp_first_name;
+
+-- Rename 'last_name' to 'emp_last_name'
+ALTER TABLE employee RENAME COLUMN last_name TO emp_last_name;
+
+-- Rename 'emp_email' remains unchanged since it already has the prefix.
+-- Rename 'emp_num' remains unchanged since it already has the prefix.
+
+-- Rename 'phone' to 'emp_phone'
+ALTER TABLE employee RENAME COLUMN phone TO emp_phone;
+
+-- Rename 'hire_date' to 'emp_hire_date'
+ALTER TABLE employee RENAME COLUMN hire_date TO emp_hire_date;
+
+-- Rename 'position' to 'emp_position'
+ALTER TABLE employee RENAME COLUMN position TO emp_position;
+
+-- Rename 'salary' to 'emp_salary'
+ALTER TABLE employee RENAME COLUMN salary TO emp_salary;
+
+-- Rename 'department' to 'emp_department'
+ALTER TABLE employee RENAME COLUMN department TO emp_department;
+
+-- Rename 'age' to 'emp_age'
+ALTER TABLE employee RENAME COLUMN age TO emp_age;
+
+-- Rename 'sex' to 'emp_sex'
+ALTER TABLE employee RENAME COLUMN sex TO emp_sex;
+
+-- Rename 'blood_group' to 'emp_blood_group'
+ALTER TABLE employee RENAME COLUMN blood_group TO emp_blood_group;
+
+-- Rename 'height' to 'emp_height'
+ALTER TABLE employee RENAME COLUMN height TO emp_height;
+
+-- Rename 'weight' to 'emp_weight'
+ALTER TABLE employee RENAME COLUMN weight TO emp_weight;
+
+-- Rename 'address' to 'emp_address'
+ALTER TABLE employee RENAME COLUMN address TO emp_address;
+
+-- Rename 'emergency_contact' to 'emp_emergency_contact'
+ALTER TABLE employee RENAME COLUMN emergency_contact TO emp_emergency_contact;
+
+-- Rename 'nationality' to 'emp_nationality'
+ALTER TABLE employee RENAME COLUMN nationality TO emp_nationality;
+
+-- Rename 'date_of_birth' to 'emp_date_of_birth'
+ALTER TABLE employee RENAME COLUMN date_of_birth TO emp_date_of_birth;
+
+-- Rename 'marital_status' to 'emp_marital_status'
+ALTER TABLE employee RENAME COLUMN marital_status TO emp_marital_status;
+
+-- Rename 'employment_status' to 'emp_employment_status'
+ALTER TABLE employee RENAME COLUMN employment_status TO emp_employment_status;
+
+-- Rename 'insurance_number' to 'emp_insurance_number'
+ALTER TABLE employee RENAME COLUMN insurance_number TO emp_insurance_number;
+
+-- Rename 'created_at' to 'emp_created_at'
+ALTER TABLE employee RENAME COLUMN created_at TO emp_created_at;
