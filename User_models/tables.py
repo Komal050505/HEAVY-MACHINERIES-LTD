@@ -413,13 +413,15 @@ class HeavyMachineryCustomer(Base):
 
     __tablename__ = 'heavy_machinery_customers'
 
-    customer_id = Column(PGUUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    customer_id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     customer_name = Column(String(255), nullable=False)
     customer_contact_info = Column(Text)  # Stores customer contact information like email, phone, etc.
     customer_address = Column(Text)  # Stores customer address
-    opportunity_id = Column(PGUUID(as_uuid=True), ForeignKey('heavy_machinery_opportunities.opportunity_id'))
-    dealer_id = Column(PGUUID(as_uuid=True), ForeignKey('heavy_machineries_dealer.dealer_id'))
-    employee_id = Column(PGUUID(as_uuid=True), ForeignKey('employee.emp_id'))
+    opportunity_id = Column(PGUUID(as_uuid=True), ForeignKey(
+        'heavy_machinery_opportunities.opportunity_id'))  # Reference to Heavy Machineries Opportunity table
+    dealer_id = Column(PGUUID(as_uuid=True),
+                       ForeignKey('heavy_machineries_dealer.dealer_id'))  # Reference to Dealers Table
+    employee_id = Column(PGUUID(as_uuid=True), ForeignKey('employee.emp_id'))  # Reference to Employee table
     customer_status = Column(String(50), default='new')  # Status can be new, contacted, in-progress, closed
     customer_comments = Column(Text)  # Comments by the dealer regarding customer interaction
     customer_feedback = Column(Text)  # Feedback provided by the dealer
@@ -427,13 +429,17 @@ class HeavyMachineryCustomer(Base):
     customer_updated_at = Column(TIMESTAMP, server_default=func.now(),
                                  onupdate=func.now())  # Time when customer was last updated
     customer_last_interaction = Column(TIMESTAMP)  # Last interaction time with the customer
+    product_id = Column(UUID, ForeignKey('heavy_products.heavy_product_id'), nullable=True)
+
+    product_name = Column(String(255), nullable=True)
+    product_model = Column(String(100), nullable=True)
+    product_brand = Column(String(100), nullable=True)
+
+    # Relationship to HeavyProduct
+    product = relationship("HeavyProduct", backref="heavy_machinery_customers")
 
     def to_dict(self):
-        """
-        Converts the HeavyMachineryCustomer object to a dictionary representation.
-
-        :return: dict containing customer data.
-        """
+        """Convert customer object to dictionary for JSON response."""
         return {
             "customer_id": str(self.customer_id),
             "customer_name": self.customer_name,
@@ -445,9 +451,12 @@ class HeavyMachineryCustomer(Base):
             "customer_status": self.customer_status,
             "customer_comments": self.customer_comments,
             "customer_feedback": self.customer_feedback,
-            "customer_created_at": self.customer_created_at.isoformat() if self.customer_created_at else None,
-            "customer_updated_at": self.customer_updated_at.isoformat() if self.customer_updated_at else None,
-            "customer_last_interaction": self.customer_last_interaction.isoformat() if self.customer_last_interaction else None
+            "customer_last_interaction": self.customer_last_interaction.isoformat() if self.customer_last_interaction else None,
+            "product_id": str(self.product_id) if self.product_id else None,
+            "product_name": self.product_name,
+            "product_brand": self.product_brand,
+            "product_model": self.product_model,
+            "product": self.product.to_dict() if self.product else None
         }
 
     def __repr__(self):

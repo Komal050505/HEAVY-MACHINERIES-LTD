@@ -5521,3 +5521,852 @@ WHERE employee.id = %(pk_1)s::UUID
 2024-10-24 20:42:54,843 - INFO -  * Debugger PIN: 808-278-793
 2024-10-24 20:42:59,759 - INFO - Flask application has stopped.
 2024-10-24 20:42:59,856 - INFO - Flask application has stopped.
+2024-10-25 11:14:54,714 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 11:14:54,803 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-10-25 11:14:54,803 - INFO - [33mPress CTRL+C to quit[0m
+2024-10-25 11:14:54,806 - INFO -  * Restarting with stat
+2024-10-25 11:14:55,753 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 11:14:55,778 - WARNING -  * Debugger is active!
+2024-10-25 11:14:55,783 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 11:14:56,778 - INFO - Flask application has stopped.
+2024-10-25 11:14:56,905 - INFO - Flask application has stopped.
+2024-10-25 11:15:08,881 - INFO - Starting the Flask application <Flask 'app_otp'>.
+2024-10-25 11:15:08,913 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-10-25 11:15:08,913 - INFO - [33mPress CTRL+C to quit[0m
+2024-10-25 11:15:08,915 - INFO -  * Restarting with stat
+2024-10-25 11:15:09,800 - INFO - Starting the Flask application <Flask 'app_otp'>.
+2024-10-25 11:15:09,820 - WARNING -  * Debugger is active!
+2024-10-25 11:15:09,824 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 11:15:16,736 - INFO - BEGIN (implicit)
+2024-10-25 11:15:16,739 - INFO - INSERT INTO otp_store (email, otp, timestamp) VALUES (%(email)s, %(otp)s, %(timestamp)s) RETURNING otp_store.id
+2024-10-25 11:15:16,739 - INFO - [generated in 0.00047s] {'email': 'komalsaikiran05@gmail.com', 'otp': '980220', 'timestamp': datetime.datetime(2024, 10, 25, 11, 15, 16, 635279)}
+2024-10-25 11:15:16,761 - INFO - COMMIT
+2024-10-25 11:15:16,764 - INFO - Generated OTP for komalsaikiran05@gmail.com: 980220
+2024-10-25 11:15:20,448 - INFO - End of generate_otp function for email=komalsaikiran05@gmail.com
+2024-10-25 11:15:20,450 - INFO - 127.0.0.1 - - [25/Oct/2024 11:15:20] "POST /generate-otp HTTP/1.1" 200 -
+2024-10-25 11:15:32,843 - INFO - Flask application has stopped.
+2024-10-25 11:15:33,014 - INFO - Flask application has stopped.
+2024-10-25 11:15:37,861 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 11:15:37,892 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-10-25 11:15:37,892 - INFO - [33mPress CTRL+C to quit[0m
+2024-10-25 11:15:37,894 - INFO -  * Restarting with stat
+2024-10-25 11:15:38,925 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 11:15:38,947 - WARNING -  * Debugger is active!
+2024-10-25 11:15:38,951 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 11:15:42,133 - INFO - BEGIN (implicit)
+2024-10-25 11:15:42,136 - INFO - SELECT otp_store.id AS otp_store_id, otp_store.email AS otp_store_email, otp_store.otp AS otp_store_otp, otp_store.timestamp AS otp_store_timestamp 
+FROM otp_store 
+WHERE otp_store.email = %(email_1)s ORDER BY otp_store.timestamp DESC 
+ LIMIT %(param_1)s
+2024-10-25 11:15:42,136 - INFO - [generated in 0.00030s] {'email_1': 'komalsaikiran05@gmail.com', 'param_1': 1}
+2024-10-25 11:15:42,149 - INFO - OTP validation successful for komalsaikiran05@gmail.com.
+2024-10-25 11:15:42,150 - INFO - Entered /add-customer endpoint. Request method: POST
+2024-10-25 11:15:42,150 - INFO - Received request data: {'customer_name': 'Hemanth', 'customer_contact_info': 'hemanth@gmail.com', 'customer_address': '123 Machinery St, Industrial Zone', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'new', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T10:00:00Z', 'otp': '980220', 'email': 'komalsaikiran05@gmail.com'}
+2024-10-25 11:15:42,150 - INFO - New customer created: Hemanth - Ready for database insertion
+2024-10-25 11:15:42,151 - INFO - INSERT INTO heavy_machinery_customers (customer_id, customer_name, customer_contact_info, customer_address, opportunity_id, dealer_id, employee_id, customer_status, customer_comments, customer_feedback, customer_last_interaction) VALUES (%(customer_id)s::UUID, %(customer_name)s, %(customer_contact_info)s, %(customer_address)s, %(opportunity_id)s::UUID, %(dealer_id)s::UUID, %(employee_id)s::UUID, %(customer_status)s, %(customer_comments)s, %(customer_feedback)s, %(customer_last_interaction)s) RETURNING heavy_machinery_customers.customer_created_at, heavy_machinery_customers.customer_updated_at
+2024-10-25 11:15:42,153 - INFO - [generated in 0.00093s] {'customer_id': UUID('fb96008c-7d2b-4aff-8c5b-687a6c8163ae'), 'customer_name': 'Hemanth', 'customer_contact_info': 'hemanth@gmail.com', 'customer_address': '123 Machinery St, Industrial Zone', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'new', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': datetime.datetime(2024, 10, 25, 5, 45, 42, 150038)}
+2024-10-25 11:15:42,164 - INFO - ROLLBACK
+2024-10-25 11:15:42,165 - ERROR - General Error adding customer: (psycopg2.errors.DatatypeMismatch) column "customer_id" is of type integer but expression is of type uuid
+LINE 1: ...omer_feedback, customer_last_interaction) VALUES ('fb96008c-...
+                                                             ^
+HINT:  You will need to rewrite or cast the expression.
+
+[SQL: INSERT INTO heavy_machinery_customers (customer_id, customer_name, customer_contact_info, customer_address, opportunity_id, dealer_id, employee_id, customer_status, customer_comments, customer_feedback, customer_last_interaction) VALUES (%(customer_id)s::UUID, %(customer_name)s, %(customer_contact_info)s, %(customer_address)s, %(opportunity_id)s::UUID, %(dealer_id)s::UUID, %(employee_id)s::UUID, %(customer_status)s, %(customer_comments)s, %(customer_feedback)s, %(customer_last_interaction)s) RETURNING heavy_machinery_customers.customer_created_at, heavy_machinery_customers.customer_updated_at]
+[parameters: {'customer_id': UUID('fb96008c-7d2b-4aff-8c5b-687a6c8163ae'), 'customer_name': 'Hemanth', 'customer_contact_info': 'hemanth@gmail.com', 'customer_address': '123 Machinery St, Industrial Zone', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'new', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': datetime.datetime(2024, 10, 25, 5, 45, 42, 150038)}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2024-10-25 11:15:42,165 - INFO - Session closed for add-customer API
+2024-10-25 11:15:42,166 - INFO - 127.0.0.1 - - [25/Oct/2024 11:15:42] "[35m[1mPOST /add-customer HTTP/1.1[0m" 500 -
+2024-10-25 11:22:58,033 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\User_models\\tables.py', reloading
+2024-10-25 11:22:58,360 - INFO -  * Restarting with stat
+2024-10-25 11:32:00,694 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 11:32:00,771 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-10-25 11:32:00,771 - INFO - [33mPress CTRL+C to quit[0m
+2024-10-25 11:32:00,775 - INFO -  * Restarting with stat
+2024-10-25 11:32:01,599 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 11:32:01,614 - WARNING -  * Debugger is active!
+2024-10-25 11:32:01,621 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 11:32:05,636 - INFO - BEGIN (implicit)
+2024-10-25 11:32:05,638 - INFO - SELECT otp_store.id AS otp_store_id, otp_store.email AS otp_store_email, otp_store.otp AS otp_store_otp, otp_store.timestamp AS otp_store_timestamp 
+FROM otp_store 
+WHERE otp_store.email = %(email_1)s ORDER BY otp_store.timestamp DESC 
+ LIMIT %(param_1)s
+2024-10-25 11:32:05,639 - INFO - [generated in 0.00049s] {'email_1': 'komalsaikiran05@gmail.com', 'param_1': 1}
+2024-10-25 11:32:05,649 - INFO - OTP validation successful for komalsaikiran05@gmail.com.
+2024-10-25 11:32:05,649 - INFO - Entered /add-customer endpoint. Request method: POST
+2024-10-25 11:32:05,649 - INFO - Received request data: {'customer_name': 'Hemanth', 'customer_contact_info': 'hemanth@gmail.com', 'customer_address': '123 Machinery St, Industrial Zone', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'new', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T10:00:00Z', 'otp': '980220', 'email': 'komalsaikiran05@gmail.com'}
+2024-10-25 11:32:05,649 - INFO - New customer created: Hemanth - Ready for database insertion
+2024-10-25 11:32:05,654 - INFO - INSERT INTO heavy_machinery_customers (customer_id, customer_name, customer_contact_info, customer_address, opportunity_id, dealer_id, employee_id, customer_status, customer_comments, customer_feedback, customer_last_interaction) VALUES (%(customer_id)s::UUID, %(customer_name)s, %(customer_contact_info)s, %(customer_address)s, %(opportunity_id)s::UUID, %(dealer_id)s::UUID, %(employee_id)s::UUID, %(customer_status)s, %(customer_comments)s, %(customer_feedback)s, %(customer_last_interaction)s) RETURNING heavy_machinery_customers.customer_created_at, heavy_machinery_customers.customer_updated_at
+2024-10-25 11:32:05,654 - INFO - [generated in 0.00059s] {'customer_id': UUID('36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31'), 'customer_name': 'Hemanth', 'customer_contact_info': 'hemanth@gmail.com', 'customer_address': '123 Machinery St, Industrial Zone', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'new', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': datetime.datetime(2024, 10, 25, 6, 2, 5, 649083)}
+2024-10-25 11:32:05,675 - INFO - COMMIT
+2024-10-25 11:32:05,748 - INFO - BEGIN (implicit)
+2024-10-25 11:32:05,749 - INFO - SELECT heavy_machinery_customers.customer_id AS heavy_machinery_customers_customer_id, heavy_machinery_customers.customer_name AS heavy_machinery_customers_customer_name, heavy_machinery_customers.customer_contact_info AS heavy_machinery_customers_customer_contact_info, heavy_machinery_customers.customer_address AS heavy_machinery_customers_customer_address, heavy_machinery_customers.opportunity_id AS heavy_machinery_customers_opportunity_id, heavy_machinery_customers.dealer_id AS heavy_machinery_customers_dealer_id, heavy_machinery_customers.employee_id AS heavy_machinery_customers_employee_id, heavy_machinery_customers.customer_status AS heavy_machinery_customers_customer_status, heavy_machinery_customers.customer_comments AS heavy_machinery_customers_customer_comments, heavy_machinery_customers.customer_feedback AS heavy_machinery_customers_customer_feedback, heavy_machinery_customers.customer_created_at AS heavy_machinery_customers_customer_created_at, heavy_machinery_customers.customer_updated_at AS heavy_machinery_customers_customer_updated_at, heavy_machinery_customers.customer_last_interaction AS heavy_machinery_customers_customer_last_interaction 
+FROM heavy_machinery_customers 
+WHERE heavy_machinery_customers.customer_id = %(pk_1)s::UUID
+2024-10-25 11:32:05,749 - INFO - [generated in 0.00032s] {'pk_1': UUID('36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31')}
+2024-10-25 11:32:05,752 - INFO - Customer Hemanth added successfully to the database
+2024-10-25 11:32:05,752 - INFO - Generating email body for customer: Hemanth
+2024-10-25 11:32:05,752 - INFO - ROLLBACK
+2024-10-25 11:32:05,753 - ERROR - AttributeError while generating email body: 'HeavyMachineryCustomer' object has no attribute 'created_at'
+2024-10-25 11:32:10,348 - INFO - BEGIN (implicit)
+2024-10-25 11:32:10,348 - INFO - SELECT heavy_machinery_customers.customer_id AS heavy_machinery_customers_customer_id, heavy_machinery_customers.customer_name AS heavy_machinery_customers_customer_name, heavy_machinery_customers.customer_contact_info AS heavy_machinery_customers_customer_contact_info, heavy_machinery_customers.customer_address AS heavy_machinery_customers_customer_address, heavy_machinery_customers.opportunity_id AS heavy_machinery_customers_opportunity_id, heavy_machinery_customers.dealer_id AS heavy_machinery_customers_dealer_id, heavy_machinery_customers.employee_id AS heavy_machinery_customers_employee_id, heavy_machinery_customers.customer_status AS heavy_machinery_customers_customer_status, heavy_machinery_customers.customer_comments AS heavy_machinery_customers_customer_comments, heavy_machinery_customers.customer_feedback AS heavy_machinery_customers_customer_feedback, heavy_machinery_customers.customer_created_at AS heavy_machinery_customers_customer_created_at, heavy_machinery_customers.customer_updated_at AS heavy_machinery_customers_customer_updated_at, heavy_machinery_customers.customer_last_interaction AS heavy_machinery_customers_customer_last_interaction 
+FROM heavy_machinery_customers 
+WHERE heavy_machinery_customers.customer_id = %(pk_1)s::UUID
+2024-10-25 11:32:10,349 - INFO - [cached since 4.599s ago] {'pk_1': UUID('36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31')}
+2024-10-25 11:32:10,353 - INFO - ROLLBACK
+2024-10-25 11:32:10,354 - INFO - Session closed for add-customer API
+2024-10-25 11:32:10,354 - INFO - 127.0.0.1 - - [25/Oct/2024 11:32:10] "[35m[1mPOST /add-customer HTTP/1.1[0m" 201 -
+2024-10-25 11:34:07,589 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\App\\app_customers.py', reloading
+2024-10-25 11:34:07,846 - INFO -  * Restarting with stat
+2024-10-25 11:37:32,716 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 11:37:32,743 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-10-25 11:37:32,743 - INFO - [33mPress CTRL+C to quit[0m
+2024-10-25 11:37:32,744 - INFO -  * Restarting with stat
+2024-10-25 11:37:33,663 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 11:37:33,683 - WARNING -  * Debugger is active!
+2024-10-25 11:37:33,687 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 11:37:36,936 - INFO - BEGIN (implicit)
+2024-10-25 11:37:36,940 - INFO - SELECT otp_store.id AS otp_store_id, otp_store.email AS otp_store_email, otp_store.otp AS otp_store_otp, otp_store.timestamp AS otp_store_timestamp 
+FROM otp_store 
+WHERE otp_store.email = %(email_1)s ORDER BY otp_store.timestamp DESC 
+ LIMIT %(param_1)s
+2024-10-25 11:37:36,941 - INFO - [generated in 0.00042s] {'email_1': 'komalsaikiran05@gmail.com', 'param_1': 1}
+2024-10-25 11:37:36,945 - INFO - OTP validation successful for komalsaikiran05@gmail.com.
+2024-10-25 11:37:36,945 - INFO - Entered /add-customer endpoint. Request method: POST
+2024-10-25 11:37:36,945 - INFO - Received request data: {'customer_name': 'Hemanth', 'customer_contact_info': 'hemanth@gmail.com', 'customer_address': '123 Machinery St, Industrial Zone', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'new', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T10:00:00Z', 'otp': '980220', 'email': 'komalsaikiran05@gmail.com'}
+2024-10-25 11:37:36,946 - INFO - New customer created: Hemanth - Ready for database insertion
+2024-10-25 11:37:36,948 - INFO - INSERT INTO heavy_machinery_customers (customer_id, customer_name, customer_contact_info, customer_address, opportunity_id, dealer_id, employee_id, customer_status, customer_comments, customer_feedback, customer_last_interaction) VALUES (%(customer_id)s::UUID, %(customer_name)s, %(customer_contact_info)s, %(customer_address)s, %(opportunity_id)s::UUID, %(dealer_id)s::UUID, %(employee_id)s::UUID, %(customer_status)s, %(customer_comments)s, %(customer_feedback)s, %(customer_last_interaction)s) RETURNING heavy_machinery_customers.customer_created_at, heavy_machinery_customers.customer_updated_at
+2024-10-25 11:37:36,949 - INFO - [generated in 0.00035s] {'customer_id': UUID('da4be685-7485-4222-b0c1-5bd1a76ea7cc'), 'customer_name': 'Hemanth', 'customer_contact_info': 'hemanth@gmail.com', 'customer_address': '123 Machinery St, Industrial Zone', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'new', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': datetime.datetime(2024, 10, 25, 6, 7, 36, 945032)}
+2024-10-25 11:37:36,953 - INFO - COMMIT
+2024-10-25 11:37:37,026 - INFO - BEGIN (implicit)
+2024-10-25 11:37:37,028 - INFO - SELECT heavy_machinery_customers.customer_id AS heavy_machinery_customers_customer_id, heavy_machinery_customers.customer_name AS heavy_machinery_customers_customer_name, heavy_machinery_customers.customer_contact_info AS heavy_machinery_customers_customer_contact_info, heavy_machinery_customers.customer_address AS heavy_machinery_customers_customer_address, heavy_machinery_customers.opportunity_id AS heavy_machinery_customers_opportunity_id, heavy_machinery_customers.dealer_id AS heavy_machinery_customers_dealer_id, heavy_machinery_customers.employee_id AS heavy_machinery_customers_employee_id, heavy_machinery_customers.customer_status AS heavy_machinery_customers_customer_status, heavy_machinery_customers.customer_comments AS heavy_machinery_customers_customer_comments, heavy_machinery_customers.customer_feedback AS heavy_machinery_customers_customer_feedback, heavy_machinery_customers.customer_created_at AS heavy_machinery_customers_customer_created_at, heavy_machinery_customers.customer_updated_at AS heavy_machinery_customers_customer_updated_at, heavy_machinery_customers.customer_last_interaction AS heavy_machinery_customers_customer_last_interaction 
+FROM heavy_machinery_customers 
+WHERE heavy_machinery_customers.customer_id = %(pk_1)s::UUID
+2024-10-25 11:37:37,028 - INFO - [generated in 0.00020s] {'pk_1': UUID('da4be685-7485-4222-b0c1-5bd1a76ea7cc')}
+2024-10-25 11:37:37,030 - INFO - Customer Hemanth added successfully to the database
+2024-10-25 11:37:37,030 - INFO - Generating email body for customer: Hemanth
+2024-10-25 11:37:37,030 - INFO - Email body successfully generated for customer: Hemanth
+2024-10-25 11:37:40,512 - INFO - ROLLBACK
+2024-10-25 11:37:40,513 - INFO - Session closed for add-customer API
+2024-10-25 11:37:40,515 - INFO - 127.0.0.1 - - [25/Oct/2024 11:37:40] "[35m[1mPOST /add-customer HTTP/1.1[0m" 201 -
+2024-10-25 11:47:11,109 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\email_setup\\email_operations.py', reloading
+2024-10-25 11:47:11,447 - INFO -  * Restarting with stat
+2024-10-25 11:47:13,631 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 11:47:13,690 - WARNING -  * Debugger is active!
+2024-10-25 11:47:13,697 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 11:47:13,845 - INFO - BEGIN (implicit)
+2024-10-25 11:47:13,848 - INFO - SELECT otp_store.id AS otp_store_id, otp_store.email AS otp_store_email, otp_store.otp AS otp_store_otp, otp_store.timestamp AS otp_store_timestamp 
+FROM otp_store 
+WHERE otp_store.email = %(email_1)s ORDER BY otp_store.timestamp DESC 
+ LIMIT %(param_1)s
+2024-10-25 11:47:13,848 - INFO - [generated in 0.00021s] {'email_1': 'komalsaikiran05@gmail.com', 'param_1': 1}
+2024-10-25 11:47:13,855 - INFO - OTP validation successful for komalsaikiran05@gmail.com.
+2024-10-25 11:47:13,855 - INFO - Entered /add-customer endpoint. Request method: POST
+2024-10-25 11:47:13,855 - INFO - Received request data: {'customer_name': 'Hemanth', 'customer_contact_info': 'hemanth@gmail.com', 'customer_address': '123 Machinery St, Industrial Zone', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'new', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T10:00:00Z', 'otp': '980220', 'email': 'komalsaikiran05@gmail.com'}
+2024-10-25 11:47:13,856 - INFO - New customer created: Hemanth - Ready for database insertion
+2024-10-25 11:47:13,859 - INFO - INSERT INTO heavy_machinery_customers (customer_id, customer_name, customer_contact_info, customer_address, opportunity_id, dealer_id, employee_id, customer_status, customer_comments, customer_feedback, customer_last_interaction) VALUES (%(customer_id)s::UUID, %(customer_name)s, %(customer_contact_info)s, %(customer_address)s, %(opportunity_id)s::UUID, %(dealer_id)s::UUID, %(employee_id)s::UUID, %(customer_status)s, %(customer_comments)s, %(customer_feedback)s, %(customer_last_interaction)s) RETURNING heavy_machinery_customers.customer_created_at, heavy_machinery_customers.customer_updated_at
+2024-10-25 11:47:13,859 - INFO - [generated in 0.00035s] {'customer_id': UUID('6a2eb1d7-f637-4902-8bed-3bb3708b5995'), 'customer_name': 'Hemanth', 'customer_contact_info': 'hemanth@gmail.com', 'customer_address': '123 Machinery St, Industrial Zone', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'new', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': datetime.datetime(2024, 10, 25, 6, 17, 13, 855589)}
+2024-10-25 11:47:13,877 - INFO - COMMIT
+2024-10-25 11:47:13,952 - INFO - BEGIN (implicit)
+2024-10-25 11:47:13,954 - INFO - SELECT heavy_machinery_customers.customer_id AS heavy_machinery_customers_customer_id, heavy_machinery_customers.customer_name AS heavy_machinery_customers_customer_name, heavy_machinery_customers.customer_contact_info AS heavy_machinery_customers_customer_contact_info, heavy_machinery_customers.customer_address AS heavy_machinery_customers_customer_address, heavy_machinery_customers.opportunity_id AS heavy_machinery_customers_opportunity_id, heavy_machinery_customers.dealer_id AS heavy_machinery_customers_dealer_id, heavy_machinery_customers.employee_id AS heavy_machinery_customers_employee_id, heavy_machinery_customers.customer_status AS heavy_machinery_customers_customer_status, heavy_machinery_customers.customer_comments AS heavy_machinery_customers_customer_comments, heavy_machinery_customers.customer_feedback AS heavy_machinery_customers_customer_feedback, heavy_machinery_customers.customer_created_at AS heavy_machinery_customers_customer_created_at, heavy_machinery_customers.customer_updated_at AS heavy_machinery_customers_customer_updated_at, heavy_machinery_customers.customer_last_interaction AS heavy_machinery_customers_customer_last_interaction 
+FROM heavy_machinery_customers 
+WHERE heavy_machinery_customers.customer_id = %(pk_1)s::UUID
+2024-10-25 11:47:13,954 - INFO - [generated in 0.00019s] {'pk_1': UUID('6a2eb1d7-f637-4902-8bed-3bb3708b5995')}
+2024-10-25 11:47:13,956 - INFO - Customer Hemanth added successfully to the database
+2024-10-25 11:47:13,956 - INFO - ROLLBACK
+2024-10-25 11:47:13,957 - ERROR - General Error adding customer: generate_customer_email_body() missing 1 required positional argument: 'product'
+2024-10-25 11:47:13,957 - INFO - Session closed for add-customer API
+2024-10-25 11:47:13,958 - INFO - 127.0.0.1 - - [25/Oct/2024 11:47:13] "[35m[1mPOST /add-customer HTTP/1.1[0m" 500 -
+2024-10-25 11:54:56,630 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\User_models\\tables.py', reloading
+2024-10-25 11:54:56,776 - INFO -  * Restarting with stat
+2024-10-25 11:54:57,906 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 11:54:57,922 - WARNING -  * Debugger is active!
+2024-10-25 11:54:57,927 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 11:55:47,316 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\App\\app_customers.py', reloading
+2024-10-25 11:55:47,515 - INFO -  * Restarting with stat
+2024-10-25 11:55:48,684 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 11:55:48,705 - WARNING -  * Debugger is active!
+2024-10-25 11:55:48,708 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 11:58:44,369 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\User_models\\tables.py', reloading
+2024-10-25 11:58:44,623 - INFO -  * Restarting with stat
+2024-10-25 11:58:46,537 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 11:58:46,563 - WARNING -  * Debugger is active!
+2024-10-25 11:58:46,568 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 12:05:48,570 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\email_setup\\email_operations.py', reloading
+2024-10-25 12:05:48,772 - INFO -  * Restarting with stat
+2024-10-25 12:05:49,989 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 12:05:50,022 - WARNING -  * Debugger is active!
+2024-10-25 12:05:50,027 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 12:07:03,059 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\App\\app_customers.py', reloading
+2024-10-25 12:07:03,357 - INFO -  * Restarting with stat
+2024-10-25 12:07:04,868 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 12:07:04,892 - WARNING -  * Debugger is active!
+2024-10-25 12:07:04,896 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 12:07:05,041 - INFO - BEGIN (implicit)
+2024-10-25 12:07:05,047 - INFO - SELECT otp_store.id AS otp_store_id, otp_store.email AS otp_store_email, otp_store.otp AS otp_store_otp, otp_store.timestamp AS otp_store_timestamp 
+FROM otp_store 
+WHERE otp_store.email = %(email_1)s ORDER BY otp_store.timestamp DESC 
+ LIMIT %(param_1)s
+2024-10-25 12:07:05,048 - INFO - [generated in 0.00040s] {'email_1': 'komalsaikiran05@gmail.com', 'param_1': 1}
+2024-10-25 12:07:05,057 - INFO - OTP validation successful for komalsaikiran05@gmail.com.
+2024-10-25 12:07:05,057 - INFO - Entered /add-customer endpoint. Request method: POST
+2024-10-25 12:07:05,057 - INFO - Received request data: {'customer_name': 'Hemanth', 'customer_contact_info': 'hemanth@gmail.com', 'customer_address': '123 Machinery St, Industrial Zone', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'new', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T10:00:00Z', 'otp': '980220', 'email': 'komalsaikiran05@gmail.com'}
+2024-10-25 12:07:05,058 - INFO - New customer created: Hemanth - Ready for database insertion
+2024-10-25 12:07:05,064 - INFO - INSERT INTO heavy_machinery_customers (customer_id, customer_name, customer_contact_info, customer_address, opportunity_id, dealer_id, employee_id, customer_status, customer_comments, customer_feedback, customer_last_interaction, product_id, product_name, product_model, product_brand) VALUES (%(customer_id)s::UUID, %(customer_name)s, %(customer_contact_info)s, %(customer_address)s, %(opportunity_id)s::UUID, %(dealer_id)s::UUID, %(employee_id)s::UUID, %(customer_status)s, %(customer_comments)s, %(customer_feedback)s, %(customer_last_interaction)s, %(product_id)s::UUID, %(product_name)s, %(product_model)s, %(product_brand)s) RETURNING heavy_machinery_customers.customer_created_at, heavy_machinery_customers.customer_updated_at
+2024-10-25 12:07:05,065 - INFO - [generated in 0.00073s] {'customer_id': UUID('c07e7d44-1307-4cc8-8a3f-905b47e69a96'), 'customer_name': 'Hemanth', 'customer_contact_info': 'hemanth@gmail.com', 'customer_address': '123 Machinery St, Industrial Zone', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'new', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': datetime.datetime(2024, 10, 25, 6, 37, 5, 58689), 'product_id': None, 'product_name': None, 'product_model': None, 'product_brand': None}
+2024-10-25 12:07:05,082 - INFO - COMMIT
+2024-10-25 12:07:05,154 - INFO - BEGIN (implicit)
+2024-10-25 12:07:05,156 - INFO - SELECT heavy_machinery_customers.customer_id AS heavy_machinery_customers_customer_id, heavy_machinery_customers.customer_name AS heavy_machinery_customers_customer_name, heavy_machinery_customers.customer_contact_info AS heavy_machinery_customers_customer_contact_info, heavy_machinery_customers.customer_address AS heavy_machinery_customers_customer_address, heavy_machinery_customers.opportunity_id AS heavy_machinery_customers_opportunity_id, heavy_machinery_customers.dealer_id AS heavy_machinery_customers_dealer_id, heavy_machinery_customers.employee_id AS heavy_machinery_customers_employee_id, heavy_machinery_customers.customer_status AS heavy_machinery_customers_customer_status, heavy_machinery_customers.customer_comments AS heavy_machinery_customers_customer_comments, heavy_machinery_customers.customer_feedback AS heavy_machinery_customers_customer_feedback, heavy_machinery_customers.customer_created_at AS heavy_machinery_customers_customer_created_at, heavy_machinery_customers.customer_updated_at AS heavy_machinery_customers_customer_updated_at, heavy_machinery_customers.customer_last_interaction AS heavy_machinery_customers_customer_last_interaction, heavy_machinery_customers.product_id AS heavy_machinery_customers_product_id, heavy_machinery_customers.product_name AS heavy_machinery_customers_product_name, heavy_machinery_customers.product_model AS heavy_machinery_customers_product_model, heavy_machinery_customers.product_brand AS heavy_machinery_customers_product_brand 
+FROM heavy_machinery_customers 
+WHERE heavy_machinery_customers.customer_id = %(pk_1)s::UUID
+2024-10-25 12:07:05,156 - INFO - [generated in 0.00020s] {'pk_1': UUID('c07e7d44-1307-4cc8-8a3f-905b47e69a96')}
+2024-10-25 12:07:05,158 - INFO - Customer Hemanth added successfully to the database
+2024-10-25 12:07:05,158 - INFO - Generating email body for customer: Hemanth
+2024-10-25 12:07:05,158 - INFO - Email body successfully generated for customer: Hemanth
+2024-10-25 12:07:09,050 - INFO - ROLLBACK
+2024-10-25 12:07:09,051 - INFO - Session closed for add-customer API
+2024-10-25 12:07:09,055 - INFO - 127.0.0.1 - - [25/Oct/2024 12:07:09] "[35m[1mPOST /add-customer HTTP/1.1[0m" 201 -
+2024-10-25 12:10:54,508 - INFO - BEGIN (implicit)
+2024-10-25 12:10:54,509 - INFO - SELECT otp_store.id AS otp_store_id, otp_store.email AS otp_store_email, otp_store.otp AS otp_store_otp, otp_store.timestamp AS otp_store_timestamp 
+FROM otp_store 
+WHERE otp_store.email = %(email_1)s ORDER BY otp_store.timestamp DESC 
+ LIMIT %(param_1)s
+2024-10-25 12:10:54,509 - INFO - [cached since 229.5s ago] {'email_1': 'komalsaikiran05@gmail.com', 'param_1': 1}
+2024-10-25 12:10:54,513 - INFO - OTP validation successful for komalsaikiran05@gmail.com.
+2024-10-25 12:10:54,514 - INFO - Entered /add-customer endpoint. Request method: POST
+2024-10-25 12:10:54,514 - INFO - Received request data: {'customer_name': 'Hemanth', 'customer_contact_info': 'hemanth@gmail.com', 'customer_address': '123 Machinery St, Industrial Zone', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'new', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T10:00:00Z', 'product_brand': 'Caterpillar', 'product_id': '72c5591f-a646-4f7f-8ae6-5f9eeaf2c76a', 'product_model': '320D', 'product_name': 'CAT 320D', 'otp': '980220', 'email': 'komalsaikiran05@gmail.com'}
+2024-10-25 12:10:54,514 - INFO - New customer created: Hemanth - Ready for database insertion
+2024-10-25 12:10:54,515 - INFO - INSERT INTO heavy_machinery_customers (customer_id, customer_name, customer_contact_info, customer_address, opportunity_id, dealer_id, employee_id, customer_status, customer_comments, customer_feedback, customer_last_interaction, product_id, product_name, product_model, product_brand) VALUES (%(customer_id)s::UUID, %(customer_name)s, %(customer_contact_info)s, %(customer_address)s, %(opportunity_id)s::UUID, %(dealer_id)s::UUID, %(employee_id)s::UUID, %(customer_status)s, %(customer_comments)s, %(customer_feedback)s, %(customer_last_interaction)s, %(product_id)s::UUID, %(product_name)s, %(product_model)s, %(product_brand)s) RETURNING heavy_machinery_customers.customer_created_at, heavy_machinery_customers.customer_updated_at
+2024-10-25 12:10:54,515 - INFO - [cached since 229.4s ago] {'customer_id': UUID('512aa34f-7bef-4531-974b-31f6a0d8bb83'), 'customer_name': 'Hemanth', 'customer_contact_info': 'hemanth@gmail.com', 'customer_address': '123 Machinery St, Industrial Zone', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'new', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': datetime.datetime(2024, 10, 25, 6, 40, 54, 514320), 'product_id': '72c5591f-a646-4f7f-8ae6-5f9eeaf2c76a', 'product_name': 'CAT 320D', 'product_model': '320D', 'product_brand': 'Caterpillar'}
+2024-10-25 12:10:54,522 - INFO - COMMIT
+2024-10-25 12:10:54,602 - INFO - BEGIN (implicit)
+2024-10-25 12:10:54,602 - INFO - SELECT heavy_machinery_customers.customer_id AS heavy_machinery_customers_customer_id, heavy_machinery_customers.customer_name AS heavy_machinery_customers_customer_name, heavy_machinery_customers.customer_contact_info AS heavy_machinery_customers_customer_contact_info, heavy_machinery_customers.customer_address AS heavy_machinery_customers_customer_address, heavy_machinery_customers.opportunity_id AS heavy_machinery_customers_opportunity_id, heavy_machinery_customers.dealer_id AS heavy_machinery_customers_dealer_id, heavy_machinery_customers.employee_id AS heavy_machinery_customers_employee_id, heavy_machinery_customers.customer_status AS heavy_machinery_customers_customer_status, heavy_machinery_customers.customer_comments AS heavy_machinery_customers_customer_comments, heavy_machinery_customers.customer_feedback AS heavy_machinery_customers_customer_feedback, heavy_machinery_customers.customer_created_at AS heavy_machinery_customers_customer_created_at, heavy_machinery_customers.customer_updated_at AS heavy_machinery_customers_customer_updated_at, heavy_machinery_customers.customer_last_interaction AS heavy_machinery_customers_customer_last_interaction, heavy_machinery_customers.product_id AS heavy_machinery_customers_product_id, heavy_machinery_customers.product_name AS heavy_machinery_customers_product_name, heavy_machinery_customers.product_model AS heavy_machinery_customers_product_model, heavy_machinery_customers.product_brand AS heavy_machinery_customers_product_brand 
+FROM heavy_machinery_customers 
+WHERE heavy_machinery_customers.customer_id = %(pk_1)s::UUID
+2024-10-25 12:10:54,603 - INFO - [cached since 229.4s ago] {'pk_1': UUID('512aa34f-7bef-4531-974b-31f6a0d8bb83')}
+2024-10-25 12:10:54,606 - INFO - Customer Hemanth added successfully to the database
+2024-10-25 12:10:54,606 - INFO - Generating email body for customer: Hemanth
+2024-10-25 12:10:54,607 - INFO - Email body successfully generated for customer: Hemanth
+2024-10-25 12:10:58,218 - INFO - SELECT heavy_products.heavy_product_id AS heavy_products_heavy_product_id, heavy_products.heavy_product_name AS heavy_products_heavy_product_name, heavy_products.heavy_product_type AS heavy_products_heavy_product_type, heavy_products.heavy_product_brand AS heavy_products_heavy_product_brand, heavy_products.heavy_product_model AS heavy_products_heavy_product_model, heavy_products.heavy_product_year_of_manufacture AS heavy_products_heavy_product_year_of_manufacture, heavy_products.heavy_product_price AS heavy_products_heavy_product_price, heavy_products.heavy_product_weight AS heavy_products_heavy_product_weight, heavy_products.heavy_product_dimensions AS heavy_products_heavy_product_dimensions, heavy_products.heavy_product_engine_type AS heavy_products_heavy_product_engine_type, heavy_products.heavy_product_horsepower AS heavy_products_heavy_product_horsepower, heavy_products.heavy_product_fuel_capacity AS heavy_products_heavy_product_fuel_capacity, heavy_products.heavy_product_operational_hours AS heavy_products_heavy_product_operational_hours, heavy_products.heavy_product_warranty_period AS heavy_products_heavy_product_warranty_period, heavy_products.heavy_product_status AS heavy_products_heavy_product_status, heavy_products.heavy_product_description AS heavy_products_heavy_product_description, heavy_products.heavy_product_image_url AS heavy_products_heavy_product_image_url, heavy_products.heavy_product_created_at AS heavy_products_heavy_product_created_at, heavy_products.heavy_product_updated_at AS heavy_products_heavy_product_updated_at, heavy_products.employee_id AS heavy_products_employee_id, heavy_products.employee_name AS heavy_products_employee_name, heavy_products.employee_num AS heavy_products_employee_num 
+FROM heavy_products 
+WHERE heavy_products.heavy_product_id = %(pk_1)s::UUID
+2024-10-25 12:10:58,221 - INFO - [generated in 0.00097s] {'pk_1': UUID('72c5591f-a646-4f7f-8ae6-5f9eeaf2c76a')}
+2024-10-25 12:10:58,245 - INFO - SELECT employee.emp_id AS employee_emp_id, employee.emp_first_name AS employee_emp_first_name, employee.emp_last_name AS employee_emp_last_name, employee.emp_email AS employee_emp_email, employee.emp_num AS employee_emp_num, employee.emp_phone AS employee_emp_phone, employee.emp_hire_date AS employee_emp_hire_date, employee.emp_position AS employee_emp_position, employee.emp_salary AS employee_emp_salary, employee.emp_department AS employee_emp_department, employee.emp_age AS employee_emp_age, employee.emp_sex AS employee_emp_sex, employee.emp_blood_group AS employee_emp_blood_group, employee.emp_height AS employee_emp_height, employee.emp_weight AS employee_emp_weight, employee.emp_address AS employee_emp_address, employee.emp_emergency_contact AS employee_emp_emergency_contact, employee.emp_nationality AS employee_emp_nationality, employee.emp_date_of_birth AS employee_emp_date_of_birth, employee.emp_marital_status AS employee_emp_marital_status, employee.emp_employment_status AS employee_emp_employment_status, employee.emp_insurance_number AS employee_emp_insurance_number, employee.emp_created_at AS employee_emp_created_at 
+FROM employee 
+WHERE employee.emp_id = %(pk_1)s::UUID
+2024-10-25 12:10:58,246 - INFO - [generated in 0.00096s] {'pk_1': UUID('06e4347e-4dfc-490a-a066-686942241770')}
+2024-10-25 12:10:58,257 - INFO - ROLLBACK
+2024-10-25 12:10:58,259 - INFO - Session closed for add-customer API
+2024-10-25 12:10:58,260 - INFO - 127.0.0.1 - - [25/Oct/2024 12:10:58] "[35m[1mPOST /add-customer HTTP/1.1[0m" 201 -
+2024-10-25 12:16:27,617 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\email_setup\\email_operations.py', reloading
+2024-10-25 12:16:27,830 - INFO -  * Restarting with stat
+2024-10-25 12:16:29,495 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 12:16:29,558 - WARNING -  * Debugger is active!
+2024-10-25 12:16:29,566 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 12:17:56,592 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\App\\app_customers.py', reloading
+2024-10-25 12:17:56,764 - INFO -  * Restarting with stat
+2024-10-25 12:17:57,871 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 12:17:57,889 - WARNING -  * Debugger is active!
+2024-10-25 12:17:57,892 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 12:23:08,173 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\App\\app_customers.py', reloading
+2024-10-25 12:23:08,385 - INFO -  * Restarting with stat
+2024-10-25 12:23:09,452 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 12:23:09,468 - WARNING -  * Debugger is active!
+2024-10-25 12:23:09,471 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 12:23:23,820 - INFO - 127.0.0.1 - - [25/Oct/2024 12:23:23] "[33mGET /get-customer HTTP/1.1[0m" 404 -
+2024-10-25 12:23:51,553 - INFO - Entered /get-customers endpoint. Request method: GET
+2024-10-25 12:23:51,553 - INFO - Received parameters - customer_id: , customer_name: , customer_contact_info: , customer_address: 
+2024-10-25 12:23:51,581 - INFO - Executing the query to fetch customers...
+2024-10-25 12:23:51,670 - INFO - BEGIN (implicit)
+2024-10-25 12:23:51,676 - INFO - SELECT heavy_machinery_customers.customer_id AS heavy_machinery_customers_customer_id, heavy_machinery_customers.customer_name AS heavy_machinery_customers_customer_name, heavy_machinery_customers.customer_contact_info AS heavy_machinery_customers_customer_contact_info, heavy_machinery_customers.customer_address AS heavy_machinery_customers_customer_address, heavy_machinery_customers.opportunity_id AS heavy_machinery_customers_opportunity_id, heavy_machinery_customers.dealer_id AS heavy_machinery_customers_dealer_id, heavy_machinery_customers.employee_id AS heavy_machinery_customers_employee_id, heavy_machinery_customers.customer_status AS heavy_machinery_customers_customer_status, heavy_machinery_customers.customer_comments AS heavy_machinery_customers_customer_comments, heavy_machinery_customers.customer_feedback AS heavy_machinery_customers_customer_feedback, heavy_machinery_customers.customer_created_at AS heavy_machinery_customers_customer_created_at, heavy_machinery_customers.customer_updated_at AS heavy_machinery_customers_customer_updated_at, heavy_machinery_customers.customer_last_interaction AS heavy_machinery_customers_customer_last_interaction, heavy_machinery_customers.product_id AS heavy_machinery_customers_product_id, heavy_machinery_customers.product_name AS heavy_machinery_customers_product_name, heavy_machinery_customers.product_model AS heavy_machinery_customers_product_model, heavy_machinery_customers.product_brand AS heavy_machinery_customers_product_brand 
+FROM heavy_machinery_customers
+2024-10-25 12:23:51,676 - INFO - [generated in 0.00043s] {}
+2024-10-25 12:23:51,683 - INFO - Fetched 5 customers based on filters
+2024-10-25 12:23:51,690 - INFO - SELECT heavy_products.heavy_product_id AS heavy_products_heavy_product_id, heavy_products.heavy_product_name AS heavy_products_heavy_product_name, heavy_products.heavy_product_type AS heavy_products_heavy_product_type, heavy_products.heavy_product_brand AS heavy_products_heavy_product_brand, heavy_products.heavy_product_model AS heavy_products_heavy_product_model, heavy_products.heavy_product_year_of_manufacture AS heavy_products_heavy_product_year_of_manufacture, heavy_products.heavy_product_price AS heavy_products_heavy_product_price, heavy_products.heavy_product_weight AS heavy_products_heavy_product_weight, heavy_products.heavy_product_dimensions AS heavy_products_heavy_product_dimensions, heavy_products.heavy_product_engine_type AS heavy_products_heavy_product_engine_type, heavy_products.heavy_product_horsepower AS heavy_products_heavy_product_horsepower, heavy_products.heavy_product_fuel_capacity AS heavy_products_heavy_product_fuel_capacity, heavy_products.heavy_product_operational_hours AS heavy_products_heavy_product_operational_hours, heavy_products.heavy_product_warranty_period AS heavy_products_heavy_product_warranty_period, heavy_products.heavy_product_status AS heavy_products_heavy_product_status, heavy_products.heavy_product_description AS heavy_products_heavy_product_description, heavy_products.heavy_product_image_url AS heavy_products_heavy_product_image_url, heavy_products.heavy_product_created_at AS heavy_products_heavy_product_created_at, heavy_products.heavy_product_updated_at AS heavy_products_heavy_product_updated_at, heavy_products.employee_id AS heavy_products_employee_id, heavy_products.employee_name AS heavy_products_employee_name, heavy_products.employee_num AS heavy_products_employee_num 
+FROM heavy_products 
+WHERE heavy_products.heavy_product_id = %(pk_1)s::UUID
+2024-10-25 12:23:51,691 - INFO - [generated in 0.00058s] {'pk_1': UUID('72c5591f-a646-4f7f-8ae6-5f9eeaf2c76a')}
+2024-10-25 12:23:51,704 - INFO - SELECT employee.emp_id AS employee_emp_id, employee.emp_first_name AS employee_emp_first_name, employee.emp_last_name AS employee_emp_last_name, employee.emp_email AS employee_emp_email, employee.emp_num AS employee_emp_num, employee.emp_phone AS employee_emp_phone, employee.emp_hire_date AS employee_emp_hire_date, employee.emp_position AS employee_emp_position, employee.emp_salary AS employee_emp_salary, employee.emp_department AS employee_emp_department, employee.emp_age AS employee_emp_age, employee.emp_sex AS employee_emp_sex, employee.emp_blood_group AS employee_emp_blood_group, employee.emp_height AS employee_emp_height, employee.emp_weight AS employee_emp_weight, employee.emp_address AS employee_emp_address, employee.emp_emergency_contact AS employee_emp_emergency_contact, employee.emp_nationality AS employee_emp_nationality, employee.emp_date_of_birth AS employee_emp_date_of_birth, employee.emp_marital_status AS employee_emp_marital_status, employee.emp_employment_status AS employee_emp_employment_status, employee.emp_insurance_number AS employee_emp_insurance_number, employee.emp_created_at AS employee_emp_created_at 
+FROM employee 
+WHERE employee.emp_id = %(pk_1)s::UUID
+2024-10-25 12:23:51,704 - INFO - [generated in 0.00057s] {'pk_1': UUID('06e4347e-4dfc-490a-a066-686942241770')}
+2024-10-25 12:23:51,708 - INFO - Prepared customer list for response: [{'customer_id': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'customer_name': 'Hemanth', 'customer_contact_info': 'hemanth@gmail.com', 'customer_address': '123 Machinery St, Industrial Zone', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'new', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T06:02:05.649083', 'product_id': None, 'product_name': None, 'product_brand': None, 'product_model': None, 'product': None}, {'customer_id': 'da4be685-7485-4222-b0c1-5bd1a76ea7cc', 'customer_name': 'Hemanth', 'customer_contact_info': 'hemanth@gmail.com', 'customer_address': '123 Machinery St, Industrial Zone', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'new', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T06:07:36.945032', 'product_id': None, 'product_name': None, 'product_brand': None, 'product_model': None, 'product': None}, {'customer_id': '6a2eb1d7-f637-4902-8bed-3bb3708b5995', 'customer_name': 'Hemanth', 'customer_contact_info': 'hemanth@gmail.com', 'customer_address': '123 Machinery St, Industrial Zone', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'new', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T06:17:13.855589', 'product_id': None, 'product_name': None, 'product_brand': None, 'product_model': None, 'product': None}, {'customer_id': 'c07e7d44-1307-4cc8-8a3f-905b47e69a96', 'customer_name': 'Hemanth', 'customer_contact_info': 'hemanth@gmail.com', 'customer_address': '123 Machinery St, Industrial Zone', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'new', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T06:37:05.058689', 'product_id': None, 'product_name': None, 'product_brand': None, 'product_model': None, 'product': None}, {'customer_id': '512aa34f-7bef-4531-974b-31f6a0d8bb83', 'customer_name': 'Hemanth', 'customer_contact_info': 'hemanth@gmail.com', 'customer_address': '123 Machinery St, Industrial Zone', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'new', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T06:40:54.514320', 'product_id': '72c5591f-a646-4f7f-8ae6-5f9eeaf2c76a', 'product_name': 'CAT 320D', 'product_brand': 'Caterpillar', 'product_model': '320D', 'product': {'heavy_product_id': '72c5591f-a646-4f7f-8ae6-5f9eeaf2c76a', 'heavy_product_name': 'CAT 320D', 'heavy_product_type': 'Excavator', 'heavy_product_brand': 'Caterpillar', 'heavy_product_model': '320D', 'heavy_product_year_of_manufacture': 2019, 'heavy_product_price': '850000.00', 'heavy_product_weight': '24000.00', 'heavy_product_dimensions': '9.6m x 2.9m x 3.5m', 'heavy_product_engine_type': 'Diesel', 'heavy_product_horsepower': '190.00', 'heavy_product_fuel_capacity': '350.00', 'heavy_product_operational_hours': 2500, 'heavy_product_warranty_period': 240, 'heavy_product_status': 'Unavailable', 'heavy_product_description': 'A reliable excavator for heavy-duty tasks.', 'heavy_product_image_url': 'http://example.com/images/cat_320d.jpg', 'heavy_product_created_at': '2024-10-23T00:52:40.560748', 'heavy_product_updated_at': '2024-10-23T12:38:18.853072', 'employee_id': '06e4347e-4dfc-490a-a066-686942241770', 'employee_name': 'kiran kumar', 'employee_num': 'EMP00123'}}]
+2024-10-25 12:23:51,708 - INFO - Preparing to send notification email with fetched customer details...
+2024-10-25 12:23:56,248 - INFO - Notification email sent successfully.
+2024-10-25 12:23:56,249 - INFO - ROLLBACK
+2024-10-25 12:23:56,250 - INFO - Session closed for get-customers API
+2024-10-25 12:23:56,251 - INFO - 127.0.0.1 - - [25/Oct/2024 12:23:56] "GET /get-customers HTTP/1.1" 200 -
+2024-10-25 12:24:57,234 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\App\\app_customers.py', reloading
+2024-10-25 12:24:57,450 - INFO -  * Restarting with stat
+2024-10-25 12:24:58,424 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 12:24:58,441 - WARNING -  * Debugger is active!
+2024-10-25 12:24:58,444 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 12:27:35,051 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\email_setup\\email_operations.py', reloading
+2024-10-25 12:27:35,204 - INFO -  * Restarting with stat
+2024-10-25 12:27:36,473 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 12:27:36,508 - WARNING -  * Debugger is active!
+2024-10-25 12:27:36,512 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 12:27:36,558 - INFO - 127.0.0.1 - - [25/Oct/2024 12:27:36] "[31m[1mGET /get-customers HTTP/1.1[0m" 415 -
+2024-10-25 12:27:49,046 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\App\\app_customers.py', reloading
+2024-10-25 12:27:49,243 - INFO -  * Restarting with stat
+2024-10-25 12:27:50,083 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 12:27:50,103 - WARNING -  * Debugger is active!
+2024-10-25 12:27:50,107 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 12:27:51,208 - INFO - Entered /get-customers endpoint. Request method: GET
+2024-10-25 12:27:51,209 - INFO - Received parameters - customer_id: , customer_name: , customer_contact_info: , customer_address: 
+2024-10-25 12:27:51,237 - INFO - Executing the query to fetch customers...
+2024-10-25 12:27:51,289 - INFO - BEGIN (implicit)
+2024-10-25 12:27:51,291 - INFO - SELECT heavy_machinery_customers.customer_id AS heavy_machinery_customers_customer_id, heavy_machinery_customers.customer_name AS heavy_machinery_customers_customer_name, heavy_machinery_customers.customer_contact_info AS heavy_machinery_customers_customer_contact_info, heavy_machinery_customers.customer_address AS heavy_machinery_customers_customer_address, heavy_machinery_customers.opportunity_id AS heavy_machinery_customers_opportunity_id, heavy_machinery_customers.dealer_id AS heavy_machinery_customers_dealer_id, heavy_machinery_customers.employee_id AS heavy_machinery_customers_employee_id, heavy_machinery_customers.customer_status AS heavy_machinery_customers_customer_status, heavy_machinery_customers.customer_comments AS heavy_machinery_customers_customer_comments, heavy_machinery_customers.customer_feedback AS heavy_machinery_customers_customer_feedback, heavy_machinery_customers.customer_created_at AS heavy_machinery_customers_customer_created_at, heavy_machinery_customers.customer_updated_at AS heavy_machinery_customers_customer_updated_at, heavy_machinery_customers.customer_last_interaction AS heavy_machinery_customers_customer_last_interaction, heavy_machinery_customers.product_id AS heavy_machinery_customers_product_id, heavy_machinery_customers.product_name AS heavy_machinery_customers_product_name, heavy_machinery_customers.product_model AS heavy_machinery_customers_product_model, heavy_machinery_customers.product_brand AS heavy_machinery_customers_product_brand 
+FROM heavy_machinery_customers
+2024-10-25 12:27:51,292 - INFO - [generated in 0.00022s] {}
+2024-10-25 12:27:51,296 - INFO - Fetched 5 customers based on filters
+2024-10-25 12:27:51,301 - INFO - SELECT heavy_products.heavy_product_id AS heavy_products_heavy_product_id, heavy_products.heavy_product_name AS heavy_products_heavy_product_name, heavy_products.heavy_product_type AS heavy_products_heavy_product_type, heavy_products.heavy_product_brand AS heavy_products_heavy_product_brand, heavy_products.heavy_product_model AS heavy_products_heavy_product_model, heavy_products.heavy_product_year_of_manufacture AS heavy_products_heavy_product_year_of_manufacture, heavy_products.heavy_product_price AS heavy_products_heavy_product_price, heavy_products.heavy_product_weight AS heavy_products_heavy_product_weight, heavy_products.heavy_product_dimensions AS heavy_products_heavy_product_dimensions, heavy_products.heavy_product_engine_type AS heavy_products_heavy_product_engine_type, heavy_products.heavy_product_horsepower AS heavy_products_heavy_product_horsepower, heavy_products.heavy_product_fuel_capacity AS heavy_products_heavy_product_fuel_capacity, heavy_products.heavy_product_operational_hours AS heavy_products_heavy_product_operational_hours, heavy_products.heavy_product_warranty_period AS heavy_products_heavy_product_warranty_period, heavy_products.heavy_product_status AS heavy_products_heavy_product_status, heavy_products.heavy_product_description AS heavy_products_heavy_product_description, heavy_products.heavy_product_image_url AS heavy_products_heavy_product_image_url, heavy_products.heavy_product_created_at AS heavy_products_heavy_product_created_at, heavy_products.heavy_product_updated_at AS heavy_products_heavy_product_updated_at, heavy_products.employee_id AS heavy_products_employee_id, heavy_products.employee_name AS heavy_products_employee_name, heavy_products.employee_num AS heavy_products_employee_num 
+FROM heavy_products 
+WHERE heavy_products.heavy_product_id = %(pk_1)s::UUID
+2024-10-25 12:27:51,301 - INFO - [generated in 0.00029s] {'pk_1': UUID('72c5591f-a646-4f7f-8ae6-5f9eeaf2c76a')}
+2024-10-25 12:27:51,309 - INFO - SELECT employee.emp_id AS employee_emp_id, employee.emp_first_name AS employee_emp_first_name, employee.emp_last_name AS employee_emp_last_name, employee.emp_email AS employee_emp_email, employee.emp_num AS employee_emp_num, employee.emp_phone AS employee_emp_phone, employee.emp_hire_date AS employee_emp_hire_date, employee.emp_position AS employee_emp_position, employee.emp_salary AS employee_emp_salary, employee.emp_department AS employee_emp_department, employee.emp_age AS employee_emp_age, employee.emp_sex AS employee_emp_sex, employee.emp_blood_group AS employee_emp_blood_group, employee.emp_height AS employee_emp_height, employee.emp_weight AS employee_emp_weight, employee.emp_address AS employee_emp_address, employee.emp_emergency_contact AS employee_emp_emergency_contact, employee.emp_nationality AS employee_emp_nationality, employee.emp_date_of_birth AS employee_emp_date_of_birth, employee.emp_marital_status AS employee_emp_marital_status, employee.emp_employment_status AS employee_emp_employment_status, employee.emp_insurance_number AS employee_emp_insurance_number, employee.emp_created_at AS employee_emp_created_at 
+FROM employee 
+WHERE employee.emp_id = %(pk_1)s::UUID
+2024-10-25 12:27:51,309 - INFO - [generated in 0.00026s] {'pk_1': UUID('06e4347e-4dfc-490a-a066-686942241770')}
+2024-10-25 12:27:51,311 - INFO - Prepared customer list for response: [{'customer_id': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'customer_name': 'Hemanth', 'customer_contact_info': 'hemanth@gmail.com', 'customer_address': '123 Machinery St, Industrial Zone', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'new', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T06:02:05.649083', 'product_id': None, 'product_name': None, 'product_brand': None, 'product_model': None, 'product': None}, {'customer_id': 'da4be685-7485-4222-b0c1-5bd1a76ea7cc', 'customer_name': 'Hemanth', 'customer_contact_info': 'hemanth@gmail.com', 'customer_address': '123 Machinery St, Industrial Zone', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'new', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T06:07:36.945032', 'product_id': None, 'product_name': None, 'product_brand': None, 'product_model': None, 'product': None}, {'customer_id': '6a2eb1d7-f637-4902-8bed-3bb3708b5995', 'customer_name': 'Hemanth', 'customer_contact_info': 'hemanth@gmail.com', 'customer_address': '123 Machinery St, Industrial Zone', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'new', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T06:17:13.855589', 'product_id': None, 'product_name': None, 'product_brand': None, 'product_model': None, 'product': None}, {'customer_id': 'c07e7d44-1307-4cc8-8a3f-905b47e69a96', 'customer_name': 'Hemanth', 'customer_contact_info': 'hemanth@gmail.com', 'customer_address': '123 Machinery St, Industrial Zone', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'new', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T06:37:05.058689', 'product_id': None, 'product_name': None, 'product_brand': None, 'product_model': None, 'product': None}, {'customer_id': '512aa34f-7bef-4531-974b-31f6a0d8bb83', 'customer_name': 'Hemanth', 'customer_contact_info': 'hemanth@gmail.com', 'customer_address': '123 Machinery St, Industrial Zone', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'new', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T06:40:54.514320', 'product_id': '72c5591f-a646-4f7f-8ae6-5f9eeaf2c76a', 'product_name': 'CAT 320D', 'product_brand': 'Caterpillar', 'product_model': '320D', 'product': {'heavy_product_id': '72c5591f-a646-4f7f-8ae6-5f9eeaf2c76a', 'heavy_product_name': 'CAT 320D', 'heavy_product_type': 'Excavator', 'heavy_product_brand': 'Caterpillar', 'heavy_product_model': '320D', 'heavy_product_year_of_manufacture': 2019, 'heavy_product_price': '850000.00', 'heavy_product_weight': '24000.00', 'heavy_product_dimensions': '9.6m x 2.9m x 3.5m', 'heavy_product_engine_type': 'Diesel', 'heavy_product_horsepower': '190.00', 'heavy_product_fuel_capacity': '350.00', 'heavy_product_operational_hours': 2500, 'heavy_product_warranty_period': 240, 'heavy_product_status': 'Unavailable', 'heavy_product_description': 'A reliable excavator for heavy-duty tasks.', 'heavy_product_image_url': 'http://example.com/images/cat_320d.jpg', 'heavy_product_created_at': '2024-10-23T00:52:40.560748', 'heavy_product_updated_at': '2024-10-23T12:38:18.853072', 'employee_id': '06e4347e-4dfc-490a-a066-686942241770', 'employee_name': 'kiran kumar', 'employee_num': 'EMP00123'}}]
+2024-10-25 12:27:51,311 - INFO - Preparing to send notification email with fetched customer details...
+2024-10-25 12:27:54,769 - INFO - Notification email sent successfully.
+2024-10-25 12:27:54,770 - INFO - ROLLBACK
+2024-10-25 12:27:54,772 - INFO - Session closed for get-customers API
+2024-10-25 12:27:54,773 - INFO - 127.0.0.1 - - [25/Oct/2024 12:27:54] "GET /get-customers HTTP/1.1" 200 -
+2024-10-25 12:30:43,840 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\App\\app_customers.py', reloading
+2024-10-25 12:30:44,038 - INFO -  * Restarting with stat
+2024-10-25 12:30:44,828 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 12:30:44,844 - WARNING -  * Debugger is active!
+2024-10-25 12:30:44,847 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 12:33:28,971 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\App\\app_customers.py', reloading
+2024-10-25 12:33:29,135 - INFO -  * Restarting with stat
+2024-10-25 12:33:29,912 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 12:33:29,928 - WARNING -  * Debugger is active!
+2024-10-25 12:33:29,931 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 12:33:55,969 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\App\\app_customers.py', reloading
+2024-10-25 12:33:56,108 - INFO -  * Restarting with stat
+2024-10-25 12:33:57,211 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 12:33:57,234 - WARNING -  * Debugger is active!
+2024-10-25 12:33:57,239 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 14:39:02,865 - INFO - Flask application has stopped.
+2024-10-25 14:39:03,061 - INFO - Flask application has stopped.
+2024-10-25 14:39:20,757 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 14:39:20,813 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-10-25 14:39:20,813 - INFO - [33mPress CTRL+C to quit[0m
+2024-10-25 14:39:20,814 - INFO -  * Restarting with stat
+2024-10-25 14:39:21,631 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 14:39:21,651 - WARNING -  * Debugger is active!
+2024-10-25 14:39:21,654 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 14:43:08,764 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\App\\app_customers.py', reloading
+2024-10-25 14:43:08,907 - INFO -  * Restarting with stat
+2024-10-25 14:43:09,682 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 14:43:09,699 - WARNING -  * Debugger is active!
+2024-10-25 14:43:09,702 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 14:43:53,032 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\email_setup\\email_operations.py', reloading
+2024-10-25 14:43:53,244 - INFO -  * Restarting with stat
+2024-10-25 14:43:54,109 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 14:43:54,126 - WARNING -  * Debugger is active!
+2024-10-25 14:43:54,129 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 14:44:11,046 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\email_setup\\email_operations.py', reloading
+2024-10-25 14:44:11,157 - INFO -  * Restarting with stat
+2024-10-25 14:44:12,139 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 14:44:12,162 - WARNING -  * Debugger is active!
+2024-10-25 14:44:12,165 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 14:44:31,079 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\email_setup\\email_operations.py', reloading
+2024-10-25 14:44:31,244 - INFO -  * Restarting with stat
+2024-10-25 14:44:32,316 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 14:44:32,333 - WARNING -  * Debugger is active!
+2024-10-25 14:44:32,336 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 14:44:43,775 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\email_setup\\email_operations.py', reloading
+2024-10-25 14:44:43,929 - INFO -  * Restarting with stat
+2024-10-25 14:44:44,887 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 14:44:44,903 - WARNING -  * Debugger is active!
+2024-10-25 14:44:44,906 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 14:44:59,450 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\email_setup\\email_operations.py', reloading
+2024-10-25 14:44:59,662 - INFO -  * Restarting with stat
+2024-10-25 14:45:00,641 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 14:45:00,658 - WARNING -  * Debugger is active!
+2024-10-25 14:45:00,662 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 14:46:11,303 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\App\\app_customers.py', reloading
+2024-10-25 14:46:11,441 - INFO -  * Restarting with stat
+2024-10-25 14:46:12,395 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 14:46:12,413 - WARNING -  * Debugger is active!
+2024-10-25 14:46:12,417 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 14:46:22,862 - INFO - BEGIN (implicit)
+2024-10-25 14:46:22,866 - INFO - SELECT otp_store.id AS otp_store_id, otp_store.email AS otp_store_email, otp_store.otp AS otp_store_otp, otp_store.timestamp AS otp_store_timestamp 
+FROM otp_store 
+WHERE otp_store.email = %(email_1)s ORDER BY otp_store.timestamp DESC 
+ LIMIT %(param_1)s
+2024-10-25 14:46:22,866 - INFO - [generated in 0.00045s] {'email_1': 'komalsaikiran05@gmail.com', 'param_1': 1}
+2024-10-25 14:46:22,884 - INFO - OTP validation successful for komalsaikiran05@gmail.com.
+2024-10-25 14:46:22,884 - INFO - Entered /update-customer endpoint. Request method: PUT
+2024-10-25 14:46:22,884 - INFO - Data received for update: {'customer_id': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'customer_name': 'HEMANTH', 'customer_contact_info': 'HEMANTH@gmail.com', 'customer_address': '456 Updated Address', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'customer_status': 'Active', 'otp': '980220', 'email': 'komalsaikiran05@gmail.com'}
+2024-10-25 14:46:22,887 - INFO - SELECT heavy_machinery_customers.customer_id AS heavy_machinery_customers_customer_id, heavy_machinery_customers.customer_name AS heavy_machinery_customers_customer_name, heavy_machinery_customers.customer_contact_info AS heavy_machinery_customers_customer_contact_info, heavy_machinery_customers.customer_address AS heavy_machinery_customers_customer_address, heavy_machinery_customers.opportunity_id AS heavy_machinery_customers_opportunity_id, heavy_machinery_customers.dealer_id AS heavy_machinery_customers_dealer_id, heavy_machinery_customers.employee_id AS heavy_machinery_customers_employee_id, heavy_machinery_customers.customer_status AS heavy_machinery_customers_customer_status, heavy_machinery_customers.customer_comments AS heavy_machinery_customers_customer_comments, heavy_machinery_customers.customer_feedback AS heavy_machinery_customers_customer_feedback, heavy_machinery_customers.customer_created_at AS heavy_machinery_customers_customer_created_at, heavy_machinery_customers.customer_updated_at AS heavy_machinery_customers_customer_updated_at, heavy_machinery_customers.customer_last_interaction AS heavy_machinery_customers_customer_last_interaction, heavy_machinery_customers.product_id AS heavy_machinery_customers_product_id, heavy_machinery_customers.product_name AS heavy_machinery_customers_product_name, heavy_machinery_customers.product_model AS heavy_machinery_customers_product_model, heavy_machinery_customers.product_brand AS heavy_machinery_customers_product_brand 
+FROM heavy_machinery_customers 
+WHERE heavy_machinery_customers.customer_id = %(customer_id_1)s::UUID 
+ LIMIT %(param_1)s
+2024-10-25 14:46:22,887 - INFO - [generated in 0.00025s] {'customer_id_1': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'param_1': 1}
+2024-10-25 14:46:22,895 - INFO - UPDATE heavy_machinery_customers SET customer_name=%(customer_name)s, customer_contact_info=%(customer_contact_info)s, customer_address=%(customer_address)s, opportunity_id=%(opportunity_id)s::UUID, dealer_id=%(dealer_id)s::UUID, employee_id=%(employee_id)s::UUID, customer_status=%(customer_status)s, customer_updated_at=now() WHERE heavy_machinery_customers.customer_id = %(heavy_machinery_customers_customer_id)s::UUID
+2024-10-25 14:46:22,895 - INFO - [generated in 0.00066s] {'customer_name': 'HEMANTH', 'customer_contact_info': 'HEMANTH@gmail.com', 'customer_address': '456 Updated Address', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'Active', 'heavy_machinery_customers_customer_id': UUID('36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31')}
+2024-10-25 14:46:22,903 - INFO - COMMIT
+2024-10-25 14:46:22,904 - INFO - Customer with ID 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31 updated successfully.
+2024-10-25 14:46:22,904 - ERROR - General Error updating customer ID 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31: generate_customers_email_body() missing 1 required positional argument: 'updated_time'
+2024-10-25 14:46:22,904 - INFO - Session closed for update-customer API
+2024-10-25 14:46:22,906 - INFO - 127.0.0.1 - - [25/Oct/2024 14:46:22] "[35m[1mPUT /update-customer HTTP/1.1[0m" 500 -
+2024-10-25 14:48:05,424 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\App\\app_customers.py', reloading
+2024-10-25 14:48:05,573 - INFO -  * Restarting with stat
+2024-10-25 14:48:06,478 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 14:48:06,497 - WARNING -  * Debugger is active!
+2024-10-25 14:48:06,501 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 14:50:30,294 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\email_setup\\email_operations.py', reloading
+2024-10-25 14:50:30,441 - INFO -  * Restarting with stat
+2024-10-25 14:50:31,396 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 14:50:31,412 - WARNING -  * Debugger is active!
+2024-10-25 14:50:31,414 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 14:53:28,528 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\App\\app_customers.py', reloading
+2024-10-25 14:53:28,704 - INFO -  * Restarting with stat
+2024-10-25 14:53:29,638 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 14:53:29,660 - WARNING -  * Debugger is active!
+2024-10-25 14:53:29,664 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 14:54:00,770 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\App\\app_customers.py', reloading
+2024-10-25 14:54:00,928 - INFO -  * Restarting with stat
+2024-10-25 14:54:01,739 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 14:54:01,757 - WARNING -  * Debugger is active!
+2024-10-25 14:54:01,760 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 14:57:11,687 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\email_setup\\email_operations.py', reloading
+2024-10-25 14:57:11,807 - INFO -  * Restarting with stat
+2024-10-25 14:57:12,842 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 14:57:12,863 - WARNING -  * Debugger is active!
+2024-10-25 14:57:12,868 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 14:57:13,110 - INFO - BEGIN (implicit)
+2024-10-25 14:57:13,113 - INFO - SELECT otp_store.id AS otp_store_id, otp_store.email AS otp_store_email, otp_store.otp AS otp_store_otp, otp_store.timestamp AS otp_store_timestamp 
+FROM otp_store 
+WHERE otp_store.email = %(email_1)s ORDER BY otp_store.timestamp DESC 
+ LIMIT %(param_1)s
+2024-10-25 14:57:13,113 - INFO - [generated in 0.00032s] {'email_1': 'komalsaikiran05@gmail.com', 'param_1': 1}
+2024-10-25 14:57:13,119 - INFO - OTP validation successful for komalsaikiran05@gmail.com.
+2024-10-25 14:57:13,119 - INFO - Entered /update-customer endpoint. Request method: PUT
+2024-10-25 14:57:13,119 - INFO - Data received for update: {'customer_id': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'customer_name': 'HEMANTH', 'customer_contact_info': 'HEMANTH@gmail.com', 'customer_address': '456 Updated Address', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'customer_status': 'Active', 'otp': '980220', 'email': 'komalsaikiran05@gmail.com'}
+2024-10-25 14:57:13,122 - INFO - SELECT heavy_machinery_customers.customer_id AS heavy_machinery_customers_customer_id, heavy_machinery_customers.customer_name AS heavy_machinery_customers_customer_name, heavy_machinery_customers.customer_contact_info AS heavy_machinery_customers_customer_contact_info, heavy_machinery_customers.customer_address AS heavy_machinery_customers_customer_address, heavy_machinery_customers.opportunity_id AS heavy_machinery_customers_opportunity_id, heavy_machinery_customers.dealer_id AS heavy_machinery_customers_dealer_id, heavy_machinery_customers.employee_id AS heavy_machinery_customers_employee_id, heavy_machinery_customers.customer_status AS heavy_machinery_customers_customer_status, heavy_machinery_customers.customer_comments AS heavy_machinery_customers_customer_comments, heavy_machinery_customers.customer_feedback AS heavy_machinery_customers_customer_feedback, heavy_machinery_customers.customer_created_at AS heavy_machinery_customers_customer_created_at, heavy_machinery_customers.customer_updated_at AS heavy_machinery_customers_customer_updated_at, heavy_machinery_customers.customer_last_interaction AS heavy_machinery_customers_customer_last_interaction, heavy_machinery_customers.product_id AS heavy_machinery_customers_product_id, heavy_machinery_customers.product_name AS heavy_machinery_customers_product_name, heavy_machinery_customers.product_model AS heavy_machinery_customers_product_model, heavy_machinery_customers.product_brand AS heavy_machinery_customers_product_brand 
+FROM heavy_machinery_customers 
+WHERE heavy_machinery_customers.customer_id = %(customer_id_1)s::UUID 
+ LIMIT %(param_1)s
+2024-10-25 14:57:13,122 - INFO - [generated in 0.00036s] {'customer_id_1': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'param_1': 1}
+2024-10-25 14:57:13,128 - INFO - UPDATE heavy_machinery_customers SET opportunity_id=%(opportunity_id)s::UUID, dealer_id=%(dealer_id)s::UUID, employee_id=%(employee_id)s::UUID, customer_updated_at=now() WHERE heavy_machinery_customers.customer_id = %(heavy_machinery_customers_customer_id)s::UUID
+2024-10-25 14:57:13,128 - INFO - [generated in 0.00035s] {'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'heavy_machinery_customers_customer_id': UUID('36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31')}
+2024-10-25 14:57:13,132 - INFO - COMMIT
+2024-10-25 14:57:13,133 - INFO - Customer with ID 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31 updated successfully.
+2024-10-25 14:57:13,133 - ERROR - General Error updating customer ID 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31: Object of type InstanceState is not JSON serializable
+2024-10-25 14:57:13,134 - INFO - Session closed for update-customer API
+2024-10-25 14:57:13,134 - INFO - 127.0.0.1 - - [25/Oct/2024 14:57:13] "[35m[1mPUT /update-customer HTTP/1.1[0m" 500 -
+2024-10-25 14:57:28,356 - INFO - Entered /get-customers endpoint. Request method: GET
+2024-10-25 14:57:28,356 - INFO - Received parameters - customer_id: , customer_name: , customer_contact_info: , customer_address: 
+2024-10-25 14:57:28,356 - INFO - Executing the query to fetch customers...
+2024-10-25 14:57:28,438 - INFO - BEGIN (implicit)
+2024-10-25 14:57:28,438 - INFO - SELECT heavy_machinery_customers.customer_id AS heavy_machinery_customers_customer_id, heavy_machinery_customers.customer_name AS heavy_machinery_customers_customer_name, heavy_machinery_customers.customer_contact_info AS heavy_machinery_customers_customer_contact_info, heavy_machinery_customers.customer_address AS heavy_machinery_customers_customer_address, heavy_machinery_customers.opportunity_id AS heavy_machinery_customers_opportunity_id, heavy_machinery_customers.dealer_id AS heavy_machinery_customers_dealer_id, heavy_machinery_customers.employee_id AS heavy_machinery_customers_employee_id, heavy_machinery_customers.customer_status AS heavy_machinery_customers_customer_status, heavy_machinery_customers.customer_comments AS heavy_machinery_customers_customer_comments, heavy_machinery_customers.customer_feedback AS heavy_machinery_customers_customer_feedback, heavy_machinery_customers.customer_created_at AS heavy_machinery_customers_customer_created_at, heavy_machinery_customers.customer_updated_at AS heavy_machinery_customers_customer_updated_at, heavy_machinery_customers.customer_last_interaction AS heavy_machinery_customers_customer_last_interaction, heavy_machinery_customers.product_id AS heavy_machinery_customers_product_id, heavy_machinery_customers.product_name AS heavy_machinery_customers_product_name, heavy_machinery_customers.product_model AS heavy_machinery_customers_product_model, heavy_machinery_customers.product_brand AS heavy_machinery_customers_product_brand 
+FROM heavy_machinery_customers
+2024-10-25 14:57:28,438 - INFO - [generated in 0.00016s] {}
+2024-10-25 14:57:28,441 - INFO - Fetched 5 customers based on filters
+2024-10-25 14:57:28,446 - INFO - SELECT heavy_products.heavy_product_id AS heavy_products_heavy_product_id, heavy_products.heavy_product_name AS heavy_products_heavy_product_name, heavy_products.heavy_product_type AS heavy_products_heavy_product_type, heavy_products.heavy_product_brand AS heavy_products_heavy_product_brand, heavy_products.heavy_product_model AS heavy_products_heavy_product_model, heavy_products.heavy_product_year_of_manufacture AS heavy_products_heavy_product_year_of_manufacture, heavy_products.heavy_product_price AS heavy_products_heavy_product_price, heavy_products.heavy_product_weight AS heavy_products_heavy_product_weight, heavy_products.heavy_product_dimensions AS heavy_products_heavy_product_dimensions, heavy_products.heavy_product_engine_type AS heavy_products_heavy_product_engine_type, heavy_products.heavy_product_horsepower AS heavy_products_heavy_product_horsepower, heavy_products.heavy_product_fuel_capacity AS heavy_products_heavy_product_fuel_capacity, heavy_products.heavy_product_operational_hours AS heavy_products_heavy_product_operational_hours, heavy_products.heavy_product_warranty_period AS heavy_products_heavy_product_warranty_period, heavy_products.heavy_product_status AS heavy_products_heavy_product_status, heavy_products.heavy_product_description AS heavy_products_heavy_product_description, heavy_products.heavy_product_image_url AS heavy_products_heavy_product_image_url, heavy_products.heavy_product_created_at AS heavy_products_heavy_product_created_at, heavy_products.heavy_product_updated_at AS heavy_products_heavy_product_updated_at, heavy_products.employee_id AS heavy_products_employee_id, heavy_products.employee_name AS heavy_products_employee_name, heavy_products.employee_num AS heavy_products_employee_num 
+FROM heavy_products 
+WHERE heavy_products.heavy_product_id = %(pk_1)s::UUID
+2024-10-25 14:57:28,446 - INFO - [generated in 0.00026s] {'pk_1': UUID('72c5591f-a646-4f7f-8ae6-5f9eeaf2c76a')}
+2024-10-25 14:57:28,457 - INFO - SELECT employee.emp_id AS employee_emp_id, employee.emp_first_name AS employee_emp_first_name, employee.emp_last_name AS employee_emp_last_name, employee.emp_email AS employee_emp_email, employee.emp_num AS employee_emp_num, employee.emp_phone AS employee_emp_phone, employee.emp_hire_date AS employee_emp_hire_date, employee.emp_position AS employee_emp_position, employee.emp_salary AS employee_emp_salary, employee.emp_department AS employee_emp_department, employee.emp_age AS employee_emp_age, employee.emp_sex AS employee_emp_sex, employee.emp_blood_group AS employee_emp_blood_group, employee.emp_height AS employee_emp_height, employee.emp_weight AS employee_emp_weight, employee.emp_address AS employee_emp_address, employee.emp_emergency_contact AS employee_emp_emergency_contact, employee.emp_nationality AS employee_emp_nationality, employee.emp_date_of_birth AS employee_emp_date_of_birth, employee.emp_marital_status AS employee_emp_marital_status, employee.emp_employment_status AS employee_emp_employment_status, employee.emp_insurance_number AS employee_emp_insurance_number, employee.emp_created_at AS employee_emp_created_at 
+FROM employee 
+WHERE employee.emp_id = %(pk_1)s::UUID
+2024-10-25 14:57:28,457 - INFO - [generated in 0.00023s] {'pk_1': UUID('06e4347e-4dfc-490a-a066-686942241770')}
+2024-10-25 14:57:28,460 - INFO - Prepared customer list for response: [{'customer_id': 'da4be685-7485-4222-b0c1-5bd1a76ea7cc', 'customer_name': 'Hemanth', 'customer_contact_info': 'hemanth@gmail.com', 'customer_address': '123 Machinery St, Industrial Zone', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'new', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T06:07:36.945032', 'product_id': None, 'product_name': None, 'product_brand': None, 'product_model': None, 'product': None}, {'customer_id': '6a2eb1d7-f637-4902-8bed-3bb3708b5995', 'customer_name': 'Hemanth', 'customer_contact_info': 'hemanth@gmail.com', 'customer_address': '123 Machinery St, Industrial Zone', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'new', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T06:17:13.855589', 'product_id': None, 'product_name': None, 'product_brand': None, 'product_model': None, 'product': None}, {'customer_id': 'c07e7d44-1307-4cc8-8a3f-905b47e69a96', 'customer_name': 'Hemanth', 'customer_contact_info': 'hemanth@gmail.com', 'customer_address': '123 Machinery St, Industrial Zone', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'new', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T06:37:05.058689', 'product_id': None, 'product_name': None, 'product_brand': None, 'product_model': None, 'product': None}, {'customer_id': '512aa34f-7bef-4531-974b-31f6a0d8bb83', 'customer_name': 'Hemanth', 'customer_contact_info': 'hemanth@gmail.com', 'customer_address': '123 Machinery St, Industrial Zone', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'new', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T06:40:54.514320', 'product_id': '72c5591f-a646-4f7f-8ae6-5f9eeaf2c76a', 'product_name': 'CAT 320D', 'product_brand': 'Caterpillar', 'product_model': '320D', 'product': {'heavy_product_id': '72c5591f-a646-4f7f-8ae6-5f9eeaf2c76a', 'heavy_product_name': 'CAT 320D', 'heavy_product_type': 'Excavator', 'heavy_product_brand': 'Caterpillar', 'heavy_product_model': '320D', 'heavy_product_year_of_manufacture': 2019, 'heavy_product_price': '850000.00', 'heavy_product_weight': '24000.00', 'heavy_product_dimensions': '9.6m x 2.9m x 3.5m', 'heavy_product_engine_type': 'Diesel', 'heavy_product_horsepower': '190.00', 'heavy_product_fuel_capacity': '350.00', 'heavy_product_operational_hours': 2500, 'heavy_product_warranty_period': 240, 'heavy_product_status': 'Unavailable', 'heavy_product_description': 'A reliable excavator for heavy-duty tasks.', 'heavy_product_image_url': 'http://example.com/images/cat_320d.jpg', 'heavy_product_created_at': '2024-10-23T00:52:40.560748', 'heavy_product_updated_at': '2024-10-23T12:38:18.853072', 'employee_id': '06e4347e-4dfc-490a-a066-686942241770', 'employee_name': 'kiran kumar', 'employee_num': 'EMP00123'}}, {'customer_id': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'customer_name': 'HEMANTH', 'customer_contact_info': 'HEMANTH@gmail.com', 'customer_address': '456 Updated Address', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'Active', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T06:02:05.649083', 'product_id': None, 'product_name': None, 'product_brand': None, 'product_model': None, 'product': None}]
+2024-10-25 14:57:28,460 - INFO - Preparing to send notification email with fetched customer details...
+2024-10-25 14:57:32,146 - INFO - Notification email sent successfully.
+2024-10-25 14:57:32,147 - INFO - ROLLBACK
+2024-10-25 14:57:32,148 - INFO - Session closed for get-customers API
+2024-10-25 14:57:32,148 - INFO - 127.0.0.1 - - [25/Oct/2024 14:57:32] "GET /get-customers HTTP/1.1" 200 -
+2024-10-25 14:57:40,797 - INFO - Entered /get-customers endpoint. Request method: GET
+2024-10-25 14:57:40,797 - INFO - Received parameters - customer_id: , customer_name: , customer_contact_info: , customer_address: 
+2024-10-25 14:57:40,797 - INFO - Executing the query to fetch customers...
+2024-10-25 14:57:40,879 - INFO - BEGIN (implicit)
+2024-10-25 14:57:40,879 - INFO - SELECT heavy_machinery_customers.customer_id AS heavy_machinery_customers_customer_id, heavy_machinery_customers.customer_name AS heavy_machinery_customers_customer_name, heavy_machinery_customers.customer_contact_info AS heavy_machinery_customers_customer_contact_info, heavy_machinery_customers.customer_address AS heavy_machinery_customers_customer_address, heavy_machinery_customers.opportunity_id AS heavy_machinery_customers_opportunity_id, heavy_machinery_customers.dealer_id AS heavy_machinery_customers_dealer_id, heavy_machinery_customers.employee_id AS heavy_machinery_customers_employee_id, heavy_machinery_customers.customer_status AS heavy_machinery_customers_customer_status, heavy_machinery_customers.customer_comments AS heavy_machinery_customers_customer_comments, heavy_machinery_customers.customer_feedback AS heavy_machinery_customers_customer_feedback, heavy_machinery_customers.customer_created_at AS heavy_machinery_customers_customer_created_at, heavy_machinery_customers.customer_updated_at AS heavy_machinery_customers_customer_updated_at, heavy_machinery_customers.customer_last_interaction AS heavy_machinery_customers_customer_last_interaction, heavy_machinery_customers.product_id AS heavy_machinery_customers_product_id, heavy_machinery_customers.product_name AS heavy_machinery_customers_product_name, heavy_machinery_customers.product_model AS heavy_machinery_customers_product_model, heavy_machinery_customers.product_brand AS heavy_machinery_customers_product_brand 
+FROM heavy_machinery_customers
+2024-10-25 14:57:40,880 - INFO - [cached since 12.44s ago] {}
+2024-10-25 14:57:40,882 - INFO - Fetched 5 customers based on filters
+2024-10-25 14:57:40,883 - INFO - SELECT heavy_products.heavy_product_id AS heavy_products_heavy_product_id, heavy_products.heavy_product_name AS heavy_products_heavy_product_name, heavy_products.heavy_product_type AS heavy_products_heavy_product_type, heavy_products.heavy_product_brand AS heavy_products_heavy_product_brand, heavy_products.heavy_product_model AS heavy_products_heavy_product_model, heavy_products.heavy_product_year_of_manufacture AS heavy_products_heavy_product_year_of_manufacture, heavy_products.heavy_product_price AS heavy_products_heavy_product_price, heavy_products.heavy_product_weight AS heavy_products_heavy_product_weight, heavy_products.heavy_product_dimensions AS heavy_products_heavy_product_dimensions, heavy_products.heavy_product_engine_type AS heavy_products_heavy_product_engine_type, heavy_products.heavy_product_horsepower AS heavy_products_heavy_product_horsepower, heavy_products.heavy_product_fuel_capacity AS heavy_products_heavy_product_fuel_capacity, heavy_products.heavy_product_operational_hours AS heavy_products_heavy_product_operational_hours, heavy_products.heavy_product_warranty_period AS heavy_products_heavy_product_warranty_period, heavy_products.heavy_product_status AS heavy_products_heavy_product_status, heavy_products.heavy_product_description AS heavy_products_heavy_product_description, heavy_products.heavy_product_image_url AS heavy_products_heavy_product_image_url, heavy_products.heavy_product_created_at AS heavy_products_heavy_product_created_at, heavy_products.heavy_product_updated_at AS heavy_products_heavy_product_updated_at, heavy_products.employee_id AS heavy_products_employee_id, heavy_products.employee_name AS heavy_products_employee_name, heavy_products.employee_num AS heavy_products_employee_num 
+FROM heavy_products 
+WHERE heavy_products.heavy_product_id = %(pk_1)s::UUID
+2024-10-25 14:57:40,883 - INFO - [cached since 12.44s ago] {'pk_1': UUID('72c5591f-a646-4f7f-8ae6-5f9eeaf2c76a')}
+2024-10-25 14:57:40,886 - INFO - SELECT employee.emp_id AS employee_emp_id, employee.emp_first_name AS employee_emp_first_name, employee.emp_last_name AS employee_emp_last_name, employee.emp_email AS employee_emp_email, employee.emp_num AS employee_emp_num, employee.emp_phone AS employee_emp_phone, employee.emp_hire_date AS employee_emp_hire_date, employee.emp_position AS employee_emp_position, employee.emp_salary AS employee_emp_salary, employee.emp_department AS employee_emp_department, employee.emp_age AS employee_emp_age, employee.emp_sex AS employee_emp_sex, employee.emp_blood_group AS employee_emp_blood_group, employee.emp_height AS employee_emp_height, employee.emp_weight AS employee_emp_weight, employee.emp_address AS employee_emp_address, employee.emp_emergency_contact AS employee_emp_emergency_contact, employee.emp_nationality AS employee_emp_nationality, employee.emp_date_of_birth AS employee_emp_date_of_birth, employee.emp_marital_status AS employee_emp_marital_status, employee.emp_employment_status AS employee_emp_employment_status, employee.emp_insurance_number AS employee_emp_insurance_number, employee.emp_created_at AS employee_emp_created_at 
+FROM employee 
+WHERE employee.emp_id = %(pk_1)s::UUID
+2024-10-25 14:57:40,886 - INFO - [cached since 12.43s ago] {'pk_1': UUID('06e4347e-4dfc-490a-a066-686942241770')}
+2024-10-25 14:57:40,888 - INFO - Prepared customer list for response: [{'customer_id': 'da4be685-7485-4222-b0c1-5bd1a76ea7cc', 'customer_name': 'Hemanth', 'customer_contact_info': 'hemanth@gmail.com', 'customer_address': '123 Machinery St, Industrial Zone', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'new', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T06:07:36.945032', 'product_id': None, 'product_name': None, 'product_brand': None, 'product_model': None, 'product': None}, {'customer_id': '6a2eb1d7-f637-4902-8bed-3bb3708b5995', 'customer_name': 'Hemanth', 'customer_contact_info': 'hemanth@gmail.com', 'customer_address': '123 Machinery St, Industrial Zone', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'new', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T06:17:13.855589', 'product_id': None, 'product_name': None, 'product_brand': None, 'product_model': None, 'product': None}, {'customer_id': 'c07e7d44-1307-4cc8-8a3f-905b47e69a96', 'customer_name': 'Hemanth', 'customer_contact_info': 'hemanth@gmail.com', 'customer_address': '123 Machinery St, Industrial Zone', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'new', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T06:37:05.058689', 'product_id': None, 'product_name': None, 'product_brand': None, 'product_model': None, 'product': None}, {'customer_id': '512aa34f-7bef-4531-974b-31f6a0d8bb83', 'customer_name': 'Hemanth', 'customer_contact_info': 'hemanth@gmail.com', 'customer_address': '123 Machinery St, Industrial Zone', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'new', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T06:40:54.514320', 'product_id': '72c5591f-a646-4f7f-8ae6-5f9eeaf2c76a', 'product_name': 'CAT 320D', 'product_brand': 'Caterpillar', 'product_model': '320D', 'product': {'heavy_product_id': '72c5591f-a646-4f7f-8ae6-5f9eeaf2c76a', 'heavy_product_name': 'CAT 320D', 'heavy_product_type': 'Excavator', 'heavy_product_brand': 'Caterpillar', 'heavy_product_model': '320D', 'heavy_product_year_of_manufacture': 2019, 'heavy_product_price': '850000.00', 'heavy_product_weight': '24000.00', 'heavy_product_dimensions': '9.6m x 2.9m x 3.5m', 'heavy_product_engine_type': 'Diesel', 'heavy_product_horsepower': '190.00', 'heavy_product_fuel_capacity': '350.00', 'heavy_product_operational_hours': 2500, 'heavy_product_warranty_period': 240, 'heavy_product_status': 'Unavailable', 'heavy_product_description': 'A reliable excavator for heavy-duty tasks.', 'heavy_product_image_url': 'http://example.com/images/cat_320d.jpg', 'heavy_product_created_at': '2024-10-23T00:52:40.560748', 'heavy_product_updated_at': '2024-10-23T12:38:18.853072', 'employee_id': '06e4347e-4dfc-490a-a066-686942241770', 'employee_name': 'kiran kumar', 'employee_num': 'EMP00123'}}, {'customer_id': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'customer_name': 'HEMANTH', 'customer_contact_info': 'HEMANTH@gmail.com', 'customer_address': '456 Updated Address', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'Active', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T06:02:05.649083', 'product_id': None, 'product_name': None, 'product_brand': None, 'product_model': None, 'product': None}]
+2024-10-25 14:57:40,889 - INFO - Preparing to send notification email with fetched customer details...
+2024-10-25 14:57:44,493 - INFO - Notification email sent successfully.
+2024-10-25 14:57:44,494 - INFO - ROLLBACK
+2024-10-25 14:57:44,495 - INFO - Session closed for get-customers API
+2024-10-25 14:57:44,495 - INFO - 127.0.0.1 - - [25/Oct/2024 14:57:44] "GET /get-customers HTTP/1.1" 200 -
+2024-10-25 14:57:47,516 - INFO - BEGIN (implicit)
+2024-10-25 14:57:47,516 - INFO - SELECT otp_store.id AS otp_store_id, otp_store.email AS otp_store_email, otp_store.otp AS otp_store_otp, otp_store.timestamp AS otp_store_timestamp 
+FROM otp_store 
+WHERE otp_store.email = %(email_1)s ORDER BY otp_store.timestamp DESC 
+ LIMIT %(param_1)s
+2024-10-25 14:57:47,516 - INFO - [cached since 34.4s ago] {'email_1': 'komalsaikiran05@gmail.com', 'param_1': 1}
+2024-10-25 14:57:47,519 - INFO - OTP validation successful for komalsaikiran05@gmail.com.
+2024-10-25 14:57:47,519 - INFO - Entered /update-customer endpoint. Request method: PUT
+2024-10-25 14:57:47,520 - INFO - Data received for update: {'customer_id': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'customer_name': 'HEMANTH', 'customer_contact_info': 'HEMANTH@gmail.com', 'customer_address': '456 Updated Address', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'customer_status': 'Active', 'otp': '980220', 'email': 'komalsaikiran05@gmail.com'}
+2024-10-25 14:57:47,520 - INFO - SELECT heavy_machinery_customers.customer_id AS heavy_machinery_customers_customer_id, heavy_machinery_customers.customer_name AS heavy_machinery_customers_customer_name, heavy_machinery_customers.customer_contact_info AS heavy_machinery_customers_customer_contact_info, heavy_machinery_customers.customer_address AS heavy_machinery_customers_customer_address, heavy_machinery_customers.opportunity_id AS heavy_machinery_customers_opportunity_id, heavy_machinery_customers.dealer_id AS heavy_machinery_customers_dealer_id, heavy_machinery_customers.employee_id AS heavy_machinery_customers_employee_id, heavy_machinery_customers.customer_status AS heavy_machinery_customers_customer_status, heavy_machinery_customers.customer_comments AS heavy_machinery_customers_customer_comments, heavy_machinery_customers.customer_feedback AS heavy_machinery_customers_customer_feedback, heavy_machinery_customers.customer_created_at AS heavy_machinery_customers_customer_created_at, heavy_machinery_customers.customer_updated_at AS heavy_machinery_customers_customer_updated_at, heavy_machinery_customers.customer_last_interaction AS heavy_machinery_customers_customer_last_interaction, heavy_machinery_customers.product_id AS heavy_machinery_customers_product_id, heavy_machinery_customers.product_name AS heavy_machinery_customers_product_name, heavy_machinery_customers.product_model AS heavy_machinery_customers_product_model, heavy_machinery_customers.product_brand AS heavy_machinery_customers_product_brand 
+FROM heavy_machinery_customers 
+WHERE heavy_machinery_customers.customer_id = %(customer_id_1)s::UUID 
+ LIMIT %(param_1)s
+2024-10-25 14:57:47,520 - INFO - [cached since 34.4s ago] {'customer_id_1': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'param_1': 1}
+2024-10-25 14:57:47,522 - INFO - UPDATE heavy_machinery_customers SET opportunity_id=%(opportunity_id)s::UUID, dealer_id=%(dealer_id)s::UUID, employee_id=%(employee_id)s::UUID, customer_updated_at=now() WHERE heavy_machinery_customers.customer_id = %(heavy_machinery_customers_customer_id)s::UUID
+2024-10-25 14:57:47,523 - INFO - [cached since 34.4s ago] {'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'heavy_machinery_customers_customer_id': UUID('36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31')}
+2024-10-25 14:57:47,524 - INFO - COMMIT
+2024-10-25 14:57:47,526 - INFO - Customer with ID 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31 updated successfully.
+2024-10-25 14:57:47,526 - ERROR - General Error updating customer ID 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31: Object of type InstanceState is not JSON serializable
+2024-10-25 14:57:47,526 - INFO - Session closed for update-customer API
+2024-10-25 14:57:47,527 - INFO - 127.0.0.1 - - [25/Oct/2024 14:57:47] "[35m[1mPUT /update-customer HTTP/1.1[0m" 500 -
+2024-10-25 14:59:00,479 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\email_setup\\email_operations.py', reloading
+2024-10-25 14:59:00,623 - INFO -  * Restarting with stat
+2024-10-25 14:59:01,947 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 14:59:01,970 - WARNING -  * Debugger is active!
+2024-10-25 14:59:01,974 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 14:59:02,106 - INFO - BEGIN (implicit)
+2024-10-25 14:59:02,110 - INFO - SELECT otp_store.id AS otp_store_id, otp_store.email AS otp_store_email, otp_store.otp AS otp_store_otp, otp_store.timestamp AS otp_store_timestamp 
+FROM otp_store 
+WHERE otp_store.email = %(email_1)s ORDER BY otp_store.timestamp DESC 
+ LIMIT %(param_1)s
+2024-10-25 14:59:02,112 - INFO - [generated in 0.00124s] {'email_1': 'komalsaikiran05@gmail.com', 'param_1': 1}
+2024-10-25 14:59:02,116 - INFO - OTP validation successful for komalsaikiran05@gmail.com.
+2024-10-25 14:59:02,116 - INFO - Entered /update-customer endpoint. Request method: PUT
+2024-10-25 14:59:02,117 - INFO - Data received for update: {'customer_id': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'customer_name': 'HEMANTH', 'customer_contact_info': 'HEMANTH@gmail.com', 'customer_address': '456 Updated Address', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'customer_status': 'Active', 'otp': '980220', 'email': 'komalsaikiran05@gmail.com'}
+2024-10-25 14:59:02,123 - INFO - SELECT heavy_machinery_customers.customer_id AS heavy_machinery_customers_customer_id, heavy_machinery_customers.customer_name AS heavy_machinery_customers_customer_name, heavy_machinery_customers.customer_contact_info AS heavy_machinery_customers_customer_contact_info, heavy_machinery_customers.customer_address AS heavy_machinery_customers_customer_address, heavy_machinery_customers.opportunity_id AS heavy_machinery_customers_opportunity_id, heavy_machinery_customers.dealer_id AS heavy_machinery_customers_dealer_id, heavy_machinery_customers.employee_id AS heavy_machinery_customers_employee_id, heavy_machinery_customers.customer_status AS heavy_machinery_customers_customer_status, heavy_machinery_customers.customer_comments AS heavy_machinery_customers_customer_comments, heavy_machinery_customers.customer_feedback AS heavy_machinery_customers_customer_feedback, heavy_machinery_customers.customer_created_at AS heavy_machinery_customers_customer_created_at, heavy_machinery_customers.customer_updated_at AS heavy_machinery_customers_customer_updated_at, heavy_machinery_customers.customer_last_interaction AS heavy_machinery_customers_customer_last_interaction, heavy_machinery_customers.product_id AS heavy_machinery_customers_product_id, heavy_machinery_customers.product_name AS heavy_machinery_customers_product_name, heavy_machinery_customers.product_model AS heavy_machinery_customers_product_model, heavy_machinery_customers.product_brand AS heavy_machinery_customers_product_brand 
+FROM heavy_machinery_customers 
+WHERE heavy_machinery_customers.customer_id = %(customer_id_1)s::UUID 
+ LIMIT %(param_1)s
+2024-10-25 14:59:02,123 - INFO - [generated in 0.00051s] {'customer_id_1': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'param_1': 1}
+2024-10-25 14:59:02,130 - INFO - UPDATE heavy_machinery_customers SET opportunity_id=%(opportunity_id)s::UUID, dealer_id=%(dealer_id)s::UUID, employee_id=%(employee_id)s::UUID, customer_updated_at=now() WHERE heavy_machinery_customers.customer_id = %(heavy_machinery_customers_customer_id)s::UUID
+2024-10-25 14:59:02,130 - INFO - [generated in 0.00045s] {'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'heavy_machinery_customers_customer_id': UUID('36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31')}
+2024-10-25 14:59:02,134 - INFO - COMMIT
+2024-10-25 14:59:02,137 - INFO - Customer with ID 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31 updated successfully.
+2024-10-25 14:59:02,138 - ERROR - General Error updating customer ID 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31: Object of type InstanceState is not JSON serializable
+2024-10-25 14:59:02,138 - INFO - Session closed for update-customer API
+2024-10-25 14:59:02,138 - INFO - 127.0.0.1 - - [25/Oct/2024 14:59:02] "[35m[1mPUT /update-customer HTTP/1.1[0m" 500 -
+2024-10-25 15:03:36,872 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\App\\app_customers.py', reloading
+2024-10-25 15:03:37,047 - INFO -  * Restarting with stat
+2024-10-25 15:03:38,269 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 15:03:38,325 - WARNING -  * Debugger is active!
+2024-10-25 15:03:38,331 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 15:03:38,730 - INFO - BEGIN (implicit)
+2024-10-25 15:03:38,733 - INFO - SELECT otp_store.id AS otp_store_id, otp_store.email AS otp_store_email, otp_store.otp AS otp_store_otp, otp_store.timestamp AS otp_store_timestamp 
+FROM otp_store 
+WHERE otp_store.email = %(email_1)s ORDER BY otp_store.timestamp DESC 
+ LIMIT %(param_1)s
+2024-10-25 15:03:38,733 - INFO - [generated in 0.00021s] {'email_1': 'komalsaikiran05@gmail.com', 'param_1': 1}
+2024-10-25 15:03:38,736 - INFO - OTP validation successful for komalsaikiran05@gmail.com.
+2024-10-25 15:03:38,736 - INFO - Entered /update-customer endpoint. Request method: PUT
+2024-10-25 15:03:38,736 - INFO - Data received for update: {'customer_id': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'customer_name': 'HEMANTH', 'customer_contact_info': 'HEMANTH@gmail.com', 'customer_address': '456 Updated Address', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'customer_status': 'Active', 'otp': '980220', 'email': 'komalsaikiran05@gmail.com'}
+2024-10-25 15:03:38,738 - INFO - SELECT heavy_machinery_customers.customer_id AS heavy_machinery_customers_customer_id, heavy_machinery_customers.customer_name AS heavy_machinery_customers_customer_name, heavy_machinery_customers.customer_contact_info AS heavy_machinery_customers_customer_contact_info, heavy_machinery_customers.customer_address AS heavy_machinery_customers_customer_address, heavy_machinery_customers.opportunity_id AS heavy_machinery_customers_opportunity_id, heavy_machinery_customers.dealer_id AS heavy_machinery_customers_dealer_id, heavy_machinery_customers.employee_id AS heavy_machinery_customers_employee_id, heavy_machinery_customers.customer_status AS heavy_machinery_customers_customer_status, heavy_machinery_customers.customer_comments AS heavy_machinery_customers_customer_comments, heavy_machinery_customers.customer_feedback AS heavy_machinery_customers_customer_feedback, heavy_machinery_customers.customer_created_at AS heavy_machinery_customers_customer_created_at, heavy_machinery_customers.customer_updated_at AS heavy_machinery_customers_customer_updated_at, heavy_machinery_customers.customer_last_interaction AS heavy_machinery_customers_customer_last_interaction, heavy_machinery_customers.product_id AS heavy_machinery_customers_product_id, heavy_machinery_customers.product_name AS heavy_machinery_customers_product_name, heavy_machinery_customers.product_model AS heavy_machinery_customers_product_model, heavy_machinery_customers.product_brand AS heavy_machinery_customers_product_brand 
+FROM heavy_machinery_customers 
+WHERE heavy_machinery_customers.customer_id = %(customer_id_1)s::UUID 
+ LIMIT %(param_1)s
+2024-10-25 15:03:38,738 - INFO - [generated in 0.00024s] {'customer_id_1': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'param_1': 1}
+2024-10-25 15:03:38,740 - INFO - UPDATE heavy_machinery_customers SET opportunity_id=%(opportunity_id)s::UUID, dealer_id=%(dealer_id)s::UUID, employee_id=%(employee_id)s::UUID, customer_updated_at=now() WHERE heavy_machinery_customers.customer_id = %(heavy_machinery_customers_customer_id)s::UUID
+2024-10-25 15:03:38,741 - INFO - [generated in 0.00037s] {'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'heavy_machinery_customers_customer_id': UUID('36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31')}
+2024-10-25 15:03:38,743 - INFO - COMMIT
+2024-10-25 15:03:38,744 - INFO - Customer with ID 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31 updated successfully.
+2024-10-25 15:03:38,744 - ERROR - General Error updating customer ID 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31: Object of type InstanceState is not JSON serializable
+2024-10-25 15:03:38,745 - INFO - Session closed for update-customer API
+2024-10-25 15:03:38,745 - INFO - 127.0.0.1 - - [25/Oct/2024 15:03:38] "[35m[1mPUT /update-customer HTTP/1.1[0m" 500 -
+2024-10-25 15:05:12,410 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\App\\app_customers.py', reloading
+2024-10-25 15:05:12,559 - INFO -  * Restarting with stat
+2024-10-25 15:05:13,559 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 15:05:13,591 - WARNING -  * Debugger is active!
+2024-10-25 15:05:13,598 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 15:05:13,979 - INFO - BEGIN (implicit)
+2024-10-25 15:05:13,982 - INFO - SELECT otp_store.id AS otp_store_id, otp_store.email AS otp_store_email, otp_store.otp AS otp_store_otp, otp_store.timestamp AS otp_store_timestamp 
+FROM otp_store 
+WHERE otp_store.email = %(email_1)s ORDER BY otp_store.timestamp DESC 
+ LIMIT %(param_1)s
+2024-10-25 15:05:13,982 - INFO - [generated in 0.00019s] {'email_1': 'komalsaikiran05@gmail.com', 'param_1': 1}
+2024-10-25 15:05:13,984 - INFO - OTP validation successful for komalsaikiran05@gmail.com.
+2024-10-25 15:05:13,984 - INFO - Entered /update-customer endpoint. Request method: PUT
+2024-10-25 15:05:13,985 - INFO - Data received for update: {'customer_id': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'customer_name': 'HEMANTH', 'customer_contact_info': 'HEMANTH@gmail.com', 'customer_address': '456 Updated Address', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'customer_status': 'Active', 'otp': '980220', 'email': 'komalsaikiran05@gmail.com'}
+2024-10-25 15:05:13,986 - INFO - SELECT heavy_machinery_customers.customer_id AS heavy_machinery_customers_customer_id, heavy_machinery_customers.customer_name AS heavy_machinery_customers_customer_name, heavy_machinery_customers.customer_contact_info AS heavy_machinery_customers_customer_contact_info, heavy_machinery_customers.customer_address AS heavy_machinery_customers_customer_address, heavy_machinery_customers.opportunity_id AS heavy_machinery_customers_opportunity_id, heavy_machinery_customers.dealer_id AS heavy_machinery_customers_dealer_id, heavy_machinery_customers.employee_id AS heavy_machinery_customers_employee_id, heavy_machinery_customers.customer_status AS heavy_machinery_customers_customer_status, heavy_machinery_customers.customer_comments AS heavy_machinery_customers_customer_comments, heavy_machinery_customers.customer_feedback AS heavy_machinery_customers_customer_feedback, heavy_machinery_customers.customer_created_at AS heavy_machinery_customers_customer_created_at, heavy_machinery_customers.customer_updated_at AS heavy_machinery_customers_customer_updated_at, heavy_machinery_customers.customer_last_interaction AS heavy_machinery_customers_customer_last_interaction, heavy_machinery_customers.product_id AS heavy_machinery_customers_product_id, heavy_machinery_customers.product_name AS heavy_machinery_customers_product_name, heavy_machinery_customers.product_model AS heavy_machinery_customers_product_model, heavy_machinery_customers.product_brand AS heavy_machinery_customers_product_brand 
+FROM heavy_machinery_customers 
+WHERE heavy_machinery_customers.customer_id = %(customer_id_1)s::UUID 
+ LIMIT %(param_1)s
+2024-10-25 15:05:13,987 - INFO - [generated in 0.00023s] {'customer_id_1': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'param_1': 1}
+2024-10-25 15:05:13,989 - INFO - UPDATE heavy_machinery_customers SET opportunity_id=%(opportunity_id)s::UUID, dealer_id=%(dealer_id)s::UUID, employee_id=%(employee_id)s::UUID, customer_updated_at=%(customer_updated_at)s WHERE heavy_machinery_customers.customer_id = %(heavy_machinery_customers_customer_id)s::UUID
+2024-10-25 15:05:13,989 - INFO - [generated in 0.00020s] {'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_updated_at': '2024-10-25T15:05:13.988912', 'heavy_machinery_customers_customer_id': UUID('36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31')}
+2024-10-25 15:05:13,992 - INFO - COMMIT
+2024-10-25 15:05:13,994 - INFO - Customer with ID 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31 updated successfully.
+2024-10-25 15:05:13,994 - INFO - Session closed for update-customer API
+2024-10-25 15:05:13,994 - INFO - 127.0.0.1 - - [25/Oct/2024 15:05:13] "PUT /update-customer HTTP/1.1" 200 -
+2024-10-25 15:08:43,757 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\App\\constants.py', reloading
+2024-10-25 15:08:43,929 - INFO -  * Restarting with stat
+2024-10-25 15:08:44,889 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 15:08:44,913 - WARNING -  * Debugger is active!
+2024-10-25 15:08:44,916 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 15:09:11,959 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\App\\app_customers.py', reloading
+2024-10-25 15:09:12,097 - INFO -  * Restarting with stat
+2024-10-25 15:09:13,080 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 15:09:13,113 - WARNING -  * Debugger is active!
+2024-10-25 15:09:13,116 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 15:09:13,250 - INFO - BEGIN (implicit)
+2024-10-25 15:09:13,252 - INFO - SELECT otp_store.id AS otp_store_id, otp_store.email AS otp_store_email, otp_store.otp AS otp_store_otp, otp_store.timestamp AS otp_store_timestamp 
+FROM otp_store 
+WHERE otp_store.email = %(email_1)s ORDER BY otp_store.timestamp DESC 
+ LIMIT %(param_1)s
+2024-10-25 15:09:13,252 - INFO - [generated in 0.00018s] {'email_1': 'komalsaikiran05@gmail.com', 'param_1': 1}
+2024-10-25 15:09:13,256 - INFO - OTP validation successful for komalsaikiran05@gmail.com.
+2024-10-25 15:09:13,256 - INFO - Entered /update-customer endpoint. Request method: PUT
+2024-10-25 15:09:13,256 - INFO - Data received for update: {'customer_id': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'customer_name': 'HEMANTH', 'customer_contact_info': 'HEMANTH@gmail.com', 'customer_address': '456 Updated Address', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'customer_status': 'Active', 'otp': '980220', 'email': 'komalsaikiran05@gmail.com'}
+2024-10-25 15:09:13,260 - INFO - SELECT heavy_machinery_customers.customer_id AS heavy_machinery_customers_customer_id, heavy_machinery_customers.customer_name AS heavy_machinery_customers_customer_name, heavy_machinery_customers.customer_contact_info AS heavy_machinery_customers_customer_contact_info, heavy_machinery_customers.customer_address AS heavy_machinery_customers_customer_address, heavy_machinery_customers.opportunity_id AS heavy_machinery_customers_opportunity_id, heavy_machinery_customers.dealer_id AS heavy_machinery_customers_dealer_id, heavy_machinery_customers.employee_id AS heavy_machinery_customers_employee_id, heavy_machinery_customers.customer_status AS heavy_machinery_customers_customer_status, heavy_machinery_customers.customer_comments AS heavy_machinery_customers_customer_comments, heavy_machinery_customers.customer_feedback AS heavy_machinery_customers_customer_feedback, heavy_machinery_customers.customer_created_at AS heavy_machinery_customers_customer_created_at, heavy_machinery_customers.customer_updated_at AS heavy_machinery_customers_customer_updated_at, heavy_machinery_customers.customer_last_interaction AS heavy_machinery_customers_customer_last_interaction, heavy_machinery_customers.product_id AS heavy_machinery_customers_product_id, heavy_machinery_customers.product_name AS heavy_machinery_customers_product_name, heavy_machinery_customers.product_model AS heavy_machinery_customers_product_model, heavy_machinery_customers.product_brand AS heavy_machinery_customers_product_brand 
+FROM heavy_machinery_customers 
+WHERE heavy_machinery_customers.customer_id = %(customer_id_1)s::UUID 
+ LIMIT %(param_1)s
+2024-10-25 15:09:13,260 - INFO - [generated in 0.00029s] {'customer_id_1': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'param_1': 1}
+2024-10-25 15:09:13,266 - INFO - UPDATE heavy_machinery_customers SET opportunity_id=%(opportunity_id)s::UUID, dealer_id=%(dealer_id)s::UUID, employee_id=%(employee_id)s::UUID, customer_updated_at=%(customer_updated_at)s WHERE heavy_machinery_customers.customer_id = %(heavy_machinery_customers_customer_id)s::UUID
+2024-10-25 15:09:13,266 - INFO - [generated in 0.00037s] {'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_updated_at': '2024-10-25T15:09:13.263283', 'heavy_machinery_customers_customer_id': UUID('36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31')}
+2024-10-25 15:09:13,269 - INFO - COMMIT
+2024-10-25 15:09:13,270 - INFO - Customer with ID 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31 updated successfully.
+2024-10-25 15:09:13,270 - ERROR - General Error updating customer ID 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31: 'HeavyMachineryCustomer' object has no attribute 'get'
+2024-10-25 15:09:13,271 - INFO - Session closed for update-customer API
+2024-10-25 15:09:13,271 - INFO - 127.0.0.1 - - [25/Oct/2024 15:09:13] "[35m[1mPUT /update-customer HTTP/1.1[0m" 500 -
+2024-10-25 15:09:56,838 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\App\\app_customers.py', reloading
+2024-10-25 15:09:56,963 - INFO -  * Restarting with stat
+2024-10-25 15:09:58,021 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 15:09:58,040 - WARNING -  * Debugger is active!
+2024-10-25 15:09:58,044 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 15:09:58,832 - INFO - BEGIN (implicit)
+2024-10-25 15:09:58,835 - INFO - SELECT otp_store.id AS otp_store_id, otp_store.email AS otp_store_email, otp_store.otp AS otp_store_otp, otp_store.timestamp AS otp_store_timestamp 
+FROM otp_store 
+WHERE otp_store.email = %(email_1)s ORDER BY otp_store.timestamp DESC 
+ LIMIT %(param_1)s
+2024-10-25 15:09:58,835 - INFO - [generated in 0.00024s] {'email_1': 'komalsaikiran05@gmail.com', 'param_1': 1}
+2024-10-25 15:09:58,839 - INFO - OTP validation successful for komalsaikiran05@gmail.com.
+2024-10-25 15:09:58,839 - INFO - Entered /update-customer endpoint. Request method: PUT
+2024-10-25 15:09:58,839 - INFO - Data received for update: {'customer_id': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'customer_name': 'HEMANTH', 'customer_contact_info': 'HEMANTH@gmail.com', 'customer_address': '456 Updated Address', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'customer_status': 'Active', 'otp': '980220', 'email': 'komalsaikiran05@gmail.com'}
+2024-10-25 15:09:58,844 - INFO - SELECT heavy_machinery_customers.customer_id AS heavy_machinery_customers_customer_id, heavy_machinery_customers.customer_name AS heavy_machinery_customers_customer_name, heavy_machinery_customers.customer_contact_info AS heavy_machinery_customers_customer_contact_info, heavy_machinery_customers.customer_address AS heavy_machinery_customers_customer_address, heavy_machinery_customers.opportunity_id AS heavy_machinery_customers_opportunity_id, heavy_machinery_customers.dealer_id AS heavy_machinery_customers_dealer_id, heavy_machinery_customers.employee_id AS heavy_machinery_customers_employee_id, heavy_machinery_customers.customer_status AS heavy_machinery_customers_customer_status, heavy_machinery_customers.customer_comments AS heavy_machinery_customers_customer_comments, heavy_machinery_customers.customer_feedback AS heavy_machinery_customers_customer_feedback, heavy_machinery_customers.customer_created_at AS heavy_machinery_customers_customer_created_at, heavy_machinery_customers.customer_updated_at AS heavy_machinery_customers_customer_updated_at, heavy_machinery_customers.customer_last_interaction AS heavy_machinery_customers_customer_last_interaction, heavy_machinery_customers.product_id AS heavy_machinery_customers_product_id, heavy_machinery_customers.product_name AS heavy_machinery_customers_product_name, heavy_machinery_customers.product_model AS heavy_machinery_customers_product_model, heavy_machinery_customers.product_brand AS heavy_machinery_customers_product_brand 
+FROM heavy_machinery_customers 
+WHERE heavy_machinery_customers.customer_id = %(customer_id_1)s::UUID 
+ LIMIT %(param_1)s
+2024-10-25 15:09:58,845 - INFO - [generated in 0.00045s] {'customer_id_1': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'param_1': 1}
+2024-10-25 15:09:58,850 - INFO - UPDATE heavy_machinery_customers SET opportunity_id=%(opportunity_id)s::UUID, dealer_id=%(dealer_id)s::UUID, employee_id=%(employee_id)s::UUID, customer_updated_at=%(customer_updated_at)s WHERE heavy_machinery_customers.customer_id = %(heavy_machinery_customers_customer_id)s::UUID
+2024-10-25 15:09:58,850 - INFO - [generated in 0.00027s] {'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_updated_at': '2024-10-25T15:09:58.847186', 'heavy_machinery_customers_customer_id': UUID('36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31')}
+2024-10-25 15:09:58,852 - INFO - COMMIT
+2024-10-25 15:09:58,853 - INFO - Customer with ID 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31 updated successfully.
+2024-10-25 15:09:58,854 - INFO - Session closed for update-customer API
+2024-10-25 15:09:58,854 - INFO - 127.0.0.1 - - [25/Oct/2024 15:09:58] "PUT /update-customer HTTP/1.1" 200 -
+2024-10-25 15:11:02,799 - INFO - BEGIN (implicit)
+2024-10-25 15:11:02,799 - INFO - SELECT otp_store.id AS otp_store_id, otp_store.email AS otp_store_email, otp_store.otp AS otp_store_otp, otp_store.timestamp AS otp_store_timestamp 
+FROM otp_store 
+WHERE otp_store.email = %(email_1)s ORDER BY otp_store.timestamp DESC 
+ LIMIT %(param_1)s
+2024-10-25 15:11:02,799 - INFO - [cached since 63.96s ago] {'email_1': 'komalsaikiran05@gmail.com', 'param_1': 1}
+2024-10-25 15:11:02,802 - INFO - OTP validation successful for komalsaikiran05@gmail.com.
+2024-10-25 15:11:02,802 - INFO - Entered /update-customer endpoint. Request method: PUT
+2024-10-25 15:11:02,802 - INFO - Data received for update: {'customer_id': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'customer_name': 'HEMANTH', 'customer_contact_info': 'HEMANTH@gmail.com', 'customer_address': '456 Updated Address', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'customer_status': 'Active', 'otp': '980220', 'email': 'komalsaikiran05@gmail.com'}
+2024-10-25 15:11:02,802 - INFO - SELECT heavy_machinery_customers.customer_id AS heavy_machinery_customers_customer_id, heavy_machinery_customers.customer_name AS heavy_machinery_customers_customer_name, heavy_machinery_customers.customer_contact_info AS heavy_machinery_customers_customer_contact_info, heavy_machinery_customers.customer_address AS heavy_machinery_customers_customer_address, heavy_machinery_customers.opportunity_id AS heavy_machinery_customers_opportunity_id, heavy_machinery_customers.dealer_id AS heavy_machinery_customers_dealer_id, heavy_machinery_customers.employee_id AS heavy_machinery_customers_employee_id, heavy_machinery_customers.customer_status AS heavy_machinery_customers_customer_status, heavy_machinery_customers.customer_comments AS heavy_machinery_customers_customer_comments, heavy_machinery_customers.customer_feedback AS heavy_machinery_customers_customer_feedback, heavy_machinery_customers.customer_created_at AS heavy_machinery_customers_customer_created_at, heavy_machinery_customers.customer_updated_at AS heavy_machinery_customers_customer_updated_at, heavy_machinery_customers.customer_last_interaction AS heavy_machinery_customers_customer_last_interaction, heavy_machinery_customers.product_id AS heavy_machinery_customers_product_id, heavy_machinery_customers.product_name AS heavy_machinery_customers_product_name, heavy_machinery_customers.product_model AS heavy_machinery_customers_product_model, heavy_machinery_customers.product_brand AS heavy_machinery_customers_product_brand 
+FROM heavy_machinery_customers 
+WHERE heavy_machinery_customers.customer_id = %(customer_id_1)s::UUID 
+ LIMIT %(param_1)s
+2024-10-25 15:11:02,802 - INFO - [cached since 63.96s ago] {'customer_id_1': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'param_1': 1}
+2024-10-25 15:11:02,804 - INFO - UPDATE heavy_machinery_customers SET opportunity_id=%(opportunity_id)s::UUID, dealer_id=%(dealer_id)s::UUID, employee_id=%(employee_id)s::UUID, customer_updated_at=%(customer_updated_at)s WHERE heavy_machinery_customers.customer_id = %(heavy_machinery_customers_customer_id)s::UUID
+2024-10-25 15:11:02,804 - INFO - [cached since 63.95s ago] {'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_updated_at': '2024-10-25T15:11:02.803582', 'heavy_machinery_customers_customer_id': UUID('36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31')}
+2024-10-25 15:11:02,806 - INFO - COMMIT
+2024-10-25 15:11:02,807 - INFO - Customer with ID 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31 updated successfully.
+2024-10-25 15:11:02,808 - INFO - Session closed for update-customer API
+2024-10-25 15:11:02,809 - INFO - 127.0.0.1 - - [25/Oct/2024 15:11:02] "PUT /update-customer HTTP/1.1" 200 -
+2024-10-25 15:19:41,217 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\App\\app_customers.py', reloading
+2024-10-25 15:19:41,348 - INFO -  * Restarting with stat
+2024-10-25 15:19:42,431 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 15:19:42,454 - WARNING -  * Debugger is active!
+2024-10-25 15:19:42,459 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 15:19:42,583 - INFO - BEGIN (implicit)
+2024-10-25 15:19:42,586 - INFO - SELECT otp_store.id AS otp_store_id, otp_store.email AS otp_store_email, otp_store.otp AS otp_store_otp, otp_store.timestamp AS otp_store_timestamp 
+FROM otp_store 
+WHERE otp_store.email = %(email_1)s ORDER BY otp_store.timestamp DESC 
+ LIMIT %(param_1)s
+2024-10-25 15:19:42,586 - INFO - [generated in 0.00043s] {'email_1': 'komalsaikiran05@gmail.com', 'param_1': 1}
+2024-10-25 15:19:42,593 - INFO - OTP validation successful for komalsaikiran05@gmail.com.
+2024-10-25 15:19:42,593 - INFO - Entered /update-customer endpoint.
+2024-10-25 15:19:42,593 - DEBUG - Request body received: {'customer_id': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'customer_name': 'HEMANTH', 'customer_contact_info': 'HEMANTH@gmail.com', 'customer_address': '456 Updated Address', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'customer_status': 'Active', 'otp': '980220', 'email': 'komalsaikiran05@gmail.com'}
+2024-10-25 15:19:42,593 - INFO - Fetching customer with ID: 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31
+2024-10-25 15:19:42,596 - INFO - SELECT heavy_machinery_customers.customer_id AS heavy_machinery_customers_customer_id, heavy_machinery_customers.customer_name AS heavy_machinery_customers_customer_name, heavy_machinery_customers.customer_contact_info AS heavy_machinery_customers_customer_contact_info, heavy_machinery_customers.customer_address AS heavy_machinery_customers_customer_address, heavy_machinery_customers.opportunity_id AS heavy_machinery_customers_opportunity_id, heavy_machinery_customers.dealer_id AS heavy_machinery_customers_dealer_id, heavy_machinery_customers.employee_id AS heavy_machinery_customers_employee_id, heavy_machinery_customers.customer_status AS heavy_machinery_customers_customer_status, heavy_machinery_customers.customer_comments AS heavy_machinery_customers_customer_comments, heavy_machinery_customers.customer_feedback AS heavy_machinery_customers_customer_feedback, heavy_machinery_customers.customer_created_at AS heavy_machinery_customers_customer_created_at, heavy_machinery_customers.customer_updated_at AS heavy_machinery_customers_customer_updated_at, heavy_machinery_customers.customer_last_interaction AS heavy_machinery_customers_customer_last_interaction, heavy_machinery_customers.product_id AS heavy_machinery_customers_product_id, heavy_machinery_customers.product_name AS heavy_machinery_customers_product_name, heavy_machinery_customers.product_model AS heavy_machinery_customers_product_model, heavy_machinery_customers.product_brand AS heavy_machinery_customers_product_brand 
+FROM heavy_machinery_customers 
+WHERE heavy_machinery_customers.customer_id = %(customer_id_1)s::UUID 
+ LIMIT %(param_1)s
+2024-10-25 15:19:42,597 - INFO - [generated in 0.00104s] {'customer_id_1': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'param_1': 1}
+2024-10-25 15:19:42,599 - INFO - Current customer details: {'customer_id': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'customer_name': 'HEMANTH', 'customer_contact_info': 'HEMANTH@gmail.com', 'customer_address': '456 Updated Address', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'Active', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T06:02:05.649083', 'product_id': None, 'product_name': None, 'product_brand': None, 'product_model': None, 'product': None}
+2024-10-25 15:19:42,599 - INFO - Updated customer details (before commit): {'customer_id': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'customer_name': 'HEMANTH', 'customer_contact_info': 'HEMANTH@gmail.com', 'customer_address': '456 Updated Address', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'Active', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T06:02:05.649083', 'product_id': None, 'product_name': None, 'product_brand': None, 'product_model': None, 'product': None}
+2024-10-25 15:19:42,602 - INFO - UPDATE heavy_machinery_customers SET opportunity_id=%(opportunity_id)s::UUID, dealer_id=%(dealer_id)s::UUID, employee_id=%(employee_id)s::UUID, customer_updated_at=now() WHERE heavy_machinery_customers.customer_id = %(heavy_machinery_customers_customer_id)s::UUID
+2024-10-25 15:19:42,602 - INFO - [generated in 0.00062s] {'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'heavy_machinery_customers_customer_id': UUID('36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31')}
+2024-10-25 15:19:42,605 - INFO - COMMIT
+2024-10-25 15:19:42,609 - INFO - Customer with ID 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31 updated successfully in the database.
+2024-10-25 15:19:42,685 - INFO - BEGIN (implicit)
+2024-10-25 15:19:42,686 - INFO - SELECT heavy_machinery_customers.customer_id AS heavy_machinery_customers_customer_id, heavy_machinery_customers.customer_name AS heavy_machinery_customers_customer_name, heavy_machinery_customers.customer_contact_info AS heavy_machinery_customers_customer_contact_info, heavy_machinery_customers.customer_address AS heavy_machinery_customers_customer_address, heavy_machinery_customers.opportunity_id AS heavy_machinery_customers_opportunity_id, heavy_machinery_customers.dealer_id AS heavy_machinery_customers_dealer_id, heavy_machinery_customers.employee_id AS heavy_machinery_customers_employee_id, heavy_machinery_customers.customer_status AS heavy_machinery_customers_customer_status, heavy_machinery_customers.customer_comments AS heavy_machinery_customers_customer_comments, heavy_machinery_customers.customer_feedback AS heavy_machinery_customers_customer_feedback, heavy_machinery_customers.customer_created_at AS heavy_machinery_customers_customer_created_at, heavy_machinery_customers.customer_updated_at AS heavy_machinery_customers_customer_updated_at, heavy_machinery_customers.customer_last_interaction AS heavy_machinery_customers_customer_last_interaction, heavy_machinery_customers.product_id AS heavy_machinery_customers_product_id, heavy_machinery_customers.product_name AS heavy_machinery_customers_product_name, heavy_machinery_customers.product_model AS heavy_machinery_customers_product_model, heavy_machinery_customers.product_brand AS heavy_machinery_customers_product_brand 
+FROM heavy_machinery_customers 
+WHERE heavy_machinery_customers.customer_id = %(pk_1)s::UUID
+2024-10-25 15:19:42,686 - INFO - [generated in 0.00035s] {'pk_1': UUID('36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31')}
+2024-10-25 15:19:42,690 - INFO - Customer ID 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31 updated at 2024-10-25 15:19:42.
+2024-10-25 15:19:42,690 - INFO - ROLLBACK
+2024-10-25 15:19:42,692 - ERROR - Error updating customer ID 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31: 'str' object has no attribute 'get'
+2024-10-25 15:19:42,693 - INFO - Closed /update-customer API session.
+2024-10-25 15:19:42,694 - INFO - 127.0.0.1 - - [25/Oct/2024 15:19:42] "[35m[1mPUT /update-customer HTTP/1.1[0m" 500 -
+2024-10-25 15:20:37,404 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\App\\app_customers.py', reloading
+2024-10-25 15:20:37,524 - INFO -  * Restarting with stat
+2024-10-25 15:20:38,486 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 15:20:38,505 - WARNING -  * Debugger is active!
+2024-10-25 15:20:38,510 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 15:20:38,623 - INFO - BEGIN (implicit)
+2024-10-25 15:20:38,626 - INFO - SELECT otp_store.id AS otp_store_id, otp_store.email AS otp_store_email, otp_store.otp AS otp_store_otp, otp_store.timestamp AS otp_store_timestamp 
+FROM otp_store 
+WHERE otp_store.email = %(email_1)s ORDER BY otp_store.timestamp DESC 
+ LIMIT %(param_1)s
+2024-10-25 15:20:38,626 - INFO - [generated in 0.00020s] {'email_1': 'komalsaikiran05@gmail.com', 'param_1': 1}
+2024-10-25 15:20:38,630 - INFO - OTP validation successful for komalsaikiran05@gmail.com.
+2024-10-25 15:20:38,630 - INFO - Entered /update-customer endpoint.
+2024-10-25 15:20:38,630 - DEBUG - Request body received: {'customer_id': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'customer_name': 'HEMANTH', 'customer_contact_info': 'HEMANTH@gmail.com', 'customer_address': '456 Updated Address', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'customer_status': 'Active', 'otp': '980220', 'email': 'komalsaikiran05@gmail.com'}
+2024-10-25 15:20:38,630 - INFO - Fetching customer with ID: 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31
+2024-10-25 15:20:38,632 - INFO - SELECT heavy_machinery_customers.customer_id AS heavy_machinery_customers_customer_id, heavy_machinery_customers.customer_name AS heavy_machinery_customers_customer_name, heavy_machinery_customers.customer_contact_info AS heavy_machinery_customers_customer_contact_info, heavy_machinery_customers.customer_address AS heavy_machinery_customers_customer_address, heavy_machinery_customers.opportunity_id AS heavy_machinery_customers_opportunity_id, heavy_machinery_customers.dealer_id AS heavy_machinery_customers_dealer_id, heavy_machinery_customers.employee_id AS heavy_machinery_customers_employee_id, heavy_machinery_customers.customer_status AS heavy_machinery_customers_customer_status, heavy_machinery_customers.customer_comments AS heavy_machinery_customers_customer_comments, heavy_machinery_customers.customer_feedback AS heavy_machinery_customers_customer_feedback, heavy_machinery_customers.customer_created_at AS heavy_machinery_customers_customer_created_at, heavy_machinery_customers.customer_updated_at AS heavy_machinery_customers_customer_updated_at, heavy_machinery_customers.customer_last_interaction AS heavy_machinery_customers_customer_last_interaction, heavy_machinery_customers.product_id AS heavy_machinery_customers_product_id, heavy_machinery_customers.product_name AS heavy_machinery_customers_product_name, heavy_machinery_customers.product_model AS heavy_machinery_customers_product_model, heavy_machinery_customers.product_brand AS heavy_machinery_customers_product_brand 
+FROM heavy_machinery_customers 
+WHERE heavy_machinery_customers.customer_id = %(customer_id_1)s::UUID 
+ LIMIT %(param_1)s
+2024-10-25 15:20:38,632 - INFO - [generated in 0.00021s] {'customer_id_1': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'param_1': 1}
+2024-10-25 15:20:38,633 - INFO - Current customer details: {'customer_id': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'customer_name': 'HEMANTH', 'customer_contact_info': 'HEMANTH@gmail.com', 'customer_address': '456 Updated Address', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'Active', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T06:02:05.649083', 'product_id': None, 'product_name': None, 'product_brand': None, 'product_model': None, 'product': None}
+2024-10-25 15:20:38,633 - INFO - Updated customer details (before commit): {'customer_id': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'customer_name': 'HEMANTH', 'customer_contact_info': 'HEMANTH@gmail.com', 'customer_address': '456 Updated Address', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'Active', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T06:02:05.649083', 'product_id': None, 'product_name': None, 'product_brand': None, 'product_model': None, 'product': None}
+2024-10-25 15:20:38,635 - INFO - UPDATE heavy_machinery_customers SET opportunity_id=%(opportunity_id)s::UUID, dealer_id=%(dealer_id)s::UUID, employee_id=%(employee_id)s::UUID, customer_updated_at=now() WHERE heavy_machinery_customers.customer_id = %(heavy_machinery_customers_customer_id)s::UUID
+2024-10-25 15:20:38,635 - INFO - [generated in 0.00020s] {'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'heavy_machinery_customers_customer_id': UUID('36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31')}
+2024-10-25 15:20:38,637 - INFO - COMMIT
+2024-10-25 15:20:38,637 - INFO - Customer with ID 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31 updated successfully in the database.
+2024-10-25 15:20:38,701 - INFO - BEGIN (implicit)
+2024-10-25 15:20:38,703 - INFO - SELECT heavy_machinery_customers.customer_id AS heavy_machinery_customers_customer_id, heavy_machinery_customers.customer_name AS heavy_machinery_customers_customer_name, heavy_machinery_customers.customer_contact_info AS heavy_machinery_customers_customer_contact_info, heavy_machinery_customers.customer_address AS heavy_machinery_customers_customer_address, heavy_machinery_customers.opportunity_id AS heavy_machinery_customers_opportunity_id, heavy_machinery_customers.dealer_id AS heavy_machinery_customers_dealer_id, heavy_machinery_customers.employee_id AS heavy_machinery_customers_employee_id, heavy_machinery_customers.customer_status AS heavy_machinery_customers_customer_status, heavy_machinery_customers.customer_comments AS heavy_machinery_customers_customer_comments, heavy_machinery_customers.customer_feedback AS heavy_machinery_customers_customer_feedback, heavy_machinery_customers.customer_created_at AS heavy_machinery_customers_customer_created_at, heavy_machinery_customers.customer_updated_at AS heavy_machinery_customers_customer_updated_at, heavy_machinery_customers.customer_last_interaction AS heavy_machinery_customers_customer_last_interaction, heavy_machinery_customers.product_id AS heavy_machinery_customers_product_id, heavy_machinery_customers.product_name AS heavy_machinery_customers_product_name, heavy_machinery_customers.product_model AS heavy_machinery_customers_product_model, heavy_machinery_customers.product_brand AS heavy_machinery_customers_product_brand 
+FROM heavy_machinery_customers 
+WHERE heavy_machinery_customers.customer_id = %(pk_1)s::UUID
+2024-10-25 15:20:38,703 - INFO - [generated in 0.00027s] {'pk_1': UUID('36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31')}
+2024-10-25 15:20:38,707 - INFO - Customer ID 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31 updated at 2024-10-25 15:20:38.
+2024-10-25 15:20:38,708 - INFO - ROLLBACK
+2024-10-25 15:20:38,709 - ERROR - Error updating customer ID 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31: 'str' object has no attribute 'get'
+2024-10-25 15:20:38,709 - INFO - Closed /update-customer API session.
+2024-10-25 15:20:38,709 - INFO - 127.0.0.1 - - [25/Oct/2024 15:20:38] "[35m[1mPUT /update-customer HTTP/1.1[0m" 500 -
+2024-10-25 15:22:54,125 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\App\\app_customers.py', reloading
+2024-10-25 15:22:54,243 - INFO -  * Restarting with stat
+2024-10-25 15:22:55,065 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 15:22:55,085 - WARNING -  * Debugger is active!
+2024-10-25 15:22:55,088 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 15:23:39,661 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\email_setup\\email_operations.py', reloading
+2024-10-25 15:23:39,809 - INFO -  * Restarting with stat
+2024-10-25 15:23:40,791 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 15:23:40,818 - WARNING -  * Debugger is active!
+2024-10-25 15:23:40,824 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 15:23:41,758 - INFO - BEGIN (implicit)
+2024-10-25 15:23:41,760 - INFO - SELECT otp_store.id AS otp_store_id, otp_store.email AS otp_store_email, otp_store.otp AS otp_store_otp, otp_store.timestamp AS otp_store_timestamp 
+FROM otp_store 
+WHERE otp_store.email = %(email_1)s ORDER BY otp_store.timestamp DESC 
+ LIMIT %(param_1)s
+2024-10-25 15:23:41,760 - INFO - [generated in 0.00021s] {'email_1': 'komalsaikiran05@gmail.com', 'param_1': 1}
+2024-10-25 15:23:41,764 - INFO - OTP validation successful for komalsaikiran05@gmail.com.
+2024-10-25 15:23:41,764 - INFO - Entered /update-customer endpoint.
+2024-10-25 15:23:41,764 - DEBUG - Request body received: {'customer_id': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'customer_name': 'HEMANTH', 'customer_contact_info': 'HEMANTH@gmail.com', 'customer_address': '456 Updated Address', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'customer_status': 'Active', 'otp': '980220', 'email': 'komalsaikiran05@gmail.com'}
+2024-10-25 15:23:41,764 - INFO - Fetching customer with ID: 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31
+2024-10-25 15:23:41,766 - INFO - SELECT heavy_machinery_customers.customer_id AS heavy_machinery_customers_customer_id, heavy_machinery_customers.customer_name AS heavy_machinery_customers_customer_name, heavy_machinery_customers.customer_contact_info AS heavy_machinery_customers_customer_contact_info, heavy_machinery_customers.customer_address AS heavy_machinery_customers_customer_address, heavy_machinery_customers.opportunity_id AS heavy_machinery_customers_opportunity_id, heavy_machinery_customers.dealer_id AS heavy_machinery_customers_dealer_id, heavy_machinery_customers.employee_id AS heavy_machinery_customers_employee_id, heavy_machinery_customers.customer_status AS heavy_machinery_customers_customer_status, heavy_machinery_customers.customer_comments AS heavy_machinery_customers_customer_comments, heavy_machinery_customers.customer_feedback AS heavy_machinery_customers_customer_feedback, heavy_machinery_customers.customer_created_at AS heavy_machinery_customers_customer_created_at, heavy_machinery_customers.customer_updated_at AS heavy_machinery_customers_customer_updated_at, heavy_machinery_customers.customer_last_interaction AS heavy_machinery_customers_customer_last_interaction, heavy_machinery_customers.product_id AS heavy_machinery_customers_product_id, heavy_machinery_customers.product_name AS heavy_machinery_customers_product_name, heavy_machinery_customers.product_model AS heavy_machinery_customers_product_model, heavy_machinery_customers.product_brand AS heavy_machinery_customers_product_brand 
+FROM heavy_machinery_customers 
+WHERE heavy_machinery_customers.customer_id = %(customer_id_1)s::UUID 
+ LIMIT %(param_1)s
+2024-10-25 15:23:41,766 - INFO - [generated in 0.00024s] {'customer_id_1': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'param_1': 1}
+2024-10-25 15:23:41,767 - INFO - Current customer details: {'customer_id': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'customer_name': 'HEMANTH', 'customer_contact_info': 'HEMANTH@gmail.com', 'customer_address': '456 Updated Address', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'Active', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T06:02:05.649083', 'product_id': None, 'product_name': None, 'product_brand': None, 'product_model': None, 'product': None}
+2024-10-25 15:23:41,768 - INFO - Updated customer details (before commit): {'customer_id': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'customer_name': 'HEMANTH', 'customer_contact_info': 'HEMANTH@gmail.com', 'customer_address': '456 Updated Address', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'Active', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T06:02:05.649083', 'product_id': None, 'product_name': None, 'product_brand': None, 'product_model': None, 'product': None}
+2024-10-25 15:23:41,769 - INFO - UPDATE heavy_machinery_customers SET opportunity_id=%(opportunity_id)s::UUID, dealer_id=%(dealer_id)s::UUID, employee_id=%(employee_id)s::UUID, customer_updated_at=now() WHERE heavy_machinery_customers.customer_id = %(heavy_machinery_customers_customer_id)s::UUID
+2024-10-25 15:23:41,769 - INFO - [generated in 0.00020s] {'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'heavy_machinery_customers_customer_id': UUID('36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31')}
+2024-10-25 15:23:41,771 - INFO - COMMIT
+2024-10-25 15:23:41,772 - INFO - Customer with ID 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31 updated successfully in the database.
+2024-10-25 15:23:41,826 - INFO - BEGIN (implicit)
+2024-10-25 15:23:41,827 - INFO - SELECT heavy_machinery_customers.customer_id AS heavy_machinery_customers_customer_id, heavy_machinery_customers.customer_name AS heavy_machinery_customers_customer_name, heavy_machinery_customers.customer_contact_info AS heavy_machinery_customers_customer_contact_info, heavy_machinery_customers.customer_address AS heavy_machinery_customers_customer_address, heavy_machinery_customers.opportunity_id AS heavy_machinery_customers_opportunity_id, heavy_machinery_customers.dealer_id AS heavy_machinery_customers_dealer_id, heavy_machinery_customers.employee_id AS heavy_machinery_customers_employee_id, heavy_machinery_customers.customer_status AS heavy_machinery_customers_customer_status, heavy_machinery_customers.customer_comments AS heavy_machinery_customers_customer_comments, heavy_machinery_customers.customer_feedback AS heavy_machinery_customers_customer_feedback, heavy_machinery_customers.customer_created_at AS heavy_machinery_customers_customer_created_at, heavy_machinery_customers.customer_updated_at AS heavy_machinery_customers_customer_updated_at, heavy_machinery_customers.customer_last_interaction AS heavy_machinery_customers_customer_last_interaction, heavy_machinery_customers.product_id AS heavy_machinery_customers_product_id, heavy_machinery_customers.product_name AS heavy_machinery_customers_product_name, heavy_machinery_customers.product_model AS heavy_machinery_customers_product_model, heavy_machinery_customers.product_brand AS heavy_machinery_customers_product_brand 
+FROM heavy_machinery_customers 
+WHERE heavy_machinery_customers.customer_id = %(pk_1)s::UUID
+2024-10-25 15:23:41,827 - INFO - [generated in 0.00019s] {'pk_1': UUID('36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31')}
+2024-10-25 15:23:41,831 - INFO - Customer ID 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31 updated at 2024-10-25 15:23:41.
+2024-10-25 15:23:41,831 - INFO - ROLLBACK
+2024-10-25 15:23:41,831 - ERROR - Error updating customer ID 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31: format_update_customers_email_content() missing 1 required positional argument: 'employee'
+2024-10-25 15:23:41,831 - INFO - Closed /update-customer API session.
+2024-10-25 15:23:41,831 - INFO - 127.0.0.1 - - [25/Oct/2024 15:23:41] "[35m[1mPUT /update-customer HTTP/1.1[0m" 500 -
+2024-10-25 15:26:40,239 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\App\\app_customers.py', reloading
+2024-10-25 15:26:40,352 - INFO -  * Restarting with stat
+2024-10-25 15:26:41,407 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 15:26:41,427 - WARNING -  * Debugger is active!
+2024-10-25 15:26:41,431 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 15:26:41,541 - INFO - BEGIN (implicit)
+2024-10-25 15:26:41,543 - INFO - SELECT otp_store.id AS otp_store_id, otp_store.email AS otp_store_email, otp_store.otp AS otp_store_otp, otp_store.timestamp AS otp_store_timestamp 
+FROM otp_store 
+WHERE otp_store.email = %(email_1)s ORDER BY otp_store.timestamp DESC 
+ LIMIT %(param_1)s
+2024-10-25 15:26:41,543 - INFO - [generated in 0.00018s] {'email_1': 'komalsaikiran05@gmail.com', 'param_1': 1}
+2024-10-25 15:26:41,546 - INFO - OTP validation successful for komalsaikiran05@gmail.com.
+2024-10-25 15:26:41,547 - INFO - Entered /update-customer endpoint.
+2024-10-25 15:26:41,547 - DEBUG - Request body received: {'customer_id': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'customer_name': 'HEMANTH', 'customer_contact_info': 'HEMANTH@gmail.com', 'customer_address': '456 Updated Address', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'customer_status': 'Active', 'otp': '980220', 'email': 'komalsaikiran05@gmail.com'}
+2024-10-25 15:26:41,547 - INFO - Fetching customer with ID: 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31
+2024-10-25 15:26:41,549 - INFO - SELECT heavy_machinery_customers.customer_id AS heavy_machinery_customers_customer_id, heavy_machinery_customers.customer_name AS heavy_machinery_customers_customer_name, heavy_machinery_customers.customer_contact_info AS heavy_machinery_customers_customer_contact_info, heavy_machinery_customers.customer_address AS heavy_machinery_customers_customer_address, heavy_machinery_customers.opportunity_id AS heavy_machinery_customers_opportunity_id, heavy_machinery_customers.dealer_id AS heavy_machinery_customers_dealer_id, heavy_machinery_customers.employee_id AS heavy_machinery_customers_employee_id, heavy_machinery_customers.customer_status AS heavy_machinery_customers_customer_status, heavy_machinery_customers.customer_comments AS heavy_machinery_customers_customer_comments, heavy_machinery_customers.customer_feedback AS heavy_machinery_customers_customer_feedback, heavy_machinery_customers.customer_created_at AS heavy_machinery_customers_customer_created_at, heavy_machinery_customers.customer_updated_at AS heavy_machinery_customers_customer_updated_at, heavy_machinery_customers.customer_last_interaction AS heavy_machinery_customers_customer_last_interaction, heavy_machinery_customers.product_id AS heavy_machinery_customers_product_id, heavy_machinery_customers.product_name AS heavy_machinery_customers_product_name, heavy_machinery_customers.product_model AS heavy_machinery_customers_product_model, heavy_machinery_customers.product_brand AS heavy_machinery_customers_product_brand 
+FROM heavy_machinery_customers 
+WHERE heavy_machinery_customers.customer_id = %(customer_id_1)s::UUID 
+ LIMIT %(param_1)s
+2024-10-25 15:26:41,549 - INFO - [generated in 0.00019s] {'customer_id_1': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'param_1': 1}
+2024-10-25 15:26:41,550 - INFO - Current customer details: {'customer_id': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'customer_name': 'HEMANTH', 'customer_contact_info': 'HEMANTH@gmail.com', 'customer_address': '456 Updated Address', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'Active', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T06:02:05.649083', 'product_id': None, 'product_name': None, 'product_brand': None, 'product_model': None, 'product': None}
+2024-10-25 15:26:41,550 - INFO - Updated customer details (before commit): {'customer_id': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'customer_name': 'HEMANTH', 'customer_contact_info': 'HEMANTH@gmail.com', 'customer_address': '456 Updated Address', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'Active', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T06:02:05.649083', 'product_id': None, 'product_name': None, 'product_brand': None, 'product_model': None, 'product': None}
+2024-10-25 15:26:41,552 - INFO - UPDATE heavy_machinery_customers SET opportunity_id=%(opportunity_id)s::UUID, dealer_id=%(dealer_id)s::UUID, employee_id=%(employee_id)s::UUID, customer_updated_at=now() WHERE heavy_machinery_customers.customer_id = %(heavy_machinery_customers_customer_id)s::UUID
+2024-10-25 15:26:41,552 - INFO - [generated in 0.00031s] {'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'heavy_machinery_customers_customer_id': UUID('36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31')}
+2024-10-25 15:26:41,553 - INFO - COMMIT
+2024-10-25 15:26:41,554 - INFO - Customer with ID 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31 updated successfully in the database.
+2024-10-25 15:26:41,626 - INFO - BEGIN (implicit)
+2024-10-25 15:26:41,627 - INFO - SELECT heavy_machinery_customers.customer_id AS heavy_machinery_customers_customer_id, heavy_machinery_customers.customer_name AS heavy_machinery_customers_customer_name, heavy_machinery_customers.customer_contact_info AS heavy_machinery_customers_customer_contact_info, heavy_machinery_customers.customer_address AS heavy_machinery_customers_customer_address, heavy_machinery_customers.opportunity_id AS heavy_machinery_customers_opportunity_id, heavy_machinery_customers.dealer_id AS heavy_machinery_customers_dealer_id, heavy_machinery_customers.employee_id AS heavy_machinery_customers_employee_id, heavy_machinery_customers.customer_status AS heavy_machinery_customers_customer_status, heavy_machinery_customers.customer_comments AS heavy_machinery_customers_customer_comments, heavy_machinery_customers.customer_feedback AS heavy_machinery_customers_customer_feedback, heavy_machinery_customers.customer_created_at AS heavy_machinery_customers_customer_created_at, heavy_machinery_customers.customer_updated_at AS heavy_machinery_customers_customer_updated_at, heavy_machinery_customers.customer_last_interaction AS heavy_machinery_customers_customer_last_interaction, heavy_machinery_customers.product_id AS heavy_machinery_customers_product_id, heavy_machinery_customers.product_name AS heavy_machinery_customers_product_name, heavy_machinery_customers.product_model AS heavy_machinery_customers_product_model, heavy_machinery_customers.product_brand AS heavy_machinery_customers_product_brand 
+FROM heavy_machinery_customers 
+WHERE heavy_machinery_customers.customer_id = %(pk_1)s::UUID
+2024-10-25 15:26:41,627 - INFO - [generated in 0.00027s] {'pk_1': UUID('36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31')}
+2024-10-25 15:26:41,633 - INFO - Customer ID 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31 updated at 2024-10-25 15:26:41.
+2024-10-25 15:26:41,635 - INFO - ROLLBACK
+2024-10-25 15:26:41,636 - ERROR - Error updating customer ID 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31: Entity namespace for "employee" has no property "employee_id"
+2024-10-25 15:26:41,636 - INFO - Closed /update-customer API session.
+2024-10-25 15:26:41,637 - INFO - 127.0.0.1 - - [25/Oct/2024 15:26:41] "[35m[1mPUT /update-customer HTTP/1.1[0m" 500 -
+2024-10-25 15:27:20,926 - INFO -  * Detected change in 'C:\\Users\\lenovo\\PycharmProjects\\heavy_machineries_ltd\\App\\app_customers.py', reloading
+2024-10-25 15:27:21,066 - INFO -  * Restarting with stat
+2024-10-25 15:27:21,990 - INFO - Starting the Flask application <Flask 'app_customers'>.
+2024-10-25 15:27:22,016 - WARNING -  * Debugger is active!
+2024-10-25 15:27:22,019 - INFO -  * Debugger PIN: 808-278-793
+2024-10-25 15:27:22,130 - INFO - BEGIN (implicit)
+2024-10-25 15:27:22,132 - INFO - SELECT otp_store.id AS otp_store_id, otp_store.email AS otp_store_email, otp_store.otp AS otp_store_otp, otp_store.timestamp AS otp_store_timestamp 
+FROM otp_store 
+WHERE otp_store.email = %(email_1)s ORDER BY otp_store.timestamp DESC 
+ LIMIT %(param_1)s
+2024-10-25 15:27:22,132 - INFO - [generated in 0.00019s] {'email_1': 'komalsaikiran05@gmail.com', 'param_1': 1}
+2024-10-25 15:27:22,135 - INFO - OTP validation successful for komalsaikiran05@gmail.com.
+2024-10-25 15:27:22,135 - INFO - Entered /update-customer endpoint.
+2024-10-25 15:27:22,135 - DEBUG - Request body received: {'customer_id': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'customer_name': 'HEMANTH', 'customer_contact_info': 'HEMANTH@gmail.com', 'customer_address': '456 Updated Address', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'customer_status': 'Active', 'otp': '980220', 'email': 'komalsaikiran05@gmail.com'}
+2024-10-25 15:27:22,135 - INFO - Fetching customer with ID: 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31
+2024-10-25 15:27:22,137 - INFO - SELECT heavy_machinery_customers.customer_id AS heavy_machinery_customers_customer_id, heavy_machinery_customers.customer_name AS heavy_machinery_customers_customer_name, heavy_machinery_customers.customer_contact_info AS heavy_machinery_customers_customer_contact_info, heavy_machinery_customers.customer_address AS heavy_machinery_customers_customer_address, heavy_machinery_customers.opportunity_id AS heavy_machinery_customers_opportunity_id, heavy_machinery_customers.dealer_id AS heavy_machinery_customers_dealer_id, heavy_machinery_customers.employee_id AS heavy_machinery_customers_employee_id, heavy_machinery_customers.customer_status AS heavy_machinery_customers_customer_status, heavy_machinery_customers.customer_comments AS heavy_machinery_customers_customer_comments, heavy_machinery_customers.customer_feedback AS heavy_machinery_customers_customer_feedback, heavy_machinery_customers.customer_created_at AS heavy_machinery_customers_customer_created_at, heavy_machinery_customers.customer_updated_at AS heavy_machinery_customers_customer_updated_at, heavy_machinery_customers.customer_last_interaction AS heavy_machinery_customers_customer_last_interaction, heavy_machinery_customers.product_id AS heavy_machinery_customers_product_id, heavy_machinery_customers.product_name AS heavy_machinery_customers_product_name, heavy_machinery_customers.product_model AS heavy_machinery_customers_product_model, heavy_machinery_customers.product_brand AS heavy_machinery_customers_product_brand 
+FROM heavy_machinery_customers 
+WHERE heavy_machinery_customers.customer_id = %(customer_id_1)s::UUID 
+ LIMIT %(param_1)s
+2024-10-25 15:27:22,137 - INFO - [generated in 0.00018s] {'customer_id_1': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'param_1': 1}
+2024-10-25 15:27:22,139 - INFO - Current customer details: {'customer_id': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'customer_name': 'HEMANTH', 'customer_contact_info': 'HEMANTH@gmail.com', 'customer_address': '456 Updated Address', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'Active', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T06:02:05.649083', 'product_id': None, 'product_name': None, 'product_brand': None, 'product_model': None, 'product': None}
+2024-10-25 15:27:22,140 - INFO - Updated customer details (before commit): {'customer_id': '36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31', 'customer_name': 'HEMANTH', 'customer_contact_info': 'HEMANTH@gmail.com', 'customer_address': '456 Updated Address', 'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'customer_status': 'Active', 'customer_comments': 'Interested in the latest model', 'customer_feedback': 'Very positive', 'customer_last_interaction': '2024-10-25T06:02:05.649083', 'product_id': None, 'product_name': None, 'product_brand': None, 'product_model': None, 'product': None}
+2024-10-25 15:27:22,142 - INFO - UPDATE heavy_machinery_customers SET opportunity_id=%(opportunity_id)s::UUID, dealer_id=%(dealer_id)s::UUID, employee_id=%(employee_id)s::UUID, customer_updated_at=now() WHERE heavy_machinery_customers.customer_id = %(heavy_machinery_customers_customer_id)s::UUID
+2024-10-25 15:27:22,142 - INFO - [generated in 0.00021s] {'opportunity_id': '617fbbe4-1e75-472e-b47f-2d89beb0f8ef', 'dealer_id': '92190686-a328-4f16-b798-b940f5e3808f', 'employee_id': 'b66710eb-93c1-4c5c-90cf-6b368151f9df', 'heavy_machinery_customers_customer_id': UUID('36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31')}
+2024-10-25 15:27:22,143 - INFO - COMMIT
+2024-10-25 15:27:22,144 - INFO - Customer with ID 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31 updated successfully in the database.
+2024-10-25 15:27:22,211 - INFO - BEGIN (implicit)
+2024-10-25 15:27:22,214 - INFO - SELECT heavy_machinery_customers.customer_id AS heavy_machinery_customers_customer_id, heavy_machinery_customers.customer_name AS heavy_machinery_customers_customer_name, heavy_machinery_customers.customer_contact_info AS heavy_machinery_customers_customer_contact_info, heavy_machinery_customers.customer_address AS heavy_machinery_customers_customer_address, heavy_machinery_customers.opportunity_id AS heavy_machinery_customers_opportunity_id, heavy_machinery_customers.dealer_id AS heavy_machinery_customers_dealer_id, heavy_machinery_customers.employee_id AS heavy_machinery_customers_employee_id, heavy_machinery_customers.customer_status AS heavy_machinery_customers_customer_status, heavy_machinery_customers.customer_comments AS heavy_machinery_customers_customer_comments, heavy_machinery_customers.customer_feedback AS heavy_machinery_customers_customer_feedback, heavy_machinery_customers.customer_created_at AS heavy_machinery_customers_customer_created_at, heavy_machinery_customers.customer_updated_at AS heavy_machinery_customers_customer_updated_at, heavy_machinery_customers.customer_last_interaction AS heavy_machinery_customers_customer_last_interaction, heavy_machinery_customers.product_id AS heavy_machinery_customers_product_id, heavy_machinery_customers.product_name AS heavy_machinery_customers_product_name, heavy_machinery_customers.product_model AS heavy_machinery_customers_product_model, heavy_machinery_customers.product_brand AS heavy_machinery_customers_product_brand 
+FROM heavy_machinery_customers 
+WHERE heavy_machinery_customers.customer_id = %(pk_1)s::UUID
+2024-10-25 15:27:22,215 - INFO - [generated in 0.00037s] {'pk_1': UUID('36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31')}
+2024-10-25 15:27:22,217 - INFO - Customer ID 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31 updated at 2024-10-25 15:27:22.
+2024-10-25 15:27:26,064 - INFO - Email notification sent for customer ID 36ee32f8-77f9-4bd6-a9ae-6a8b10a76e31 update.
+2024-10-25 15:27:26,065 - INFO - ROLLBACK
+2024-10-25 15:27:26,066 - INFO - Closed /update-customer API session.
+2024-10-25 15:27:26,066 - INFO - 127.0.0.1 - - [25/Oct/2024 15:27:26] "PUT /update-customer HTTP/1.1" 200 -
+2024-10-25 15:27:50,892 - INFO - Flask application has stopped.
+2024-10-25 15:27:51,004 - INFO - Flask application has stopped.

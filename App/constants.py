@@ -70,3 +70,4 @@ REQUIRED_FIELDS_FOR_CUSTOMER_CREATION = ['customer_name',
                                          'dealer_id',
                                          'employee_id'
                                          ]
+

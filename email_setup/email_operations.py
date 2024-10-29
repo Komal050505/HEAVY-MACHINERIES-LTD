@@ -736,24 +736,27 @@ def generate_customer_email_body(customer):
         log_info(f"Generating email body for customer: {customer.customer_name}")
 
         email_body = f"""
-        Dear {customer.customer_name},
+        Dear Management Team,
 
-        Thank you for choosing us! We are thrilled to welcome you as one of our valued customers.
+        We are pleased to report that a new customer has shown interest in our products.
 
-        Here are your details:
+        Here are the customer's details:
         - **Customer Name:** {customer.customer_name}
         - **Contact Information:** {customer.customer_contact_info}
         - **Address:** {customer.customer_address}
         - **Opportunity ID:** {customer.opportunity_id if customer.opportunity_id else 'N/A'}
-        - **Dealer ID:** {customer.dealer_id if customer.dealer_id else 'N/A'}
-        - **Employee ID:** {customer.employee_id if customer.employee_id else 'N/A'}
         - **Status:** {customer.customer_status}
         - **Comments:** {customer.customer_comments if customer.customer_comments else 'No comments provided'}
         - **Feedback:** {customer.customer_feedback if customer.customer_feedback else 'No feedback provided'}
         - **Last Interaction:** {customer.customer_last_interaction.strftime('%Y-%m-%d') if customer.customer_last_interaction else 'No interaction yet'}
-        - **Created At:** {customer.created_at.strftime('%Y-%m-%d %H:%M:%S')}
+        - **Created At:** {customer.customer_created_at.strftime('%Y-%m-%d %H:%M:%S')}
 
-        Please do not hesitate to reach out if you have any questions or concerns. We look forward to building a long-lasting relationship with you.
+        **Product Details**:
+        - **Product Name:** {customer.product_name}
+        - **Model:** {customer.product_model}
+        - **Brand:** {customer.product_brand}
+
+        Please review these details at your earliest convenience. If there are any additional actions required, let us know. We look forward to further engagement with this customer to build a successful partnership.
 
         Best Regards,
         Customer Relations Team
@@ -764,11 +767,127 @@ def generate_customer_email_body(customer):
         return email_body
 
     except AttributeError as e:
-        session.rollback()
         log_error(f"AttributeError while generating email body: {str(e)}")
         return "Error: Missing required customer information. Please contact support."
 
     except Exception as e:
-        session.rollback()
         log_error(f"An unexpected error occurred while generating email body: {str(e)}")
         return "Error: Unable to generate the email. Please contact support."
+
+
+def generate_customers_email_body(customers, total_count):
+    """
+    Format customers data for email content with exception handling and logging.
+
+    :param customers: List of customers in dictionary format.
+    :param total_count: Total number of customers fetched.
+    :return: Formatted email content as a string.
+    """
+    email_content = f"Total Customers Fetched: {total_count}\n\n"
+
+    for customer in customers:
+        try:
+            email_content += (
+                f"Customer ID: {customer.get('customer_id', 'N/A')}\n"
+                f"Name: {customer.get('customer_name', 'N/A')}\n"
+                f"Contact Info: {customer.get('customer_contact_info', 'N/A')}\n"
+                f"Address: {customer.get('customer_address', 'N/A')}\n"
+                f"Opportunity ID: {customer.get('opportunity_id', 'N/A')}\n"
+                f"Dealer ID: {customer.get('dealer_id', 'N/A')}\n"
+                f"Employee ID: {customer.get('employee_id', 'N/A')}\n"
+                f"Status: {customer.get('customer_status', 'N/A')}\n"
+                f"Comments: {customer.get('customer_comments', 'N/A')}\n"
+                f"Feedback: {customer.get('customer_feedback', 'N/A')}\n"
+                f"Last Interaction: {customer.get('customer_last_interaction', 'N/A')}\n"
+                f"Product ID: {customer.get('product_id', 'N/A')}\n"
+                f"Product Name: {customer.get('product_name', 'N/A')}\n"
+                f"Product Brand: {customer.get('product_brand', 'N/A')}\n"
+                f"Product Model: {customer.get('product_model', 'N/A')}\n"
+                "********************************************\n\n"
+            )
+        except KeyError as e:
+            log_error(
+                f"KeyError while formatting customer: {str(e)} for customer ID {customer.get('customer_id', 'Unknown')}")
+        except Exception as e:
+            log_error(
+                f"An unexpected error occurred while formatting customer ID {customer.get('customer_id', 'Unknown')}: {str(e)}")
+
+    return email_content
+
+
+def format_update_customers_email_content(customers, updated_time, employee):
+    """
+    Format customers data for email content with exception handling and logging.
+
+    :param customers: List of customers in dictionary format.
+    :param updated_time: The time when the customer details were last updated.
+    :param employee: The employee who made the updates.
+    :return: Formatted email content as a string.
+    """
+    email_content = f"Dear Inventory Team,\n\n"
+    email_content += f"The following customer updates were made on {updated_time}:\n\n"
+
+    if employee:
+        email_content += f"Updated by: {employee.emp_first_name} {employee.emp_last_name} (Employee Number: {employee.emp_num})\n\n"
+
+    if not customers:
+        email_content += "No customers were updated.\n"
+    else:
+        for customer in customers:
+            try:
+                email_content += (
+                    f"Customer ID: {customer.get('customer_id', 'N/A')}\n"
+                    f"Name: {customer.get('customer_name', 'N/A')}\n"
+                    f"Contact Info: {customer.get('customer_contact_info', 'N/A')}\n"
+                    f"Address: {customer.get('customer_address', 'N/A')}\n"
+                    f"Opportunity ID: {customer.get('opportunity_id', 'N/A')}\n"
+                    f"Dealer ID: {customer.get('dealer_id', 'N/A')}\n"
+                    f"Employee ID: {customer.get('employee_id', 'N/A')}\n"
+                    f"Status: {customer.get('customer_status', 'N/A')}\n"
+                    f"Comments: {customer.get('customer_comments', 'N/A')}\n"
+                    f"Feedback: {customer.get('customer_feedback', 'N/A')}\n"
+                    f"Last Interaction: {customer.get('customer_last_interaction', 'N/A')}\n"
+                    f"Product ID: {customer.get('product_id', 'N/A')}\n"
+                    f"Product Name: {customer.get('product_name', 'N/A')}\n"
+                    f"Product Brand: {customer.get('product_brand', 'N/A')}\n"
+                    f"Product Model: {customer.get('product_model', 'N/A')}\n"
+                    "********************************************\n\n"
+                )
+            except KeyError as e:
+                log_error(
+                    f"KeyError while formatting customer: {str(e)} for customer ID {customer.get('customer_id', 'Unknown')}")
+            except Exception as e:
+                log_error(
+                    f"An unexpected error occurred while formatting customer ID {customer.get('customer_id', 'Unknown')}: {str(e)}")
+
+    email_content += "Please review the changes and ensure everything is correct.\n\n"
+    email_content += "Best regards,\n"
+    email_content += "Customer Management System\n"
+
+    return email_content
+
+
+def send_customer_deletion_email(customer_details, deletion_time):
+    """
+    Send an email notification about the deletion of a customer.
+
+    :param customer_details: Dictionary containing customer information.
+    :param deletion_time: The timestamp when the customer was deleted.
+    """
+    email_body = (
+        f"Dear Inventory Team,\n\n"
+        f"The following customer has been deleted on {deletion_time}:\n\n"
+        f"Customer ID: {customer_details.get('customer_id')}\n"
+        f"Name: {customer_details.get('customer_name')}\n"
+        f"Contact Info: {customer_details.get('customer_contact_info')}\n"
+        f"Address: {customer_details.get('customer_address')}\n\n"
+        "Please review the records for confirmation.\n\n"
+        "Best regards,\n"
+        "Customer Management System"
+    )
+
+    try:
+        send_email(RECEIVER_EMAIL, f"Customer {customer_details.get('customer_id')} Deleted", email_body)
+        log_info(f"Email notification sent for customer ID {customer_details.get('customer_id')} deletion.")
+    except Exception as e:
+        log_error(f"Failed to send email notification for customer deletion: {str(e)}")
