@@ -390,6 +390,7 @@ class HeavyMachineryOpportunity(Base):
         }
 
 
+# -------------------------------------------- CUSTOMER TABLE ----------------------------------------------------------
 class HeavyMachineryCustomer(Base):
     """
     HeavyMachineryCustomer model represents customers of heavy machinery dealerships.

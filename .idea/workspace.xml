@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1b66be9c-24a3-4d86-acdc-870390e3d48b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/app_customers.py" beforeDir="false" afterPath="$PROJECT_DIR$/App/app_customers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/App/constants.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/main.log" beforeDir="false" afterPath="$PROJECT_DIR$/App/main.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/User_models/tables.py" beforeDir="false" afterPath="$PROJECT_DIR$/User_models/tables.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/email_setup/email_operations.py" beforeDir="false" afterPath="$PROJECT_DIR$/email_setup/email_operations.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,20 +31,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.app_customers.executor": "Run",
-    "Python.app_dealers.executor": "Run",
-    "Python.app_employees.executor": "Run",
-    "Python.app_opportunity.executor": "Run",
-    "Python.app_otp.executor": "Run",
-    "Python.app_products.executor": "Run",
-    "Python.email_operations.executor": "Run",
-    "Python.employees_table.executor": "Run",
-    "Python.tables.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.app_customers.executor&quot;: &quot;Run&quot;,
+    &quot;Python.app_dealers.executor&quot;: &quot;Run&quot;,
+    &quot;Python.app_employees.executor&quot;: &quot;Run&quot;,
+    &quot;Python.app_opportunity.executor&quot;: &quot;Run&quot;,
+    &quot;Python.app_otp.executor&quot;: &quot;Run&quot;,
+    &quot;Python.app_products.executor&quot;: &quot;Run&quot;,
+    &quot;Python.email_operations.executor&quot;: &quot;Run&quot;,
+    &quot;Python.employees_table.executor&quot;: &quot;Run&quot;,
+    &quot;Python.tables.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\lenovo\PycharmProjects\heavy_machineries_ltd\App" />
